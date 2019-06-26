@@ -8,7 +8,6 @@ import org.acme.quickstart.domain.model.Book;
 @ApplicationScoped
 public class BookRestClientImpl implements BookRestClient {
 
-  @Override
   public Book getAllBooks() {
     // TODO Auto-generated method stub
     return new Book();

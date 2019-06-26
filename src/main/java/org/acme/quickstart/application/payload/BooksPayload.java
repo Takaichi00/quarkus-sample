@@ -2,7 +2,7 @@ package org.acme.quickstart.application.payload;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.json.bind.annotation.JsonbProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class BooksPayload {
 
-  @JsonProperty("books")
+  @JsonbProperty("books")
   private List<BookPayload> bookPayload;
   
 }
