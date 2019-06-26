@@ -3,6 +3,9 @@ package org.acme.quickstart;
 import io.quarkus.test.common.http.TestHTTPResource;
 import io.quarkus.test.junit.DisabledOnSubstrate;
 import io.quarkus.test.junit.QuarkusTest;
+
+import org.acme.quickstart.domain.client.BookRestClient;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -11,6 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URL;
 import java.util.UUID;
+
+import javax.inject.Inject;
 
 @QuarkusTest
 public class GreetingResourceTest {
@@ -41,5 +46,7 @@ public class GreetingResourceTest {
     String actual = testTarget.hoge();
     assertEquals(actual, "hoge");
   }
+  
+  
 
 }
