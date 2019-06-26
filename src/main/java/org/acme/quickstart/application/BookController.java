@@ -22,7 +22,7 @@ public class BookController {
   BookService bookService;
   
   @GET
-  @Produces(MediaType.TEXT_PLAIN)
+  @Produces(MediaType.APPLICATION_JSON)
   public BooksPayload getAllBooks() {
     
     List<Book> books = bookService.getAllBooks();

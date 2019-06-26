@@ -52,4 +52,20 @@ class BookControllerTest {
     assertEquals(actual, expected);
     verify(bookService).getAllBooks();
   }
+  
+  @Test
+  void bookエンドポイントは本がなかった場合は0冊と返す() {
+    // setup
+    List<BookPayload> expectedBooksPayload = new ArrayList<BookPayload>() {{}};
+    BooksPayload expected = BooksPayload.builder().bookPayload(expectedBooksPayload).build();
+    
+    when(bookService.getAllBooks()).thenReturn(new ArrayList<Book>());
+    
+    // execute
+    BooksPayload actual = testTarget.getAllBooks();
+    
+    // assertion
+    assertEquals(actual, expected);
+    verify(bookService).getAllBooks();
+  }
 }
