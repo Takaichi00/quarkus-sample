@@ -27,8 +27,8 @@ class BookRestClientImplTest {
 
   @Test
   void test() {
-    wireMockServer.stubFor(get(urlEqualTo("/book/test"))
-        .willReturn(aResponse().withHeader("Content-Type", "text/plain")
+    wireMockServer.stubFor(get(urlEqualTo("/api/v1/employees"))
+        .willReturn(aResponse().withHeader("Content-Type", "text/json")
                 .withStatus(200)
                 .withBodyFile("getBook.json")));
 //    verify(postRequestedFor(urlEqualTo("/book/test")));

@@ -7,12 +7,12 @@ import javax.ws.rs.Produces;
 import org.acme.quickstart.domain.model.Book;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
-@Path("/book")
+@Path("/v1")
 @RegisterRestClient
 public interface BookRestClient {
 
   @GET
-  @Path("/test")
+  @Path("/employees")
   public String getAllBooks();
   
 }
