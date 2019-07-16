@@ -25,7 +25,7 @@ public class GreetingResourceTest {
     System.out.println(testUrl.getPath());
     System.out.println(testUrl.getPort());
     
-    given().when().get("/hello").then().statusCode(200).body(is("hello"));
+    given().when().get("/hello").then().statusCode(200).body(is("hello - v2"));
   }
 
   @Test

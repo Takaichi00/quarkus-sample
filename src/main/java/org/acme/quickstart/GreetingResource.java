@@ -23,7 +23,19 @@ public class GreetingResource {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   public String hello() {
-    return "hello";
+    return "hello - v2";
+  }
+  
+  @GET
+  @Produces(MediaType.TEXT_PLAIN)
+  @Path("/change-health")
+  public String changeHealthFlag() {
+    if (Utils.READINESS_FLAG) Utils.READINESS_FLAG = false;
+    else Utils.READINESS_FLAG = true;
+    
+    System.out.println("Change Readiness_flag" + Utils.READINESS_FLAG);
+    
+    return "changed:" + Utils.READINESS_FLAG;
   }
   
   public String hoge() {
