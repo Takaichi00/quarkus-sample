@@ -10,7 +10,7 @@ public class BookController {
 
   @GET
   @Produces(MediaType.TEXT_PLAIN)
-  public String getBooks() {
+  public String getAllBooks() {
     return "books";
   }
 }
