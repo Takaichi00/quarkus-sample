@@ -1,4 +1,4 @@
-package com.takaichi00.sample.quarkus.application;
+package com.takaichi00.sample.quarkus.application.controller;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
