@@ -17,7 +17,12 @@ public class BookController {
   public List<BookPayload> getAllBooks() {
 
     return Arrays.asList(
-            BookPayload.builder().isbn("test-isbn").build()
+            BookPayload.builder()
+                    .isbn("test-isbn")
+                    .title("test-title")
+                    .authors(Arrays.asList("authors1", "authors2"))
+                    .price(1000)
+                    .build()
     );
   }
 }
