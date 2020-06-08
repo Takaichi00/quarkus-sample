@@ -1,4 +1,4 @@
-package com.takaichi00.sample.quarkus.service;
+package com.takaichi00.sample.quarkus.domain;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
