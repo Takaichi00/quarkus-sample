@@ -33,14 +33,5 @@ public class BookController {
                 .price(1000)
                 .build()
     );
-
-//    return Arrays.asList(
-//            BookPayload.builder()
-//                    .isbn("test-isbn")
-//                    .title("test-title")
-//                    .authors(Arrays.asList("authors1", "authors2"))
-//                    .price(1000)
-//                    .build()
-//    );
   }
 }
