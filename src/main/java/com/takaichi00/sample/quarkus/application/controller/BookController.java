@@ -10,6 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,13 +26,17 @@ public class BookController {
 
     List<Book> allBooks = bookService.getAllBooks();
 
-    return Arrays.asList(
-        BookPayload.builder()
-                .isbn(allBooks.get(0).getIsbn())
-                .title("test-title")
-                .authors(Arrays.asList("authors1", "authors2"))
-                .price(1000)
-                .build()
-    );
+    List<BookPayload> bookPayloadList = new ArrayList<>();
+    for (Book allBook : allBooks) {
+      bookPayloadList.add(
+              BookPayload.builder()
+                         .isbn(allBook.getIsbn())
+                         .title(allBook.getTitle())
+                         .authors(allBook.getAuthors())
+                         .price(allBook.getPrice())
+                         .build()
+      );
+    }
+    return bookPayloadList;
   }
 }
