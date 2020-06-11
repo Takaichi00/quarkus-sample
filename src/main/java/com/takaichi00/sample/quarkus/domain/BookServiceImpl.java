@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 
+// https://quarkus.io/blog/quarkus-dependency-injection/
 @DefaultBean
 @ApplicationScoped
 public class BookServiceImpl implements BookService {
