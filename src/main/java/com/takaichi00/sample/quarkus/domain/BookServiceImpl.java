@@ -1,16 +1,17 @@
 package com.takaichi00.sample.quarkus.domain;
 
 import com.takaichi00.sample.quarkus.application.domain.BookService;
-
-import java.util.Arrays;
+import io.quarkus.arc.DefaultBean;
+import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 
+@DefaultBean
 @ApplicationScoped
 public class BookServiceImpl implements BookService {
 
   @Override
   public List<Book> getAllBooks() {
-    return null;
+    return new ArrayList<>();
   }
 }
