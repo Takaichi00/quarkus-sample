@@ -16,7 +16,6 @@ class BookServiceImplTest {
 
   @Test
   void test_getAllBooks() {
-
   }
 
 }

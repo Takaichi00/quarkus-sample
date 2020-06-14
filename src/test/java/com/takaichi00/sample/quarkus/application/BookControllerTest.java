@@ -10,6 +10,7 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
 class BookControllerTest {
@@ -37,6 +38,6 @@ class BookControllerTest {
         .body().jsonPath().getList(".", BookPayload.class);
 
     // assert
-    assertThat(actual, is(expected));
+    assertEquals(expected, actual);
   }
 }
