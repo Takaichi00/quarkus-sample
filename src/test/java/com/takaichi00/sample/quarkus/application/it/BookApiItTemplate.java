@@ -12,15 +12,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-public class BookApiIT {
-
-  @BeforeAll
-  static void setup() {
-    RestAssured.baseURI = "http://localhost";
-    RestAssured.port = 8081;
-    RestAssured.basePath = "/v1";
-  }
-
+public class BookApiItTemplate {
 
   @Test
   void test_v1booksApi() {
@@ -38,7 +30,7 @@ public class BookApiIT {
     // execute
     List<BookPayload> actual = given()
             .when()
-            .get("/books")
+            .get("/v1/books")
             .then()
             .statusCode(200)
             .extract()
