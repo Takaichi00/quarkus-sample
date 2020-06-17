@@ -39,14 +39,17 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy-jsonb</artifactId>
     </dependency>
-    <!-- Provided Scoped Dependencies -->
+    
+    <!-- Provided Scoped Dependencies Start -->
       <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
         <version>1.18.12</version>
         <scope>provided</scope>
       </dependency>
+    <!-- Provided Scoped Dependencies End -->
 
+    <!-- Test Scoped Dependencies Start -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
@@ -68,6 +71,7 @@
       <version>${mockito.version}</version>
       <scope>test</scope>
     </dependency>
+    <!-- Test Scoped Dependencies End -->
   </dependencies>
   <build>
     <plugins>
