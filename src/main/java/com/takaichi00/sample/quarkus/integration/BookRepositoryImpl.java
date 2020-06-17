@@ -2,10 +2,9 @@ package com.takaichi00.sample.quarkus.integration;
 
 import com.takaichi00.sample.quarkus.domain.Book;
 import com.takaichi00.sample.quarkus.domain.BookRepository;
-
-import javax.enterprise.context.ApplicationScoped;
 import java.util.Arrays;
 import java.util.List;
+import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class BookRepositoryImpl implements BookRepository {
