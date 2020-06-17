@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class BookServiceImplTest {
 
@@ -37,11 +38,23 @@ class BookServiceImplTest {
                     .build()
     );
 
+    List<Book> mockReturnBooks = Arrays.asList(
+            Book.builder()
+                    .isbn("test-isbn")
+                    .title("test-title")
+                    .authors(Arrays.asList("authors1", "authors2"))
+                    .price(1000)
+                    .build()
+    );
+
+    when(mockBookRepository.getAllBooks()).thenReturn(mockReturnBooks);
+
     // execute
     List<Book> actual = target.getAllBooks();
 
     // assert
     assertEquals(expected, actual);
+    verify(mockBookRepository, times(1)).getAllBooks();
   }
 
 }
