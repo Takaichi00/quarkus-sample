@@ -19,6 +19,7 @@
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
     <mockito.version>3.3.3</mockito.version>
     <h2database.version>1.4.200</h2database.version>
+    <dbsetup.version>2.1.0</dbsetup.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -39,6 +40,14 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy-jsonb</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-hibernate-orm</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-jdbc-mysql</artifactId>
     </dependency>
 
     <!-- Provided Scoped Dependencies Start -->
@@ -76,6 +85,12 @@
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
       <version>${h2database.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.ninja-squad</groupId>
+      <artifactId>DbSetup</artifactId>
+      <version>${dbsetup.version}</version>
       <scope>test</scope>
     </dependency>
     <!-- Test Scoped Dependencies End -->

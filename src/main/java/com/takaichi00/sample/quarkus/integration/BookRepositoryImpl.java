@@ -6,12 +6,19 @@ import io.quarkus.arc.DefaultBean;
 import java.util.Arrays;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 @DefaultBean
 @ApplicationScoped
 public class BookRepositoryImpl implements BookRepository {
 
+  @Inject
+  EntityManager entityManager;
+
   @Override
+  @Transactional
   public List<Book> getAllBooks() {
     return Arrays.asList(
             Book.builder()
