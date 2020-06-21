@@ -1,5 +1,8 @@
 package com.takaichi00.sample.quarkus.domain;
 
+import com.takaichi00.sample.quarkus.domain.model.Book;
+import com.takaichi00.sample.quarkus.domain.repository.BookRepository;
+import com.takaichi00.sample.quarkus.domain.service.BookServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

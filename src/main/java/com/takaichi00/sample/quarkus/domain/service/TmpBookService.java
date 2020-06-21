@@ -1,6 +1,8 @@
-package com.takaichi00.sample.quarkus.domain;
+package com.takaichi00.sample.quarkus.domain.service;
 
 import com.takaichi00.sample.quarkus.application.domain.BookService;
+import com.takaichi00.sample.quarkus.domain.model.Book;
+
 import java.util.Arrays;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;

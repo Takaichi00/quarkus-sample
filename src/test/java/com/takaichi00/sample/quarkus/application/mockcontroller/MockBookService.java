@@ -1,6 +1,6 @@
 package com.takaichi00.sample.quarkus.application.mockcontroller;
 
-import com.takaichi00.sample.quarkus.domain.Book;
+import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.application.domain.BookService;
 import io.quarkus.test.Mock;
 

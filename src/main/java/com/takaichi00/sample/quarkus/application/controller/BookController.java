@@ -2,7 +2,7 @@ package com.takaichi00.sample.quarkus.application.controller;
 
 import com.takaichi00.sample.quarkus.application.domain.BookService;
 import com.takaichi00.sample.quarkus.application.payload.BookPayload;
-import com.takaichi00.sample.quarkus.domain.Book;
+import com.takaichi00.sample.quarkus.domain.model.Book;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;

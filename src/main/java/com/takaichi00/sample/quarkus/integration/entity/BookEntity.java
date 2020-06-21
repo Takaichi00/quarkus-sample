@@ -1,4 +1,4 @@
-package com.takaichi00.sample.quarkus.integration;
+package com.takaichi00.sample.quarkus.integration.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
