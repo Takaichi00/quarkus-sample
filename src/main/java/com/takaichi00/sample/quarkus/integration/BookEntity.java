@@ -22,4 +22,6 @@ public class BookEntity {
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="giftSeq")
   private Integer id;
 
+  private String isbn;
+
 }

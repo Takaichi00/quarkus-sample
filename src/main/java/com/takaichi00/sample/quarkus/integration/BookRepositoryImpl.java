@@ -27,7 +27,7 @@ public class BookRepositoryImpl implements BookRepository {
 
     return Arrays.asList(
             Book.builder()
-                    .isbn("test-isbn")
+                    .isbn(bookEntities.get(0).getIsbn())
                     .title("test-title")
                     .authors(Arrays.asList("authors1", "authors2"))
                     .price(1000)

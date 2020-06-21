@@ -23,7 +23,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class BookRepositoryImplTest {
 
   public static final Operation DELETE_ALL = deleteAllFrom("books");
-  public static final Operation INSERT_BOOKS = insertInto("books").columns("id").values(1).build();
+  public static final Operation INSERT_BOOKS = insertInto("books")
+                                               .columns("id", "isbn")
+                                               .values(1, "test-isbn")
+                                               .build();
 
   @Inject
   BookRepository bookRepository;
