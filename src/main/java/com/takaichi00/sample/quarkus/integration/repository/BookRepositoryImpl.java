@@ -4,7 +4,6 @@ import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.repository.BookRepository;
 import com.takaichi00.sample.quarkus.integration.entity.BookEntity;
 import io.quarkus.arc.DefaultBean;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
