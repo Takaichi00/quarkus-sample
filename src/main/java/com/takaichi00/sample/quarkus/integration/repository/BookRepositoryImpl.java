@@ -1,6 +1,7 @@
 package com.takaichi00.sample.quarkus.integration.repository;
 
 import com.takaichi00.sample.quarkus.domain.model.Book;
+import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import com.takaichi00.sample.quarkus.domain.repository.BookRepository;
 import com.takaichi00.sample.quarkus.integration.entity.BookEntity;
 import io.quarkus.arc.DefaultBean;
@@ -38,5 +39,12 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     return books;
+  }
+
+  @Override
+  public List<Isbn> getAllIsbn() {
+    return Arrays.asList(
+            Isbn.of(1234567890123L)
+    );
   }
 }

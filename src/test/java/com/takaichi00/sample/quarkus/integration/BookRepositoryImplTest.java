@@ -4,6 +4,7 @@ import com.ninja_squad.dbsetup.DbSetup;
 import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
 import com.ninja_squad.dbsetup.operation.Operation;
 import com.takaichi00.sample.quarkus.domain.model.Book;
+import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import com.takaichi00.sample.quarkus.domain.repository.BookRepository;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.BeforeEach;
@@ -56,4 +57,21 @@ class BookRepositoryImplTest {
     // assert
     assertEquals(expected, actual);
   }
+
+  @Test
+  void getAllIsbnTest() {
+
+    // setup
+    List<Isbn> expected = Arrays.asList(
+            Isbn.of(1234567890123L)
+    );
+
+    // execute
+    List<Isbn> actual = bookRepository.getAllIsbn();
+
+    // assert
+    assertEquals(expected, actual);
+
+  }
+
 }
