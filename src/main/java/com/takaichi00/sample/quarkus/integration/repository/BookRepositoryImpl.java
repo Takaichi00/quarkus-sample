@@ -43,8 +43,15 @@ public class BookRepositoryImpl implements BookRepository {
 
   @Override
   public List<Isbn> getAllIsbn() {
-    return Arrays.asList(
-            Isbn.of(1234567890123L)
-    );
+
+    TypedQuery<BookEntity> query = entityManager.createQuery("From BookEntity", BookEntity.class);
+    List<BookEntity> bookEntities = query.getResultList();
+
+    List<Isbn> isbns = new ArrayList<>();
+    for (BookEntity bookEntity : bookEntities) {
+      isbns.add(Isbn.of(Long.valueOf(bookEntity.getIsbn())));
+    }
+
+    return isbns;
   }
 }

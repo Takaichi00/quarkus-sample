@@ -26,7 +26,7 @@ class BookRepositoryImplTest {
   public static final Operation DELETE_ALL = deleteAllFrom("books");
   public static final Operation INSERT_BOOKS = insertInto("books")
                                                .columns("id", "isbn")
-                                               .values(1, "test-isbn")
+                                               .values(1, "1234567890123")
                                                .build();
 
   @Inject
@@ -44,7 +44,7 @@ class BookRepositoryImplTest {
     // setup
     List<Book> expected = Arrays.asList(
             Book.builder()
-                    .isbn("test-isbn")
+                    .isbn("1234567890123")
                     .title("test-title")
                     .authors(Arrays.asList("authors1", "authors2"))
                     .price(1000)
