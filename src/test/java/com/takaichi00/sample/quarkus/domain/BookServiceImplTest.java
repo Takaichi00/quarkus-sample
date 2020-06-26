@@ -1,8 +1,10 @@
 package com.takaichi00.sample.quarkus.domain;
 
 import com.takaichi00.sample.quarkus.domain.model.Book;
+import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import com.takaichi00.sample.quarkus.domain.repository.BookRepository;
 import com.takaichi00.sample.quarkus.domain.service.BookServiceImpl;
+import org.hamcrest.core.Is;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -50,7 +52,12 @@ class BookServiceImplTest {
                     .build()
     );
 
+    List<Isbn> mockReturnIsbnList = Arrays.asList(
+            Isbn.of(1234567890123L)
+    );
+
     when(mockBookRepository.getAllBooks()).thenReturn(mockReturnBooks);
+    when(mockBookRepository.getAllIsbn()).thenReturn(mockReturnIsbnList);
 
     // execute
     List<Book> actual = target.getAllBooks();
@@ -58,6 +65,7 @@ class BookServiceImplTest {
     // assert
     assertEquals(expected, actual);
     verify(mockBookRepository, times(1)).getAllBooks();
+    verify(mockBookRepository, times(1)).getAllIsbn();
   }
 
 }

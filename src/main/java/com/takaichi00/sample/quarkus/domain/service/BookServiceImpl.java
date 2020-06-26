@@ -2,6 +2,7 @@ package com.takaichi00.sample.quarkus.domain.service;
 
 import com.takaichi00.sample.quarkus.application.domain.BookService;
 import com.takaichi00.sample.quarkus.domain.model.Book;
+import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import com.takaichi00.sample.quarkus.domain.repository.BookRepository;
 import io.quarkus.arc.DefaultBean;
 import java.util.List;
@@ -21,6 +22,7 @@ public class BookServiceImpl implements BookService {
   public List<Book> getAllBooks() {
 
     List<Book> allBooks = bookRepository.getAllBooks();
+    List<Isbn> isbnList = bookRepository.getAllIsbn();
 
     // Do something
 

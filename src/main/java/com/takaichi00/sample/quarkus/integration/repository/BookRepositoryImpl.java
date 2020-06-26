@@ -47,11 +47,11 @@ public class BookRepositoryImpl implements BookRepository {
     TypedQuery<BookEntity> query = entityManager.createQuery("From BookEntity", BookEntity.class);
     List<BookEntity> bookEntities = query.getResultList();
 
-    List<Isbn> isbns = new ArrayList<>();
+    List<Isbn> isbnList = new ArrayList<>();
     for (BookEntity bookEntity : bookEntities) {
-      isbns.add(Isbn.of(Long.valueOf(bookEntity.getIsbn())));
+      isbnList.add(Isbn.of(Long.valueOf(bookEntity.getIsbn())));
     }
 
-    return isbns;
+    return isbnList;
   }
 }
