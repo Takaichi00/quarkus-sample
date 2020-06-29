@@ -25,6 +25,9 @@ class BookServiceImplTest {
   @Mock
   BookRepository mockBookRepository;
 
+  @Mock
+  GoogleBooksApiClient googleBooksApiClient;
+
   @BeforeEach
   void setUp() {
     MockitoAnnotations.initMocks(this);
@@ -43,6 +46,10 @@ class BookServiceImplTest {
                     .build()
     );
 
+    List<Isbn> mockReturnIsbnList = Arrays.asList(
+            Isbn.of(1234567890123L)
+    );
+
     List<Book> mockReturnBooks = Arrays.asList(
             Book.builder()
                     .isbn("test-isbn")
@@ -51,21 +58,17 @@ class BookServiceImplTest {
                     .price(1000)
                     .build()
     );
-
-    List<Isbn> mockReturnIsbnList = Arrays.asList(
-            Isbn.of(1234567890123L)
-    );
-
-    when(mockBookRepository.getAllBooks()).thenReturn(mockReturnBooks);
+    
     when(mockBookRepository.getAllIsbn()).thenReturn(mockReturnIsbnList);
+    when(googleBooksApiClient.getAllBooks(mockReturnIsbnList)).thenReturn(mockReturnBooks);
 
     // execute
     List<Book> actual = target.getAllBooks();
 
     // assert
     assertEquals(expected, actual);
-    verify(mockBookRepository, times(1)).getAllBooks();
     verify(mockBookRepository, times(1)).getAllIsbn();
+    verify(googleBooksApiClient, times(1)).getAllBooks(mockReturnIsbnList);
   }
 
 }

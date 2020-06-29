@@ -1,6 +1,7 @@
 package com.takaichi00.sample.quarkus.domain.service;
 
 import com.takaichi00.sample.quarkus.application.domain.BookService;
+import com.takaichi00.sample.quarkus.domain.GoogleBooksApiClient;
 import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import com.takaichi00.sample.quarkus.domain.repository.BookRepository;
@@ -18,11 +19,14 @@ public class BookServiceImpl implements BookService {
 
   private final BookRepository bookRepository;
 
+  private final GoogleBooksApiClient googleBooksApiClient;
+
   @Override
   public List<Book> getAllBooks() {
 
-    List<Book> allBooks = bookRepository.getAllBooks();
     List<Isbn> isbnList = bookRepository.getAllIsbn();
+
+    List<Book> allBooks = googleBooksApiClient.getAllBooks(isbnList);
 
     // Do something
 
