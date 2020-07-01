@@ -1,4 +1,4 @@
-package com.takaichi00.sample.quarkus.domain;
+package com.takaichi00.sample.quarkus.domain.client;
 
 import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;

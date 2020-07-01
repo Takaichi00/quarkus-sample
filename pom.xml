@@ -20,6 +20,7 @@
     <mockito.version>3.3.3</mockito.version>
     <h2database.version>1.4.200</h2database.version>
     <dbsetup.version>2.1.0</dbsetup.version>
+    <wiremock.version>2.26.3</wiremock.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -90,6 +91,12 @@
       <groupId>com.ninja-squad</groupId>
       <artifactId>DbSetup</artifactId>
       <version>${dbsetup.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.tomakehurst</groupId>
+      <artifactId>wiremock-standalone</artifactId>
+      <version>${wiremock.version}</version>
       <scope>test</scope>
     </dependency>
     <!-- Test Scoped Dependencies End -->

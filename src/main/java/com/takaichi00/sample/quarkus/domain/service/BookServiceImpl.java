@@ -1,7 +1,7 @@
 package com.takaichi00.sample.quarkus.domain.service;
 
 import com.takaichi00.sample.quarkus.application.domain.BookService;
-import com.takaichi00.sample.quarkus.domain.GoogleBooksApiClient;
+import com.takaichi00.sample.quarkus.domain.client.GoogleBooksApiClient;
 import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import com.takaichi00.sample.quarkus.domain.repository.BookRepository;

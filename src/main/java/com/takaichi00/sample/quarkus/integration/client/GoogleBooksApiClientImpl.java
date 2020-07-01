@@ -3,12 +3,14 @@ package com.takaichi00.sample.quarkus.integration.client;
 import com.takaichi00.sample.quarkus.domain.client.GoogleBooksApiClient;
 import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
-import javax.enterprise.context.ApplicationScoped;
+import io.quarkus.arc.DefaultBean;
 import java.util.Arrays;
 import java.util.List;
+import javax.enterprise.context.ApplicationScoped;
 
+@DefaultBean
 @ApplicationScoped
-public class TmpGoogleBooksApiClient implements GoogleBooksApiClient {
+public class GoogleBooksApiClientImpl implements GoogleBooksApiClient {
 
   @Override
   public List<Book> getAllBooks(List<Isbn> isbnList) {
