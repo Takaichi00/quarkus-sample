@@ -99,7 +99,13 @@
       <version>${wiremock.version}</version>
       <scope>test</scope>
     </dependency>
-    <!-- Test Scoped Dependencies End -->
+      <dependency>
+          <groupId>com.github.tomakehurst</groupId>
+          <artifactId>wiremock-standalone</artifactId>
+          <version>2.26.3</version>
+          <scope>test</scope>
+      </dependency>
+      <!-- Test Scoped Dependencies End -->
   </dependencies>
   <build>
     <plugins>
