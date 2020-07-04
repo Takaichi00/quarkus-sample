@@ -7,19 +7,24 @@ import io.quarkus.arc.DefaultBean;
 import java.util.Arrays;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.ws.rs.client.Client;
+import lombok.RequiredArgsConstructor;
 
 @DefaultBean
 @ApplicationScoped
+@RequiredArgsConstructor(onConstructor = @__({@Inject}))
 public class GoogleBooksApiClientImpl implements GoogleBooksApiClient {
+
+  private Client client;
 
   @Override
   public List<Book> getAllBooks(List<Isbn> isbnList) {
     return Arrays.asList(
             Book.builder()
-                    .isbn("1234567890123")
-                    .title("test-title")
-                    .authors(Arrays.asList("authors1", "authors2"))
-                    .price(1000)
+                    .isbn("9784043636037")
+                    .title("アラビアの夜の種族")
+                    .authors(Arrays.asList("古川日出男"))
                     .build()
     );
   }
