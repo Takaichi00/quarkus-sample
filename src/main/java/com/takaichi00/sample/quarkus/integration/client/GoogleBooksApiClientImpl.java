@@ -16,12 +16,16 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
 
 import lombok.RequiredArgsConstructor;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 @DefaultBean
 @ApplicationScoped
 @RequiredArgsConstructor(onConstructor = @__({@Inject}))
 public class GoogleBooksApiClientImpl implements GoogleBooksApiClient {
+
+  @ConfigProperty(name = "google.book.api.endpoint")
+  protected String apiEndpoint;
 
   private Client client;
 
@@ -38,7 +42,7 @@ public class GoogleBooksApiClientImpl implements GoogleBooksApiClient {
   @Override
   public List<Book> getAllBooks(List<Isbn> isbnList) {
 
-    Response response = client.target("http://localhost:18080")
+    Response response = client.target(apiEndpoint)
             .path("/books/v1/volumes")
             .queryParam("q", "isbn:9784043636037")
             .request()
