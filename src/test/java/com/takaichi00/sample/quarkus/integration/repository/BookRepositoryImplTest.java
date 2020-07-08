@@ -1,4 +1,4 @@
-package com.takaichi00.sample.quarkus.integration;
+package com.takaichi00.sample.quarkus.integration.repository;
 
 import com.ninja_squad.dbsetup.DbSetup;
 import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
