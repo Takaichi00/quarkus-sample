@@ -50,7 +50,7 @@ public class GoogleBooksApiClientImpl implements GoogleBooksApiClient {
             Book.builder()
                     .isbn("9784043636037")
                     .title(result.getItems().get(0).getVolumeInfo().getTitle())
-                    .authors(Arrays.asList("古川日出男"))
+                    .authors(result.getItems().get(0).getVolumeInfo().getAuthors())
                     .build()
     );
   }

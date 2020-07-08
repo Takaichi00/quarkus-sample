@@ -29,6 +29,9 @@ public class GoogleReadApiResponse {
     public static class VolumeInfo {
       @JsonbProperty(value = "title")
       private String title;
+
+      @JsonbProperty(value = "authors")
+      private List<String> authors;
     }
   }
 }
