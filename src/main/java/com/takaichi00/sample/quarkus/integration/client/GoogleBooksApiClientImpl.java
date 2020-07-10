@@ -19,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
-@DefaultBean
 @ApplicationScoped
 @RequiredArgsConstructor(onConstructor = @__({@Inject}))
 public class GoogleBooksApiClientImpl implements GoogleBooksApiClient {

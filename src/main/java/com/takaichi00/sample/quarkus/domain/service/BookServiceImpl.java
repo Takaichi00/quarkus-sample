@@ -12,7 +12,6 @@ import javax.inject.Inject;
 import lombok.RequiredArgsConstructor;
 
 // https://quarkus.io/blog/quarkus-dependency-injection/
-@DefaultBean
 @ApplicationScoped
 @RequiredArgsConstructor(onConstructor = @__({@Inject}))
 public class BookServiceImpl implements BookService {

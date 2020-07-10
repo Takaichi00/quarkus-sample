@@ -2,11 +2,13 @@ package com.takaichi00.sample.quarkus.domain.service;
 
 import com.takaichi00.sample.quarkus.application.domain.BookService;
 import com.takaichi00.sample.quarkus.domain.model.Book;
+import io.quarkus.arc.DefaultBean;
 
 import java.util.Arrays;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 
+@DefaultBean
 @ApplicationScoped
 public class TmpBookService implements BookService {
 
