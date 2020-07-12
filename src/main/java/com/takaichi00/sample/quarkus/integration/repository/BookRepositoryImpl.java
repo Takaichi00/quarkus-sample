@@ -14,7 +14,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
-@DefaultBean
 @ApplicationScoped
 public class BookRepositoryImpl implements BookRepository {
 
