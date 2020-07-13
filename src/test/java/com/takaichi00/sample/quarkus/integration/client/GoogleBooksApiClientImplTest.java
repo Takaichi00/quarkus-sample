@@ -65,7 +65,7 @@ class GoogleBooksApiClientImplTest {
     // assert
     List<Book> expected = Arrays.asList(
             Book.builder()
-                    .isbn("9784043636037")
+                    .isbn(Isbn.of(9784043636037L))
                     .title("アラビアの夜の種族")
                     .authors(Arrays.asList("古川日出男"))
                     .build()

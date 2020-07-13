@@ -24,4 +24,9 @@ public class Isbn {
 
   }
 
+  @Override
+  public String toString() {
+    return isbn.toString();
+  }
+
 }

@@ -49,7 +49,7 @@ public class GoogleBooksApiClientImpl implements GoogleBooksApiClient {
 
     return Arrays.asList(
             Book.builder()
-                    .isbn("9784043636037")
+                    .isbn(Isbn.of(9784043636037L))
                     .title(result.getItems().get(0).getVolumeInfo().getTitle())
                     .authors(result.getItems().get(0).getVolumeInfo().getAuthors())
                     .build()

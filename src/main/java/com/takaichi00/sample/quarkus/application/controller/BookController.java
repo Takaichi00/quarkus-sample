@@ -28,7 +28,7 @@ public class BookController {
     for (Book allBook : allBooks) {
       bookPayloadList.add(
               BookPayload.builder()
-                         .isbn(allBook.getIsbn())
+                         .isbn(allBook.getIsbn().toString())
                          .title(allBook.getTitle())
                          .authors(allBook.getAuthors())
                          .price(allBook.getPrice())

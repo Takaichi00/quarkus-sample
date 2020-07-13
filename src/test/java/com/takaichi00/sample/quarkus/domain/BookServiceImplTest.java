@@ -39,7 +39,7 @@ class BookServiceImplTest {
     // setup
     List<Book> expected = Arrays.asList(
             Book.builder()
-                    .isbn("test-isbn")
+                    .isbn(Isbn.of(1234567890123L))
                     .title("test-title")
                     .authors(Arrays.asList("authors1", "authors2"))
                     .price(1000)
@@ -52,7 +52,7 @@ class BookServiceImplTest {
 
     List<Book> mockReturnBooks = Arrays.asList(
             Book.builder()
-                    .isbn("test-isbn")
+                    .isbn(Isbn.of(1234567890123L))
                     .title("test-title")
                     .authors(Arrays.asList("authors1", "authors2"))
                     .price(1000)

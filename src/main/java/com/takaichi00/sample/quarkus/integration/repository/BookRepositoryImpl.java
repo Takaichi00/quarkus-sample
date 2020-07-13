@@ -30,7 +30,7 @@ public class BookRepositoryImpl implements BookRepository {
     List<Book> books = new ArrayList<>();
     for (BookEntity bookEntity : bookEntities) {
       books.add(Book.builder()
-              .isbn(bookEntity.getIsbn())
+              .isbn(Isbn.of(Long.valueOf(bookEntity.getIsbn())))
               .title("test-title")
               .authors(Arrays.asList("authors1", "authors2"))
               .price(1000)

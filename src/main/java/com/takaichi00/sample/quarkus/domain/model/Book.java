@@ -11,7 +11,7 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode
 public class Book {
-  private final String isbn;
+  private final Isbn isbn;
   private final String title;
   private final Integer price;
   private final List<String> authors;
