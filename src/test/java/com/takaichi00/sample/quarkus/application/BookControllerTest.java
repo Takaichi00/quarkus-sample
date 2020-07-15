@@ -24,9 +24,9 @@ class BookControllerTest {
                     .title("test-title")
                     .authors(Arrays.asList("authors1", "authors2"))
                     .price(1000)
+                    .queryParam("?isbn=1234567890123&title=test-title&author=authors1&author=authors2")
                     .build()
     );
-
 
     // execute
     List<BookPayload> actual = given()

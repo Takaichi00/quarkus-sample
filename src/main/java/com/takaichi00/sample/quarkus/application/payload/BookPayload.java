@@ -24,4 +24,7 @@ public class BookPayload {
 
   @JsonbProperty(value = "authors")
   private List<String> authors;
+
+  @JsonbProperty(value = "query_param")
+  private String queryParam;
 }

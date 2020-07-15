@@ -25,13 +25,14 @@ public class BookController {
     List<Book> allBooks = bookService.getAllBooks();
 
     List<BookPayload> bookPayloadList = new ArrayList<>();
-    for (Book allBook : allBooks) {
+    for (Book book : allBooks) {
       bookPayloadList.add(
               BookPayload.builder()
-                         .isbn(allBook.getIsbn().toString())
-                         .title(allBook.getTitle())
-                         .authors(allBook.getAuthors())
-                         .price(allBook.getPrice())
+                         .isbn(book.getIsbn().toString())
+                         .title(book.getTitle())
+                         .authors(book.getAuthors())
+                         .price(book.getPrice())
+                         .queryParam(book.getQueryParamString())
                          .build()
       );
     }
