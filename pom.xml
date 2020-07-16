@@ -121,7 +121,14 @@
           <execution>
             <goals>
               <goal>build</goal>
+              <goal>native-image</goal>
             </goals>
+            <configuration>
+              <enableHttpUrlHandler>true</enableHttpUrlHandler>
+              <additionalBuildArgs>
+                <additionalBuildArg>--allow-incomplete-classpath</additionalBuildArg>
+              </additionalBuildArgs>
+            </configuration>
           </execution>
         </executions>
       </plugin>
