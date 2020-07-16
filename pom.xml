@@ -56,12 +56,18 @@
     </dependency>
 
     <!-- Provided Scoped Dependencies Start -->
-      <dependency>
-        <groupId>org.projectlombok</groupId>
-        <artifactId>lombok</artifactId>
-        <version>1.18.12</version>
-        <scope>provided</scope>
-      </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.12</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle.substratevm</groupId>
+      <artifactId>svm</artifactId>
+      <version>19.2.0.1</version>
+      <scope>provided</scope>
+    </dependency>
     <!-- Provided Scoped Dependencies End -->
 
     <!-- Test Scoped Dependencies Start -->
@@ -103,13 +109,7 @@
       <version>${wiremock.version}</version>
       <scope>test</scope>
     </dependency>
-      <dependency>
-          <groupId>com.github.tomakehurst</groupId>
-          <artifactId>wiremock-standalone</artifactId>
-          <version>2.26.3</version>
-          <scope>test</scope>
-      </dependency>
-      <!-- Test Scoped Dependencies End -->
+    <!-- Test Scoped Dependencies End -->
   </dependencies>
   <build>
     <plugins>
