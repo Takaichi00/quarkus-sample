@@ -36,6 +36,7 @@ https://stackoverflow.com/questions/56706044/h2-database-compiled-into-a-native-
 - [H2 1.4.200 does not work with native-image@graalvm whereas 1.4.199 works](https://github.com/h2database/h2database/issues/2207) で紹介されていた以下のリポジトリを参考に実装してみる
     - [rmannibucau/h2graal](https://github.com/rmannibucau/h2graal)
     
+- H2 Database は動作確認用だったため、ローカル開発環境として MySQL の Docker を作成する対応とする。
 
 # アーキテクチャメモ
 ## 凹型レイヤー
