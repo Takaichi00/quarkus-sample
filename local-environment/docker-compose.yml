@@ -29,4 +29,4 @@ services:
       - PMA_USER=root
       - PMA_PASSWORD=root
     ports:
-      - 18080:80
+      - 28080:80
