@@ -55,5 +55,4 @@ public class GoogleBooksApiClientImpl implements GoogleBooksApiClient {
                     .build()
     );
   }
-
 }

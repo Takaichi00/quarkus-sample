@@ -1,13 +1,11 @@
 package com.takaichi00.sample.quarkus.integration.dto;
 
-import javax.json.bind.annotation.JsonbProperty;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import java.io.Serializable;
+import javax.json.bind.annotation.JsonbProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor

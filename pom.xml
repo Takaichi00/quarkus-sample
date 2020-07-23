@@ -178,7 +178,6 @@
       </build>
       <properties>
         <quarkus.package.type>native</quarkus.package.type>
-        <quarkus.native.additional-build-args>-H:ReflectionConfigurationFiles=reflection-config.json</quarkus.native.additional-build-args>
       </properties>
     </profile>
   </profiles>
