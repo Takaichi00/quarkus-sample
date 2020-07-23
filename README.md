@@ -14,8 +14,6 @@ mvn compile quarkus:dev
 mvn verify -Pnative
 ```
 
-※ Now, this app can not build native image.
-
 ## Testing
 - Unit Test
 ```

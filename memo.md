@@ -107,6 +107,12 @@ Caused by: javax.json.bind.JsonbException: Cannot create instance of a class: cl
     - 試しに Http Request する処理をコメントアウトして、リクエストを mock で返してみるとエラーは発生しないため、Quarkus が返却する Json では問題がないよう
     - Jsonb の問題というよりかは　Rest Client の問題か？ 
 
+### 解決策
+- [参考サイト](https://github.com/quarkusio/quarkus/issues/6537)
+    - reflection の設定を加えることで解決することができた
+- [Jacksonを利用することでも解決はできるよう](https://github.com/quarkusio/quarkus/issues/5906)
+    - しかし Jackson では Response Json で返却されるフィールドを全てクラス定義しないといけなくなり、大変だったため reflection の方法で解決
+
 # アーキテクチャメモ
 ## 凹型レイヤー
 ### Pro
