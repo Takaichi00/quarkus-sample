@@ -3,7 +3,10 @@ package com.takaichi00.sample.quarkus.integration.client;
 import com.takaichi00.sample.quarkus.domain.client.GoogleBooksApiClient;
 import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
+import com.takaichi00.sample.quarkus.integration.dto.GoogleApiItem;
 import com.takaichi00.sample.quarkus.integration.dto.GoogleReadApiResponse;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -39,19 +42,23 @@ public class GoogleBooksApiClientImpl implements GoogleBooksApiClient {
   @Override
   public List<Book> getAllBooks(List<Isbn> isbnList) {
 
-    Response response = client.target(apiEndpoint)
-            .path("/books/v1/volumes")
-            .queryParam("q", "isbn:9784043636037")
-            .request()
-            .get();
+    List<GoogleReadApiResponse> googleReadApiResponses = new ArrayList<>();
 
-    GoogleReadApiResponse result = response.readEntity(GoogleReadApiResponse.class);
+    for (Isbn isbn : isbnList) {
+      Response response = client.target(apiEndpoint)
+        .path("/books/v1/volumes")
+        .queryParam("q", "isbn:" + isbn)
+        .request()
+        .get();
+
+      googleReadApiResponses.add(response.readEntity(GoogleReadApiResponse.class));
+    }
 
     return Arrays.asList(
             Book.builder()
                     .isbn(Isbn.of(9784043636037L))
-                    .title(result.getItems().get(0).getVolumeInfo().getTitle())
-                    .authors(result.getItems().get(0).getVolumeInfo().getAuthors())
+                    .title(googleReadApiResponses.get(0).getItems().get(0).getVolumeInfo().getTitle())
+                    .authors(googleReadApiResponses.get(0).getItems().get(0).getVolumeInfo().getAuthors())
                     .build()
     );
   }
