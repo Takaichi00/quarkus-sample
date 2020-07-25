@@ -38,9 +38,7 @@ public class GoogleBooksApiClientImpl implements GoogleBooksApiClient {
 
   @Override
   public List<Book> getAllBooks(List<Isbn> isbnList) {
-
-    List<GoogleReadApiResponse> googleReadApiResponses = new ArrayList<>();
-
+    
     List<Book> books = new ArrayList<>();
 
     for (Isbn isbn : isbnList) {
