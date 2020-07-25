@@ -3,11 +3,8 @@ package com.takaichi00.sample.quarkus.integration.client;
 import com.takaichi00.sample.quarkus.domain.client.GoogleBooksApiClient;
 import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
-import com.takaichi00.sample.quarkus.integration.dto.GoogleApiItem;
 import com.takaichi00.sample.quarkus.integration.dto.GoogleReadApiResponse;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
@@ -44,22 +41,26 @@ public class GoogleBooksApiClientImpl implements GoogleBooksApiClient {
 
     List<GoogleReadApiResponse> googleReadApiResponses = new ArrayList<>();
 
+    List<Book> books = new ArrayList<>();
+
     for (Isbn isbn : isbnList) {
       Response response = client.target(apiEndpoint)
-        .path("/books/v1/volumes")
-        .queryParam("q", "isbn:" + isbn)
-        .request()
-        .get();
+                                .path("/books/v1/volumes")
+                                .queryParam("q", "isbn:" + isbn)
+                                .request()
+                                .get();
 
-      googleReadApiResponses.add(response.readEntity(GoogleReadApiResponse.class));
+      GoogleReadApiResponse googleReadApiResponse = response.readEntity(GoogleReadApiResponse.class);
+
+      books.add(
+              Book.builder()
+                  .isbn(isbn)
+                  .title(googleReadApiResponse.getItems().get(0).getVolumeInfo().getTitle())
+                  .authors(googleReadApiResponse.getItems().get(0).getVolumeInfo().getAuthors())
+                  .build()
+      );
     }
 
-    return Arrays.asList(
-            Book.builder()
-                    .isbn(Isbn.of(9784043636037L))
-                    .title(googleReadApiResponses.get(0).getItems().get(0).getVolumeInfo().getTitle())
-                    .authors(googleReadApiResponses.get(0).getItems().get(0).getVolumeInfo().getAuthors())
-                    .build()
-    );
+    return books;
   }
 }
