@@ -5,6 +5,5 @@ import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import java.util.List;
 
 public interface BookRepository {
-  List<Book> getAllBooks();
   List<Isbn> getAllIsbn();
 }

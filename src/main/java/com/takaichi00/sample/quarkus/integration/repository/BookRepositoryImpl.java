@@ -22,25 +22,6 @@ public class BookRepositoryImpl implements BookRepository {
 
   @Override
   @Transactional
-  public List<Book> getAllBooks() {
-
-    TypedQuery<BookEntity> query = entityManager.createQuery("From BookEntity", BookEntity.class);
-    List<BookEntity> bookEntities = query.getResultList();
-
-    List<Book> books = new ArrayList<>();
-    for (BookEntity bookEntity : bookEntities) {
-      books.add(Book.builder()
-              .isbn(Isbn.of(Long.valueOf(bookEntity.getIsbn())))
-              .title("test-title")
-              .authors(Arrays.asList("authors1", "authors2"))
-              .price(1000)
-              .build());
-    }
-
-    return books;
-  }
-
-  @Override
   public List<Isbn> getAllIsbn() {
 
     TypedQuery<BookEntity> query = entityManager.createQuery("From BookEntity", BookEntity.class);

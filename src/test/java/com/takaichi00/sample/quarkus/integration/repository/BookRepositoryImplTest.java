@@ -40,25 +40,6 @@ class BookRepositoryImplTest {
   }
 
   @Test
-  void getAllBooksTest() {
-    // setup
-    List<Book> expected = Arrays.asList(
-            Book.builder()
-                    .isbn(Isbn.of(1234567890123L))
-                    .title("test-title")
-                    .authors(Arrays.asList("authors1", "authors2"))
-                    .price(1000)
-                    .build()
-    );
-
-    // execute
-    List<Book> actual = bookRepository.getAllBooks();
-
-    // assert
-    assertEquals(expected, actual);
-  }
-
-  @Test
   void getAllIsbnTest() {
 
     // setup
