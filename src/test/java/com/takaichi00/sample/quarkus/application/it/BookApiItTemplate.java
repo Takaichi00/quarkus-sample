@@ -22,7 +22,6 @@ public class BookApiItTemplate {
                     .isbn("test-isbn")
                     .title("test-title")
                     .authors(Arrays.asList("authors1", "authors2"))
-                    .price(1000)
                     .build()
     );
 

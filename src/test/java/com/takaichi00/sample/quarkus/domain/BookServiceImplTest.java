@@ -42,7 +42,6 @@ class BookServiceImplTest {
                     .isbn(Isbn.of(1234567890123L))
                     .title("test-title")
                     .authors(Arrays.asList("authors1", "authors2"))
-                    .price(1000)
                     .build()
     );
 
@@ -55,7 +54,6 @@ class BookServiceImplTest {
                     .isbn(Isbn.of(1234567890123L))
                     .title("test-title")
                     .authors(Arrays.asList("authors1", "authors2"))
-                    .price(1000)
                     .build()
     );
 

@@ -31,7 +31,6 @@ public class BookController {
                          .isbn(book.getIsbn().toString())
                          .title(book.getTitle())
                          .authors(book.getAuthors())
-                         .price(book.getPrice())
                          .queryParam(book.getQueryParamString())
                          .build()
       );

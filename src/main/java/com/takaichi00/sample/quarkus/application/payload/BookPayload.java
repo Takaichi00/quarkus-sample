@@ -19,9 +19,6 @@ public class BookPayload {
   @JsonbProperty(value = "title")
   private String title;
 
-  @JsonbProperty(value = "price")
-  private Integer price;
-
   @JsonbProperty(value = "authors")
   private List<String> authors;
 

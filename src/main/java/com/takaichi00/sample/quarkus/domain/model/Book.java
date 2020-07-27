@@ -13,7 +13,6 @@ import lombok.Getter;
 public class Book {
   private final Isbn isbn;
   private final String title;
-  private final Integer price;
   private final List<String> authors;
 
   public String getQueryParamString() {
