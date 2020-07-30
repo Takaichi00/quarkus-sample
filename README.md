@@ -24,3 +24,12 @@ mvn test
 ```
 mvn test-compile failsafe:integration-test
 ```
+
+## Profile
+- If you want to use custom profiles, please set system property or the QUARKUS_PROFILE environment variable.
+    - [see official document](https://quarkus.io/guides/config#configuration-profiles)
+
+- e.g. 
+```
+export QUARKUS_PROFILE=custom
+```
