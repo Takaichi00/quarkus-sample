@@ -1,5 +1,8 @@
 package com.takaichi00.sample.quarkus.common.exception;
 
+import lombok.Getter;
+
+@Getter
 public class ApplicationException extends RuntimeException {
 
   private final String errorCode;
