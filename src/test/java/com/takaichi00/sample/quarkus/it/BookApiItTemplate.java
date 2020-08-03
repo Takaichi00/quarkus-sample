@@ -1,8 +1,6 @@
-package com.takaichi00.sample.quarkus.application.it;
+package com.takaichi00.sample.quarkus.it;
 
 import com.takaichi00.sample.quarkus.application.payload.BookPayload;
-import io.restassured.RestAssured;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

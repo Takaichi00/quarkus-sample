@@ -1,4 +1,4 @@
-package com.takaichi00.sample.quarkus.application.it;
+package com.takaichi00.sample.quarkus.it;
 
 import io.quarkus.test.junit.NativeImageTest;
 
