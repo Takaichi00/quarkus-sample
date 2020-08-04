@@ -1,5 +1,6 @@
 package com.takaichi00.sample.quarkus.application;
 
+import com.takaichi00.sample.quarkus.application.domain.BookService;
 import com.takaichi00.sample.quarkus.application.payload.BookPayload;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
@@ -8,8 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
