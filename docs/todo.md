@@ -2,10 +2,12 @@
 
 -[x] Configuration Profiles
     - https://quarkus.io/guides/config#configuration-profiles
+-[x] Quarkus version 1.6
 -[ ] Error Handling
+-[ ] Containerizing
+-[ ] Tuning JVM Option 
 -[ ] Logging
--[ ] Feature Flag 
--[ ] Quarkus version 1.6
+-[ ] Feature Flag
 -[ ] Javadoc
 -[ ] Swagger (Open API)
 -[ ] JFR
