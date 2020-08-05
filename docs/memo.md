@@ -113,6 +113,27 @@ Caused by: javax.json.bind.JsonbException: Cannot create instance of a class: cl
 - [Jacksonを利用することでも解決はできるよう](https://github.com/quarkusio/quarkus/issues/5906)
     - しかし Jackson では Response Json で返却されるフィールドを全てクラス定義しないといけなくなり、大変だったため reflection の方法で解決
 
+
+## 1.5.0Final → 1.6.1Final の際に発生したエラー
+
+- Compile, Native image 起動は問題ないものの、既存の `BookRepositoryImplTest`, `GoogleBooksApiClientImplTest` を実行すると以下のエラーが発生する。
+```
+java.lang.RuntimeException: java.lang.RuntimeException: io.quarkus.builder.BuildException: Build failure: Build failed due to errors
+	[error]: Build step io.quarkus.vertx.core.deployment.VertxCoreProcessor#ioThreadDetector threw an exception: java.lang.IllegalArgumentException: Unsupported api 524288
+	at org.objectweb.asm.ClassVisitor.<init>(ClassVisitor.java:70)
+	at io.quarkus.gizmo.GizmoClassVisitor.<init>(GizmoClassVisitor.java:22)
+	at io.quarkus.gizmo.ClassCreator.writeTo(ClassCreator.java:150)
+	at io.quarkus.gizmo.ClassCreator.close(ClassCreator.java:203)
+	at io.quarkus.deployment.proxy.ProxyFactory.doDefineClass(ProxyFactory.java:189)
+	at io.quarkus.deployment.proxy.ProxyFactory.defineClass(ProxyFactory.java:120)
+```
+
+- GitHub の issue で同様の事象を発見
+    - [Quarkus org.graalvm.nativeimage.svm IllegalArgumentException: Unsupported api 524288 ClassVisitor Gizmo #10498](https://github.com/quarkusio/quarkus/issues/10498)
+    - [Failed to run @QuarkusTest. Unsupported api 524288. After update quarkus plugin version
+](https://stackoverflow.com/questions/62969042/failed-to-run-quarkustest-unsupported-api-524288-after-update-quarkus-plugin)
+        - こちらのサイトにあるように、`quarkus-junit5-mockito` の依存を削除したらテストが成功するようになった。
+
 # アーキテクチャメモ
 ## 凹型レイヤー
 ### Pro
