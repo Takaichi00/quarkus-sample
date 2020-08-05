@@ -6,29 +6,27 @@
   <artifactId>quarkus-sample</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <properties>
+    <quarkus.version>1.5.0.Final</quarkus.version>
+    <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
+    <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
+    <dbsetup.version>2.1.0</dbsetup.version>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
     <maven.compiler.parameters>true</maven.compiler.parameters>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <quarkus-plugin.version>1.6.1.Final</quarkus-plugin.version>
-    <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
-    <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-    <quarkus.platform.version>1.6.1.Final</quarkus.platform.version>
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
     <mockito.version>3.3.3</mockito.version>
     <h2database.version>1.4.200</h2database.version>
-    <dbsetup.version>2.1.0</dbsetup.version>
     <wiremock.version>2.26.3</wiremock.version>
-    <quarkus-junt5-mockito.version>1.6.1.Final</quarkus-junt5-mockito.version>
   </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>${quarkus.platform.group-id}</groupId>
         <artifactId>${quarkus.platform.artifact-id}</artifactId>
-        <version>${quarkus.platform.version}</version>
+        <version>${quarkus.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -113,7 +111,7 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5-mockito</artifactId>
-      <version>${quarkus-junt5-mockito.version}</version>
+      <version>${quarkus.version}</version>
       <scope>test</scope>
     </dependency>
     <!-- Test Scoped Dependencies End -->
@@ -123,7 +121,7 @@
       <plugin>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-maven-plugin</artifactId>
-        <version>${quarkus-plugin.version}</version>
+        <version>${quarkus.version}</version>
         <executions>
           <execution>
             <goals>
