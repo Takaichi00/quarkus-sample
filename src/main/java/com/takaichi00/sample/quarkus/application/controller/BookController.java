@@ -41,14 +41,15 @@ public class BookController {
   }
 
   @GET
+  @Path("/{isbn}")
   @Produces(MediaType.APPLICATION_JSON)
-  public BookPayload getBook(@PathParam String name) {
+  public BookPayload getBook(@PathParam String isbn) {
 
     BookPayload result = BookPayload.builder()
       .isbn("1234567890123")
-      .title("sample")
-      .authors(Arrays.asList("A"))
-      .queryParam("B")
+      .title("test-title")
+      .authors(Arrays.asList("authors1", "authors2"))
+      .queryParam("?isbn=1234567890123&title=test-title&author=authors1&author=authors2")
       .build();
 
     return result;

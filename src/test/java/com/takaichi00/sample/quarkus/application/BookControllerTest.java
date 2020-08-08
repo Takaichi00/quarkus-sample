@@ -15,26 +15,49 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class BookControllerTest {
 
   @Test
-  void test_v1books() {
+  void test_getAllBooks() {
     // setup
     List<BookPayload> expected = Arrays.asList(
             BookPayload.builder()
-                    .isbn("1234567890123")
-                    .title("test-title")
-                    .authors(Arrays.asList("authors1", "authors2"))
-                    .queryParam("?isbn=1234567890123&title=test-title&author=authors1&author=authors2")
-                    .build()
+                       .isbn("1234567890123")
+                       .title("test-title")
+                       .authors(Arrays.asList("authors1", "authors2"))
+                       .queryParam("?isbn=1234567890123&title=test-title&author=authors1&author=authors2")
+                       .build()
     );
 
     // execute
     List<BookPayload> actual = given()
-      .when()
-        .get("/v1/books")
-      .then()
-        .statusCode(200)
-        .extract()
-        .body().jsonPath().getList(".", BookPayload.class);
+                                 .when()
+                                   .get("/v1/books")
+                                 .then()
+                                   .statusCode(200)
+                                   .extract()
+                                   .body().jsonPath().getList(".", BookPayload.class);
 
+    // assert
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  void test_getBook() {
+    // setup
+    BookPayload expected = BookPayload.builder()
+                                      .isbn("1234567890123")
+                                      .title("test-title")
+                                      .authors(Arrays.asList("authors1", "authors2"))
+                                      .queryParam("?isbn=1234567890123&title=test-title&author=authors1&author=authors2")
+                                      .build();
+
+    // execute
+    BookPayload actual = given()
+                                 .when()
+                                   .pathParam("isbn", "1234567890123")
+                                   .get("/v1/books/{isbn}")
+                                 .then()
+                                   .statusCode(200)
+                                   .extract()
+                                   .body().jsonPath().getObject(".", BookPayload.class);
     // assert
     assertEquals(expected, actual);
   }
