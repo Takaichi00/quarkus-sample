@@ -22,4 +22,13 @@ public class MockBookService implements BookService {
     );
   }
 
+  @Override
+  public Book getBook(Isbn isbn) {
+    return Book.builder()
+               .isbn(Isbn.of(1234567890123L))
+               .title("test-title")
+               .authors(Arrays.asList("authors1", "authors2"))
+               .build();
+  }
+
 }

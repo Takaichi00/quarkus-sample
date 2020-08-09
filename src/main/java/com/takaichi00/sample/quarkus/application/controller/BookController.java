@@ -11,6 +11,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import lombok.RequiredArgsConstructor;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
@@ -45,14 +47,14 @@ public class BookController {
   @Produces(MediaType.APPLICATION_JSON)
   public BookPayload getBook(@PathParam String isbn) {
 
-    BookPayload result = BookPayload.builder()
-      .isbn("1234567890123")
-      .title("test-title")
-      .authors(Arrays.asList("authors1", "authors2"))
-      .queryParam("?isbn=1234567890123&title=test-title&author=authors1&author=authors2")
-      .build();
+    Book book = bookService.getBook(Isbn.of(Long.valueOf(isbn)));
 
-    return result;
+    return BookPayload.builder()
+                      .isbn(book.getIsbn().toString())
+                      .title(book.getTitle())
+                      .authors(book.getAuthors())
+                      .queryParam(book.getQueryParamString())
+                      .build();
 
   }
 }
