@@ -4,7 +4,8 @@
     - https://quarkus.io/guides/config#configuration-profiles
 -[x] Quarkus version 1.6
 -[ ] Error Handling
- -[ ] Testing
+ -[ ] Error Testing
+-[ ] Integration Test
 -[ ] Containerizing
 -[ ] Tuning JVM Option 
 -[ ] Logging
