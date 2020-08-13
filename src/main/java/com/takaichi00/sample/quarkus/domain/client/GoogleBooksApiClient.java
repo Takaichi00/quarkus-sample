@@ -8,4 +8,5 @@ public interface GoogleBooksApiClient {
 
   List<Book> getAllBooks(List<Isbn> isbnList);
 
+  Book getBook(Isbn isbn);
 }

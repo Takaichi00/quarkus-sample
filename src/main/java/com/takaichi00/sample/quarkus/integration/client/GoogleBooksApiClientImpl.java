@@ -5,6 +5,7 @@ import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import com.takaichi00.sample.quarkus.integration.dto.GoogleReadApiResponse;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
@@ -60,5 +61,14 @@ public class GoogleBooksApiClientImpl implements GoogleBooksApiClient {
     }
 
     return books;
+  }
+
+  @Override
+  public Book getBook(Isbn isbn) {
+    return Book.builder()
+               .isbn(Isbn.of(1234567890123L))
+               .title("test-title")
+               .authors(Arrays.asList("authors1", "authors2"))
+               .build();
   }
 }

@@ -6,7 +6,6 @@ import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import com.takaichi00.sample.quarkus.domain.repository.BookRepository;
 
-import java.util.Arrays;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -35,10 +34,6 @@ public class BookServiceImpl implements BookService {
 
   @Override
   public Book getBook(Isbn isbn) {
-    return  Book.builder()
-                .isbn(Isbn.of(1234567890123L))
-                .title("test-title")
-                .authors(Arrays.asList("authors1", "authors2"))
-                .build();
+    return googleBooksApiClient.getBook(isbn);
   }
 }

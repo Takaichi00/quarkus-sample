@@ -69,4 +69,29 @@ class BookServiceImplTest {
     verify(googleBooksApiClient, times(1)).getAllBooks(mockReturnIsbnList);
   }
 
+  @Test
+  void test_getBooksByIsbn() {
+    // setup
+    Book expected = Book.builder()
+            .isbn(Isbn.of(1234567890123L))
+            .title("test-title")
+            .authors(Arrays.asList("authors1", "authors2"))
+            .build();
+
+    Book mockReturn = Book.builder()
+            .isbn(Isbn.of(1234567890123L))
+            .title("test-title")
+            .authors(Arrays.asList("authors1", "authors2"))
+            .build();
+
+    when(googleBooksApiClient.getBook(Isbn.of(1234567890123L))).thenReturn(mockReturn);
+
+    // execute
+    Book actual = target.getBook(Isbn.of(1234567890123L));
+
+    // assert
+    assertEquals(expected, actual);
+    verify(googleBooksApiClient, times(1)).getBook(Isbn.of(1234567890123L));
+  }
+
 }
