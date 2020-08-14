@@ -2,9 +2,6 @@ package com.takaichi00.sample.quarkus.integration.client;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
-import com.github.tomakehurst.wiremock.http.RequestMethod;
-import com.github.tomakehurst.wiremock.matching.RequestPatternBuilder;
-import com.github.tomakehurst.wiremock.matching.UrlPattern;
 import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import io.quarkus.test.junit.QuarkusTest;
@@ -48,7 +45,7 @@ class GoogleBooksApiClientImplTest {
   }
 
   @Test
-  void test_isbnApi() throws IOException {
+  void test_getAllBooks() throws Exception {
 
     // setup
     wireMock.stubFor(get(urlEqualTo("/books/v1/volumes?q=isbn%3A9784043636037"))
@@ -70,6 +67,28 @@ class GoogleBooksApiClientImplTest {
                     .authors(Arrays.asList("古川日出男"))
                     .build()
     );
+
+    assertEquals(expected, actual);
+    verify(getRequestedFor(urlEqualTo("/books/v1/volumes?q=isbn%3A9784043636037")));
+  }
+
+  @Test
+  void test_getBook() throws Exception {
+    // setup
+    wireMock.stubFor(get(urlEqualTo("/books/v1/volumes?q=isbn%3A9784043636037"))
+      .willReturn(aResponse().withStatus(200)
+        .withHeader("Content-Type", "application/json")
+        .withBody(readMockResponseFile("isbnResponse.json"))));
+
+    // execute
+    Book actual = testTarget.getBook(Isbn.of(9784043636037L));
+
+    // assert
+    Book expected = Book.builder()
+                        .isbn(Isbn.of(9784043636037L))
+                        .title("アラビアの夜の種族")
+                        .authors(Arrays.asList("古川日出男"))
+                        .build();
 
     assertEquals(expected, actual);
     verify(getRequestedFor(urlEqualTo("/books/v1/volumes?q=isbn%3A9784043636037")));
