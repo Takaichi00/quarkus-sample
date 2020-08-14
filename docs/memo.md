@@ -134,6 +134,12 @@ java.lang.RuntimeException: java.lang.RuntimeException: io.quarkus.builder.Build
 ](https://stackoverflow.com/questions/62969042/failed-to-run-quarkustest-unsupported-api-524288-after-update-quarkus-plugin)
         - こちらのサイトにあるように、`quarkus-junit5-mockito` の依存を削除したらテストが成功するようになった。
 
+## Mock Test
+### 参考文献
+- https://quarkus.io/guides/getting-started-testing#mock-support
+- https://rheb.hatenablog.com/entry/quarkus_cdi_mock
+- https://github.com/quarkusio/quarkus/blob/3a5680ea367c5dad60655dcef0ca9765f14d5efe/docs/src/main/asciidoc/getting-started-testing.adoc#73-mocking-with-panache
+
 # アーキテクチャメモ
 ## 凹型レイヤー
 ### Pro
