@@ -3,7 +3,7 @@
 -[x] Configuration Profiles
     - https://quarkus.io/guides/config#configuration-profiles
 -[x] Quarkus version 1.6
--[ ] Error Handling
+-[x] Error Handling
  -[ ] Error Testing
 -[ ] Integration Test
 -[ ] Containerizing
