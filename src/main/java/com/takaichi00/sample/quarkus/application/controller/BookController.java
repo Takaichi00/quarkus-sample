@@ -46,7 +46,7 @@ public class BookController {
   @Produces(MediaType.APPLICATION_JSON)
   public BookPayload getBook(@PathParam String isbn) {
 
-    Book book = bookService.getBook(Isbn.of(Long.valueOf(isbn)));
+    Book book = bookService.getBook(Isbn.of(isbn));
 
     return BookPayload.builder()
                       .isbn(book.getIsbn().toString())

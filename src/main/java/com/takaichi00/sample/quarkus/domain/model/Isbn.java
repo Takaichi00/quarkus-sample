@@ -10,7 +10,7 @@ import lombok.Getter;
 @EqualsAndHashCode
 public class Isbn {
 
-  private Long isbn;
+  private final Long isbn;
 
   private Isbn(Long isbn) {
     this.isbn = isbn;
@@ -22,6 +22,24 @@ public class Isbn {
     }
 
     return new Isbn(isbn);
+
+  }
+
+  public static Isbn of(String isbn) {
+
+    if (isbn.length() != 13) {
+      throw new ApplicationException("isbn is invalid:" + isbn, "0001");
+    }
+
+    Long convertedIsbn = null;
+
+    try {
+      convertedIsbn = Long.valueOf(isbn);
+    } catch (NumberFormatException e) {
+      throw new ApplicationException("isbn is invalid:" + isbn, e, "0001");
+    }
+
+    return new Isbn(convertedIsbn);
 
   }
 

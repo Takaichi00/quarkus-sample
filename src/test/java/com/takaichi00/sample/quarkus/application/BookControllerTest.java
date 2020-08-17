@@ -2,6 +2,7 @@ package com.takaichi00.sample.quarkus.application;
 
 import com.takaichi00.sample.quarkus.application.domain.BookService;
 import com.takaichi00.sample.quarkus.application.payload.BookPayload;
+import com.takaichi00.sample.quarkus.application.payload.ErrorPayload;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
@@ -61,4 +62,26 @@ class BookControllerTest {
     // assert
     assertEquals(expected, actual);
   }
+
+  @Test
+  void test_errorInvalidIsbn() {
+    // setup
+    ErrorPayload expected = ErrorPayload.builder()
+      .errorCode("0001")
+      .message("isbn is invalid:invalid-isbn")
+      .build();
+
+    // execute
+    ErrorPayload actual = given()
+                                .when()
+                                  .pathParam("isbn", "invalid-isbn")
+                                  .get("/v1/books/{isbn}")
+                                .then()
+                                  .statusCode(400)
+                                  .extract()
+                                  .body().jsonPath().getObject(".", ErrorPayload.class);
+    // assert
+    assertEquals(expected, actual);
+  }
+
 }

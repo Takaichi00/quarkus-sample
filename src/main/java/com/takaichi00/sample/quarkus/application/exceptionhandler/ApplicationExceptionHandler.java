@@ -13,7 +13,7 @@ public class ApplicationExceptionHandler implements ExceptionMapper<ApplicationE
 
     ErrorPayload errorPayload = ErrorPayload.builder()
                                             .errorCode(e.getErrorCode())
-                                            .errorCode(e.getMessage())
+                                            .message(e.getMessage())
                                             .build();
 
     return Response.status(Response.Status.BAD_REQUEST)
