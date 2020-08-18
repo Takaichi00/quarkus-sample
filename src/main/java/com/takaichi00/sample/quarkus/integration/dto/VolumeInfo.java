@@ -21,4 +21,8 @@ public class VolumeInfo implements Serializable {
 
   @JsonbProperty(value = "authors")
   private List<String> authors;
+
+  @JsonbProperty(value = "previewLink")
+  private String previewLink;
+
 }

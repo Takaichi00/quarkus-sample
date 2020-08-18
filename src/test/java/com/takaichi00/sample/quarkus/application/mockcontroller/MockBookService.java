@@ -2,6 +2,7 @@ package com.takaichi00.sample.quarkus.application.mockcontroller;
 
 import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.application.domain.BookService;
+import com.takaichi00.sample.quarkus.domain.model.BookUrl;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import io.quarkus.test.Mock;
 
@@ -18,6 +19,7 @@ public class MockBookService implements BookService {
                     .isbn(Isbn.of(1234567890123L))
                     .title("test-title")
                     .authors(Arrays.asList("authors1", "authors2"))
+                    .url(BookUrl.of("http://example.com/1"))
                     .build()
     );
   }
@@ -28,6 +30,7 @@ public class MockBookService implements BookService {
                .isbn(Isbn.of(1234567890123L))
                .title("test-title")
                .authors(Arrays.asList("authors1", "authors2"))
+               .url(BookUrl.of("http://example.com/1"))
                .build();
   }
 

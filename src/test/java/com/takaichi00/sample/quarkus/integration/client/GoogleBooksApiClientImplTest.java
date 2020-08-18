@@ -3,6 +3,7 @@ package com.takaichi00.sample.quarkus.integration.client;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.takaichi00.sample.quarkus.domain.model.Book;
+import com.takaichi00.sample.quarkus.domain.model.BookUrl;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import io.quarkus.test.junit.QuarkusTest;
 import org.apache.commons.io.IOUtils;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import javax.inject.Inject;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
@@ -56,18 +58,21 @@ class GoogleBooksApiClientImplTest {
     List<Isbn> requestIsbnList = Arrays.asList(
             Isbn.of(9784043636037L)
     );
+
+    List<Book> expected = Arrays.asList(
+      Book.builder()
+        .isbn(Isbn.of(9784043636037L))
+        .title("アラビアの夜の種族")
+        .authors(Arrays.asList("古川日出男"))
+        .url(BookUrl.of("http://books.google.co.jp/books?id=s4CRHAAACAAJ&dq=isbn:9784043636037&hl=&cd=1&source=gbs_api"))
+        .build()
+    );
+
+
     // execute
     List<Book> actual = testTarget.getAllBooks(requestIsbnList);
 
     // assert
-    List<Book> expected = Arrays.asList(
-            Book.builder()
-                    .isbn(Isbn.of(9784043636037L))
-                    .title("アラビアの夜の種族")
-                    .authors(Arrays.asList("古川日出男"))
-                    .build()
-    );
-
     assertEquals(expected, actual);
     verify(getRequestedFor(urlEqualTo("/books/v1/volumes?q=isbn%3A9784043636037")));
   }
@@ -88,6 +93,7 @@ class GoogleBooksApiClientImplTest {
                         .isbn(Isbn.of(9784043636037L))
                         .title("アラビアの夜の種族")
                         .authors(Arrays.asList("古川日出男"))
+                        .url(BookUrl.of("http://books.google.co.jp/books?id=s4CRHAAACAAJ&dq=isbn:9784043636037&hl=&cd=1&source=gbs_api"))
                         .build();
 
     assertEquals(expected, actual);

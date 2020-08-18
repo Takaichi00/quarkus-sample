@@ -14,6 +14,7 @@ public class Book {
   private final Isbn isbn;
   private final String title;
   private final List<String> authors;
+  private final BookUrl url;
 
   public String getQueryParamString() {
 
@@ -30,4 +31,5 @@ public class Book {
 
     return queryParamString.toString();
   }
+
 }

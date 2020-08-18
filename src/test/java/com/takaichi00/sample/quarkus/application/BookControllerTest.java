@@ -1,6 +1,5 @@
 package com.takaichi00.sample.quarkus.application;
 
-import com.takaichi00.sample.quarkus.application.domain.BookService;
 import com.takaichi00.sample.quarkus.application.payload.BookPayload;
 import com.takaichi00.sample.quarkus.application.payload.ErrorPayload;
 import io.quarkus.test.junit.QuarkusTest;
@@ -24,6 +23,7 @@ class BookControllerTest {
                        .title("test-title")
                        .authors(Arrays.asList("authors1", "authors2"))
                        .queryParam("?isbn=1234567890123&title=test-title&author=authors1&author=authors2")
+                       .url("http://example.com/1")
                        .build()
     );
 
@@ -48,6 +48,7 @@ class BookControllerTest {
                                       .title("test-title")
                                       .authors(Arrays.asList("authors1", "authors2"))
                                       .queryParam("?isbn=1234567890123&title=test-title&author=authors1&author=authors2")
+                                      .url("http://example.com/1")
                                       .build();
 
     // execute

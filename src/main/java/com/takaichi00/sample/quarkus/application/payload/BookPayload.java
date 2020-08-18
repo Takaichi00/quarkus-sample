@@ -24,4 +24,8 @@ public class BookPayload {
 
   @JsonbProperty(value = "query_param")
   private String queryParam;
+
+  @JsonbProperty(value = "url")
+  private String url;
+
 }

@@ -1,6 +1,7 @@
 package com.takaichi00.sample.quarkus.it;
 
 import com.takaichi00.sample.quarkus.application.payload.BookPayload;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -12,6 +13,7 @@ import static org.hamcrest.Matchers.is;
 
 public class BookApiItTemplate {
 
+  @Disabled
   @Test
   void test_v1booksApi() {
     // setup

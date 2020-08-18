@@ -2,8 +2,10 @@ package com.takaichi00.sample.quarkus.integration.client;
 
 import com.takaichi00.sample.quarkus.domain.client.GoogleBooksApiClient;
 import com.takaichi00.sample.quarkus.domain.model.Book;
+import com.takaichi00.sample.quarkus.domain.model.BookUrl;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import com.takaichi00.sample.quarkus.integration.dto.GoogleReadApiResponse;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -55,6 +57,7 @@ public class GoogleBooksApiClientImpl implements GoogleBooksApiClient {
                   .isbn(isbn)
                   .title(googleReadApiResponse.getItems().get(0).getVolumeInfo().getTitle())
                   .authors(googleReadApiResponse.getItems().get(0).getVolumeInfo().getAuthors())
+                  .url(BookUrl.of(googleReadApiResponse.getItems().get(0).getVolumeInfo().getPreviewLink()))
                   .build()
       );
     }
@@ -77,6 +80,7 @@ public class GoogleBooksApiClientImpl implements GoogleBooksApiClient {
                .isbn(isbn)
                .title(googleReadApiResponse.getItems().get(0).getVolumeInfo().getTitle())
                .authors(googleReadApiResponse.getItems().get(0).getVolumeInfo().getAuthors())
+               .url(BookUrl.of(googleReadApiResponse.getItems().get(0).getVolumeInfo().getPreviewLink()))
                .build();
   }
 }
