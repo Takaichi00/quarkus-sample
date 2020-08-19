@@ -34,7 +34,6 @@ public class BookController {
                          .isbn(book.getIsbn().toString())
                          .title(book.getTitle())
                          .authors(book.getAuthors())
-                         .queryParam(book.getQueryParamString())
                          .url(book.getUrl().toString())
                          .build()
       );
@@ -53,7 +52,6 @@ public class BookController {
                       .isbn(book.getIsbn().toString())
                       .title(book.getTitle())
                       .authors(book.getAuthors())
-                      .queryParam(book.getQueryParamString())
                       .url(book.getUrl().toString())
                       .build();
 

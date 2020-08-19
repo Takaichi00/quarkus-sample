@@ -22,7 +22,6 @@ class BookControllerTest {
                        .isbn("1234567890123")
                        .title("test-title")
                        .authors(Arrays.asList("authors1", "authors2"))
-                       .queryParam("?isbn=1234567890123&title=test-title&author=authors1&author=authors2")
                        .url("http://example.com/1")
                        .build()
     );
@@ -47,7 +46,6 @@ class BookControllerTest {
                                       .isbn("1234567890123")
                                       .title("test-title")
                                       .authors(Arrays.asList("authors1", "authors2"))
-                                      .queryParam("?isbn=1234567890123&title=test-title&author=authors1&author=authors2")
                                       .url("http://example.com/1")
                                       .build();
 
