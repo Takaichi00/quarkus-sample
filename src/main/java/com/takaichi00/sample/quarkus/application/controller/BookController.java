@@ -15,7 +15,7 @@ import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import lombok.RequiredArgsConstructor;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
-@Path("/v1/books")
+@Path("/v1/bookmarks")
 @RequiredArgsConstructor(onConstructor = @__({@Inject}))
 public class BookController {
 
