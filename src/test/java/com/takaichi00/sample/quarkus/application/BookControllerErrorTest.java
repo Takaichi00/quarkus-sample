@@ -1,16 +1,7 @@
 package com.takaichi00.sample.quarkus.application;
 
 import com.takaichi00.sample.quarkus.application.domain.BookService;
-import com.takaichi00.sample.quarkus.common.exception.ApplicationException;
-import com.takaichi00.sample.quarkus.domain.model.Book;
-import io.quarkus.test.junit.QuarkusMock;
-import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
-import javax.inject.Inject;
-import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
@@ -34,7 +25,7 @@ public class BookControllerErrorTest {
 //  @Test
   void test_whenBookServiceThrowsErrorThenReturnErrorResponse() {
     // setup
-    Mockito.when(mockBookService.getAllBooks()).thenReturn(null);
+    Mockito.when(mockBookService.getAllBookmarks()).thenReturn(null);
 
 //    QuarkusMock.installMockForInstance(new MockBookService(), mockBookService);
 

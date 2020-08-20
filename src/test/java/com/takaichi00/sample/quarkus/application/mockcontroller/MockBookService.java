@@ -13,7 +13,7 @@ import java.util.List;
 public class MockBookService implements BookService {
 
   @Override
-  public List<Book> getAllBooks() {
+  public List<Book> getAllBookmarks() {
     return Arrays.asList(
             Book.builder()
                     .isbn(Isbn.of(1234567890123L))
@@ -25,7 +25,7 @@ public class MockBookService implements BookService {
   }
 
   @Override
-  public Book getBook(Isbn isbn) {
+  public Book getBookmark(Isbn isbn) {
     return Book.builder()
                .isbn(Isbn.of(1234567890123L))
                .title("test-title")

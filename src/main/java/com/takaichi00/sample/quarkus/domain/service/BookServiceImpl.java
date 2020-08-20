@@ -21,7 +21,7 @@ public class BookServiceImpl implements BookService {
   private final GoogleBooksApiClient googleBooksApiClient;
 
   @Override
-  public List<Book> getAllBooks() {
+  public List<Book> getAllBookmarks() {
 
     List<Isbn> isbnList = bookRepository.getAllIsbn();
 
@@ -33,7 +33,7 @@ public class BookServiceImpl implements BookService {
   }
 
   @Override
-  public Book getBook(Isbn isbn) {
+  public Book getBookmark(Isbn isbn) {
     return googleBooksApiClient.getBook(isbn);
   }
 }

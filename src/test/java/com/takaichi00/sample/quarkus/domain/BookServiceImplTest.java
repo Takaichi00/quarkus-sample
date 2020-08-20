@@ -61,7 +61,7 @@ class BookServiceImplTest {
     when(googleBooksApiClient.getAllBooks(mockReturnIsbnList)).thenReturn(mockReturnBooks);
 
     // execute
-    List<Book> actual = target.getAllBooks();
+    List<Book> actual = target.getAllBookmarks();
 
     // assert
     assertEquals(expected, actual);
@@ -87,7 +87,7 @@ class BookServiceImplTest {
     when(googleBooksApiClient.getBook(Isbn.of(1234567890123L))).thenReturn(mockReturn);
 
     // execute
-    Book actual = target.getBook(Isbn.of(1234567890123L));
+    Book actual = target.getBookmark(Isbn.of(1234567890123L));
 
     // assert
     assertEquals(expected, actual);

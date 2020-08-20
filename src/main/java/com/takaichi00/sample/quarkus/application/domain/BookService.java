@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface BookService {
 
-  List<Book> getAllBooks();
+  List<Book> getAllBookmarks();
 
-  Book getBook(Isbn isbn);
+  Book getBookmark(Isbn isbn);
 
 }

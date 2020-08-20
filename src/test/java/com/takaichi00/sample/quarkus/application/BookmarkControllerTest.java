@@ -12,7 +12,7 @@ import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
-class BookControllerTest {
+class BookmarkControllerTest {
 
   @Test
   void test_getAllBooks() {
@@ -53,7 +53,7 @@ class BookControllerTest {
     BookPayload actual = given()
                                  .when()
                                    .pathParam("isbn", "1234567890123")
-                                   .get("/v1/bookmarks/{isbn}")
+                                   .get("/v1/books/{isbn}")
                                  .then()
                                    .statusCode(200)
                                    .extract()
@@ -74,7 +74,7 @@ class BookControllerTest {
     ErrorPayload actual = given()
                                 .when()
                                   .pathParam("isbn", "invalid-isbn")
-                                  .get("/v1/bookmarks/{isbn}")
+                                  .get("/v1/books/{isbn}")
                                 .then()
                                   .statusCode(400)
                                   .extract()
