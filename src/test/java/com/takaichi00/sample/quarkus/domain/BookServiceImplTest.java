@@ -34,7 +34,7 @@ class BookServiceImplTest {
   }
 
   @Test
-  void test_getAllBooks() {
+  void test_getAllBookmark() {
 
     // setup
     List<Book> expected = Arrays.asList(
@@ -70,7 +70,7 @@ class BookServiceImplTest {
   }
 
   @Test
-  void test_getBooksByIsbn() {
+  void test_searchBooksByIsbn() {
     // setup
     Book expected = Book.builder()
             .isbn(Isbn.of(1234567890123L))
@@ -87,7 +87,7 @@ class BookServiceImplTest {
     when(googleBooksApiClient.getBook(Isbn.of(1234567890123L))).thenReturn(mockReturn);
 
     // execute
-    Book actual = target.getBookmark(Isbn.of(1234567890123L));
+    Book actual = target.searchBook(Isbn.of(1234567890123L));
 
     // assert
     assertEquals(expected, actual);

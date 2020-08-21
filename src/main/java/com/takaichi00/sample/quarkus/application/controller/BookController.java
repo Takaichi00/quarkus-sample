@@ -21,9 +21,9 @@ public class BookController {
   @GET
   @Path("/{isbn}")
   @Produces(MediaType.APPLICATION_JSON)
-  public BookPayload getBookmark(@PathParam String isbn) {
+  public BookPayload searchBook(@PathParam String isbn) {
 
-    Book book = bookService.getBookmark(Isbn.of(isbn));
+    Book book = bookService.searchBook(Isbn.of(isbn));
 
     return BookPayload.builder()
       .isbn(book.getIsbn().toString())

@@ -9,6 +9,6 @@ public interface BookService {
 
   List<Book> getAllBookmarks();
 
-  Book getBookmark(Isbn isbn);
+  Book searchBook(Isbn isbn);
 
 }

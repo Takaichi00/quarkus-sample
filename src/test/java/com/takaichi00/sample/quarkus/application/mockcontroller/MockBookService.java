@@ -25,7 +25,7 @@ public class MockBookService implements BookService {
   }
 
   @Override
-  public Book getBookmark(Isbn isbn) {
+  public Book searchBook(Isbn isbn) {
     return Book.builder()
                .isbn(Isbn.of(1234567890123L))
                .title("test-title")

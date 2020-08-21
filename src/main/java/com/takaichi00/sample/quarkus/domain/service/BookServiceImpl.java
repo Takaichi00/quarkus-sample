@@ -33,7 +33,7 @@ public class BookServiceImpl implements BookService {
   }
 
   @Override
-  public Book getBookmark(Isbn isbn) {
+  public Book searchBook(Isbn isbn) {
     return googleBooksApiClient.getBook(isbn);
   }
 }
