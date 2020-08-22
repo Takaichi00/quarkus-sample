@@ -11,4 +11,6 @@ public interface BookService {
 
   Book searchBook(Isbn isbn);
 
+  void registerBook(Isbn isbn);
+
 }

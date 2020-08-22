@@ -34,4 +34,9 @@ public class MockBookService implements BookService {
                .build();
   }
 
+  @Override
+  public void registerBook(Isbn isbn) {
+
+  }
+
 }

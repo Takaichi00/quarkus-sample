@@ -36,4 +36,9 @@ public class BookServiceImpl implements BookService {
   public Book searchBook(Isbn isbn) {
     return googleBooksApiClient.getBook(isbn);
   }
+
+  @Override
+  public void registerBook(Isbn isbn) {
+
+  }
 }

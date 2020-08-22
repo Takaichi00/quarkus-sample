@@ -10,6 +10,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import lombok.RequiredArgsConstructor;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
@@ -42,6 +43,7 @@ public class BookmarkController {
   @POST
   @Path("/{isbn}")
   public Response registerBookmark(@PathParam String isbn) {
+    bookService.registerBook(Isbn.of(isbn));
     return Response.status(201).build();
   }
 
