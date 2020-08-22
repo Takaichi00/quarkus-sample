@@ -6,11 +6,12 @@ import com.takaichi00.sample.quarkus.domain.model.Book;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import lombok.RequiredArgsConstructor;
+import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 @Path("/v1/bookmarks")
 @RequiredArgsConstructor(onConstructor = @__({@Inject}))
@@ -37,4 +38,11 @@ public class BookmarkController {
     }
     return bookPayloadList;
   }
+
+  @POST
+  @Path("/{isbn}")
+  public Response registerBookmark(@PathParam String isbn) {
+    return Response.status(201).build();
+  }
+
 }

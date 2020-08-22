@@ -40,7 +40,7 @@ class BookmarkControllerTest {
   }
 
   @Test
-  void test_getBook() {
+  void test_searchBook() {
     // setup
     BookPayload expected = BookPayload.builder()
                                       .isbn("1234567890123")
@@ -81,6 +81,19 @@ class BookmarkControllerTest {
                                   .body().jsonPath().getObject(".", ErrorPayload.class);
     // assert
     assertEquals(expected, actual);
+  }
+
+  @Test
+  void test_registerBookmark() {
+
+    // execute & assert
+    given()
+      .when()
+        .pathParam("isbn", "1234567890123")
+        .post("/v1/bookmarks/{isbn}")
+      .then()
+        .statusCode(201);
+//        .header("Location:", "/v1/books/1234567890123");
   }
 
 }
