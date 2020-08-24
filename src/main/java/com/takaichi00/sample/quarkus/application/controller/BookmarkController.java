@@ -44,7 +44,9 @@ public class BookmarkController {
   @Path("/{isbn}")
   public Response registerBookmark(@PathParam String isbn) {
     bookService.registerBook(Isbn.of(isbn));
-    return Response.status(201).build();
+    return Response.status(Response.Status.CREATED)
+                   .header("Location:", "/v1/bookmarks/" + isbn)
+                   .build();
   }
 
 }

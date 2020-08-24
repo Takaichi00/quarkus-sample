@@ -92,8 +92,8 @@ class BookmarkControllerTest {
         .pathParam("isbn", "1234567890123")
         .post("/v1/bookmarks/{isbn}")
       .then()
-        .statusCode(201);
-//        .header("Location:", "/v1/books/1234567890123");
+        .statusCode(201)
+        .header("Location:", "/v1/bookmarks/1234567890123");
   }
 
 }

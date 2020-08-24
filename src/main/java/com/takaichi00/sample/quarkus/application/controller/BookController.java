@@ -26,11 +26,11 @@ public class BookController {
     Book book = bookService.searchBook(Isbn.of(isbn));
 
     return BookPayload.builder()
-      .isbn(book.getIsbn().toString())
-      .title(book.getTitle())
-      .authors(book.getAuthors())
-      .url(book.getUrl().toString())
-      .build();
+                      .isbn(book.getIsbn().toString())
+                      .title(book.getTitle())
+                      .authors(book.getAuthors())
+                      .url(book.getUrl().toString())
+                      .build();
 
   }
 }
