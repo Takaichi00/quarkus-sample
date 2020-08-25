@@ -3,9 +3,8 @@ package com.takaichi00.sample.quarkus.integration.repository;
 import com.ninja_squad.dbsetup.DbSetup;
 import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
 import com.ninja_squad.dbsetup.operation.Operation;
-import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
-import com.takaichi00.sample.quarkus.domain.repository.BookRepository;
+import com.takaichi00.sample.quarkus.domain.repository.BookmarkRepository;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +20,7 @@ import static com.ninja_squad.dbsetup.Operations.sequenceOf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
-class BookRepositoryImplTest {
+class BookmarkRepositoryImplTest {
 
   public static final Operation DELETE_ALL = deleteAllFrom("books");
   public static final Operation INSERT_BOOKS = insertInto("books")
@@ -30,7 +29,7 @@ class BookRepositoryImplTest {
                                                .build();
 
   @Inject
-  BookRepository bookRepository;
+  BookmarkRepository bookmarkRepository;
 
   @BeforeEach
   void setUp() {
@@ -48,7 +47,7 @@ class BookRepositoryImplTest {
     );
 
     // execute
-    List<Isbn> actual = bookRepository.getAllIsbn();
+    List<Isbn> actual = bookmarkRepository.getAllIsbn();
 
     // assert
     assertEquals(expected, actual);

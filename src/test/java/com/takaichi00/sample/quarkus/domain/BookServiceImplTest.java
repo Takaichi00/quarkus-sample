@@ -3,7 +3,7 @@ package com.takaichi00.sample.quarkus.domain;
 import com.takaichi00.sample.quarkus.domain.client.GoogleBooksApiClient;
 import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
-import com.takaichi00.sample.quarkus.domain.repository.BookRepository;
+import com.takaichi00.sample.quarkus.domain.repository.BookmarkRepository;
 import com.takaichi00.sample.quarkus.domain.service.BookServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ class BookServiceImplTest {
   BookServiceImpl target;
 
   @Mock
-  BookRepository mockBookRepository;
+  BookmarkRepository mockBookmarkRepository;
 
   @Mock
   GoogleBooksApiClient googleBooksApiClient;
@@ -57,7 +57,7 @@ class BookServiceImplTest {
                     .build()
     );
 
-    when(mockBookRepository.getAllIsbn()).thenReturn(mockReturnIsbnList);
+    when(mockBookmarkRepository.getAllIsbn()).thenReturn(mockReturnIsbnList);
     when(googleBooksApiClient.getAllBooks(mockReturnIsbnList)).thenReturn(mockReturnBooks);
 
     // execute
@@ -65,12 +65,12 @@ class BookServiceImplTest {
 
     // assert
     assertEquals(expected, actual);
-    verify(mockBookRepository, times(1)).getAllIsbn();
+    verify(mockBookmarkRepository, times(1)).getAllIsbn();
     verify(googleBooksApiClient, times(1)).getAllBooks(mockReturnIsbnList);
   }
 
   @Test
-  void test_searchBooksByIsbn() {
+  void test_searchBooks() {
     // setup
     Book expected = Book.builder()
             .isbn(Isbn.of(1234567890123L))
