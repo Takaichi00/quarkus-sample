@@ -140,6 +140,11 @@ java.lang.RuntimeException: java.lang.RuntimeException: io.quarkus.builder.Build
 - https://rheb.hatenablog.com/entry/quarkus_cdi_mock
 - https://github.com/quarkusio/quarkus/blob/3a5680ea367c5dad60655dcef0ca9765f14d5efe/docs/src/main/asciidoc/getting-started-testing.adoc#73-mocking-with-panache
 
+## 201 Created かつ Location Header を設定する方法
+
+- 以下サイトを参考に実装
+    - https://stackoverflow.com/questions/26092318/create-response-with-location-header-in-jax-rs
+
 # アーキテクチャメモ
 ## 凹型レイヤー
 ### Pro

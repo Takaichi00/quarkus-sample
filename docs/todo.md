@@ -7,7 +7,7 @@
     - [ ] 1.7
 - [x] Error Handling
     - [x] Error Testing
-- [ ] Fix `BookRepositoryImplTest` and `GoogleBooksApiClientImplTest`
+- [x] Fix `BookRepositoryImplTest` and `GoogleBooksApiClientImplTest`
 - [ ] Assert Location Header `BookmarkControllerTest.test_registerBookmark()`
 - [ ] Integration Test
 - [ ] Containerizing
