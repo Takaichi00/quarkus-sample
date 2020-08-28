@@ -93,7 +93,7 @@ class BookmarkControllerTest {
         .post("/v1/bookmarks/{isbn}")
       .then()
         .statusCode(201);
-//        .header("Location:", "/v1/bookmarks/1234567890123");
+//        .header("Location:", "http://localhost:8080/v1/bookmarks/1234567890123");
   }
 
 }

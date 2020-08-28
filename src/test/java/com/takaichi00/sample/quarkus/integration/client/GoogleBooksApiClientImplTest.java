@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import javax.inject.Inject;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;

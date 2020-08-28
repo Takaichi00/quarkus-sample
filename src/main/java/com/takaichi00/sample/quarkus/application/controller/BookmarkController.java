@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import lombok.RequiredArgsConstructor;
@@ -42,11 +41,10 @@ public class BookmarkController {
 
   @POST
   @Path("/{isbn}")
-  public Response registerBookmark(@PathParam String isbn) {
+  public Response registerBookmark(@PathParam String isbn, @Context UriInfo uriInfo) {
     bookService.registerBook(Isbn.of(isbn));
-    return Response.status(Response.Status.CREATED)
-//                   .header("Location:", "/v1/bookmarks/" + isbn)
-                   .build();
+    UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
+    return Response.created(uriBuilder.build()).build();
   }
 
 }
