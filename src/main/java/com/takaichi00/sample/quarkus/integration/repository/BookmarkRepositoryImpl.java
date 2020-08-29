@@ -32,4 +32,9 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
 
     return isbnList;
   }
+
+  @Override
+  public void registerBookmark(Isbn isbn) {
+
+  }
 }

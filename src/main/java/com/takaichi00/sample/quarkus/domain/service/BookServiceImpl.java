@@ -39,6 +39,6 @@ public class BookServiceImpl implements BookService {
 
   @Override
   public void registerBook(Isbn isbn) {
-
+    bookmarkRepository.registerBookmark(isbn);
   }
 }
