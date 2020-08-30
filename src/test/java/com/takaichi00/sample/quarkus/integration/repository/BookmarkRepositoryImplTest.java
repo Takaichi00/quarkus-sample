@@ -54,4 +54,10 @@ class BookmarkRepositoryImplTest {
 
   }
 
+  @Test
+  void registerIsbn() {
+    // execute
+    bookmarkRepository.registerBookmark(Isbn.of("1234567890124"));
+  }
+
 }

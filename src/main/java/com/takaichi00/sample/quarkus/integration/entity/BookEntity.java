@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class BookEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="giftSeq")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
   private String isbn;

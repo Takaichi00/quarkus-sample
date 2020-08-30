@@ -3,7 +3,6 @@ package com.takaichi00.sample.quarkus.integration.repository;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import com.takaichi00.sample.quarkus.domain.repository.BookmarkRepository;
 import com.takaichi00.sample.quarkus.integration.entity.BookEntity;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
@@ -34,7 +33,8 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
   }
 
   @Override
+  @Transactional
   public void registerBookmark(Isbn isbn) {
-
+    entityManager.persist(BookEntity.builder().isbn(isbn.getIsbn().toString()).build());
   }
 }
