@@ -56,8 +56,12 @@ class BookmarkRepositoryImplTest {
 
   @Test
   void registerIsbn() {
+    // assert
+    Isbn expected = Isbn.of("1234567890124");
+    
     // execute
-    bookmarkRepository.registerBookmark(Isbn.of("1234567890124"));
+    Isbn actual = bookmarkRepository.registerBookmark(Isbn.of("1234567890124"));
+    assertEquals(expected, actual);
   }
 
 }

@@ -34,7 +34,8 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
 
   @Override
   @Transactional
-  public void registerBookmark(Isbn isbn) {
+  public Isbn registerBookmark(Isbn isbn) {
     entityManager.persist(BookEntity.builder().isbn(isbn.getIsbn().toString()).build());
+    return isbn;
   }
 }

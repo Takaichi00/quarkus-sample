@@ -1,10 +1,9 @@
 package com.takaichi00.sample.quarkus.domain.repository;
 
-import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import java.util.List;
 
 public interface BookmarkRepository {
   List<Isbn> getAllIsbn();
-  void registerBookmark(Isbn isbn);
+  Isbn registerBookmark(Isbn isbn);
 }
