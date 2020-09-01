@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS `books`;
 ---- create ----
 CREATE TABLE books (
     id INT(11) AUTO_INCREMENT NOT NULL,
-    isbn VARCHAR(30) NOT NULL,
+    isbn VARCHAR(30) NOT NULL,UNIQUE
     PRIMARY KEY (id)
 );
 
