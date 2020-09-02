@@ -1,5 +1,6 @@
 package com.takaichi00.sample.quarkus.integration.repository;
 
+import com.takaichi00.sample.quarkus.common.exception.ApplicationException;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import com.takaichi00.sample.quarkus.domain.repository.BookmarkRepository;
 import com.takaichi00.sample.quarkus.integration.entity.BookEntity;
@@ -7,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -35,7 +38,11 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
   @Override
   @Transactional
   public Isbn registerBookmark(Isbn isbn) {
-    entityManager.persist(BookEntity.builder().isbn(isbn.getIsbn().toString()).build());
+    try {
+      entityManager.persist(BookEntity.builder().isbn(isbn.getIsbn().toString()).build());
+    } catch (PersistenceException e) {
+      throw new ApplicationException("register bookmark is failed.", e, "0002");
+    }
     return isbn;
   }
 }

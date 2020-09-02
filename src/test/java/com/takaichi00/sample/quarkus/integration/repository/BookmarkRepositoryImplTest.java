@@ -3,6 +3,7 @@ package com.takaichi00.sample.quarkus.integration.repository;
 import com.ninja_squad.dbsetup.DbSetup;
 import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
 import com.ninja_squad.dbsetup.operation.Operation;
+import com.takaichi00.sample.quarkus.common.exception.ApplicationException;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import com.takaichi00.sample.quarkus.domain.repository.BookmarkRepository;
 import io.quarkus.test.junit.QuarkusTest;
@@ -18,6 +19,7 @@ import static com.ninja_squad.dbsetup.Operations.deleteAllFrom;
 import static com.ninja_squad.dbsetup.Operations.insertInto;
 import static com.ninja_squad.dbsetup.Operations.sequenceOf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @QuarkusTest
 class BookmarkRepositoryImplTest {
@@ -64,6 +66,21 @@ class BookmarkRepositoryImplTest {
 
     // assert
     assertEquals(expected, actual);
+  }
+
+  @Test
+  void registerDuplicatedIsbnError() {
+    // setup
+    Isbn expected = Isbn.of("1234567890124");
+
+    // execute
+    Isbn actual1 = bookmarkRepository.registerBookmark(Isbn.of("1234567890124"));
+    ApplicationException actual2 = assertThrows(ApplicationException.class, () -> bookmarkRepository.registerBookmark(Isbn.of("1234567890124")));
+
+    // assert
+    assertEquals(expected, actual1);
+    assertEquals("0002", actual2.getErrorCode());
+    assertEquals("register bookmark is failed.", actual2.getMessage());
   }
 
 }
