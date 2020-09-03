@@ -2,6 +2,7 @@ package com.takaichi00.sample.quarkus.integration.client;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
+import com.takaichi00.sample.quarkus.common.exception.ApplicationException;
 import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.BookUrl;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
@@ -25,6 +26,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @QuarkusTest
 class GoogleBooksApiClientImplTest {
@@ -98,6 +100,25 @@ class GoogleBooksApiClientImplTest {
     assertEquals(expected, actual);
     verify(getRequestedFor(urlEqualTo("/books/v1/volumes?q=isbn%3A9784043636037")));
   }
+
+  @Test
+  void test_getBookNotFound() throws Exception {
+    // setup
+    wireMock.stubFor(get(urlEqualTo("/books/v1/volumes?q=isbn%3A9781111111111"))
+      .willReturn(aResponse().withStatus(200)
+        .withHeader("Content-Type", "application/json")
+        .withBody(readMockResponseFile("isbnResponseTotal0.json"))));
+
+    // execute
+    ApplicationException actual = assertThrows(ApplicationException.class, () -> testTarget.getBook(Isbn.of(9781111111111L)));
+
+    // assert
+    assertEquals("0003", actual.getErrorCode());
+    assertEquals("isbn:9781111111111 is not founds", actual.getMessage());
+
+    verify(getRequestedFor(urlEqualTo("/books/v1/volumes?q=isbn%3A9781111111111")));
+  }
+
 
   private static String readMockResponseFile(String filename) throws IOException {
     try (FileInputStream input = new FileInputStream("src/test/resources/__files/" + filename)) {

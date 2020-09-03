@@ -18,4 +18,8 @@ public class GoogleReadApiResponse implements Serializable {
 
   @JsonbProperty(value = "items")
   private List<GoogleApiItem> items;
+
+  @JsonbProperty(value = "totalItems")
+  private Integer totalItems;
+
 }
