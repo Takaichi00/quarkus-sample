@@ -1,5 +1,6 @@
 package com.takaichi00.sample.quarkus.integration.repository;
 
+import com.takaichi00.sample.quarkus.common.constant.ErrorCode;
 import com.takaichi00.sample.quarkus.common.exception.ApplicationException;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import com.takaichi00.sample.quarkus.domain.repository.BookmarkRepository;
@@ -41,7 +42,7 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
     try {
       entityManager.persist(BookEntity.builder().isbn(isbn.getIsbn().toString()).build());
     } catch (PersistenceException e) {
-      throw new ApplicationException("register bookmark is failed.", e, "0002");
+      throw new ApplicationException("register bookmark is failed.", e, ErrorCode.REGISTER_BOOKMARK_IS_FAILED);
     }
     return isbn;
   }

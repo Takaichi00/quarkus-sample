@@ -1,5 +1,6 @@
 package com.takaichi00.sample.quarkus.integration.client;
 
+import com.takaichi00.sample.quarkus.common.constant.ErrorCode;
 import com.takaichi00.sample.quarkus.common.exception.ApplicationException;
 import com.takaichi00.sample.quarkus.domain.client.GoogleBooksApiClient;
 import com.takaichi00.sample.quarkus.domain.model.Book;
@@ -78,7 +79,7 @@ public class GoogleBooksApiClientImpl implements GoogleBooksApiClient {
     GoogleReadApiResponse googleReadApiResponse = response.readEntity(GoogleReadApiResponse.class);
 
     if (googleReadApiResponse.getTotalItems() == 0) {
-      throw new ApplicationException("isbn:" + isbn.toString() + " is not founds", "0003");
+      throw new ApplicationException("isbn:" + isbn.toString() + " is not founds", ErrorCode.ISBN_NOTFOUND);
     }
 
     return Book.builder()

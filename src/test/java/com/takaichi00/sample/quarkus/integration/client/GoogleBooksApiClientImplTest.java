@@ -2,6 +2,7 @@ package com.takaichi00.sample.quarkus.integration.client;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
+import com.takaichi00.sample.quarkus.common.constant.ErrorCode;
 import com.takaichi00.sample.quarkus.common.exception.ApplicationException;
 import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.BookUrl;
@@ -113,7 +114,7 @@ class GoogleBooksApiClientImplTest {
     ApplicationException actual = assertThrows(ApplicationException.class, () -> testTarget.getBook(Isbn.of(9781111111111L)));
 
     // assert
-    assertEquals("0003", actual.getErrorCode());
+    assertEquals(ErrorCode.ISBN_NOTFOUND, actual.getErrorCode());
     assertEquals("isbn:9781111111111 is not founds", actual.getMessage());
 
     verify(getRequestedFor(urlEqualTo("/books/v1/volumes?q=isbn%3A9781111111111")));

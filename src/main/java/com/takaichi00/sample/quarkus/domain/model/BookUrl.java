@@ -1,5 +1,6 @@
 package com.takaichi00.sample.quarkus.domain.model;
 
+import com.takaichi00.sample.quarkus.common.constant.ErrorCode;
 import com.takaichi00.sample.quarkus.common.exception.ApplicationException;
 import lombok.EqualsAndHashCode;
 
@@ -18,7 +19,7 @@ public class BookUrl {
     try {
       return new BookUrl(new URL(url));
     } catch (MalformedURLException e) {
-      throw new ApplicationException("url is invalid:" + url, e, "0002");
+      throw new ApplicationException("url is invalid:" + url, e, ErrorCode.URL_INVALID);
     }
   }
 

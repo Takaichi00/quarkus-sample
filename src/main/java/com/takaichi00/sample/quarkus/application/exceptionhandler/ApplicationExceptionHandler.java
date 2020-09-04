@@ -12,7 +12,7 @@ public class ApplicationExceptionHandler implements ExceptionMapper<ApplicationE
   public Response toResponse(ApplicationException e) {
 
     ErrorPayload errorPayload = ErrorPayload.builder()
-                                            .errorCode(e.getErrorCode())
+                                            .errorCode(e.getErrorCode().getCode())
                                             .message(e.getMessage())
                                             .build();
 
