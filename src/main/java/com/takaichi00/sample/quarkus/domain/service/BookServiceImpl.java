@@ -21,10 +21,6 @@ public class BookServiceImpl implements BookService {
 
   private final GoogleBooksApiClient googleBooksApiClient;
 
-  @RestClient
-  @Inject
-  GoogleBooksApiClientByMicroProfile googleBooksApiClientByMicroProfile;
-
   @Override
   public List<Book> getAllBookmarks() {
 
@@ -39,7 +35,6 @@ public class BookServiceImpl implements BookService {
 
   @Override
   public Book searchBook(Isbn isbn) {
-    googleBooksApiClientByMicroProfile.getByIsbn("isbn:" + isbn);
     return googleBooksApiClient.getBook(isbn);
   }
 
