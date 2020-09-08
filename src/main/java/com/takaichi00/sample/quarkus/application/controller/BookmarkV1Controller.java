@@ -15,7 +15,7 @@ import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 @Path("/v1/bookmarks")
 @RequiredArgsConstructor(onConstructor = @__({@Inject}))
-public class BookmarkController {
+public class BookmarkV1Controller {
 
   private final BookService bookService;
 

@@ -12,7 +12,7 @@ import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
-class BookmarkControllerTest {
+class BookmarkV1ControllerTest {
 
   @Test
   void test_getAllBooks() {
