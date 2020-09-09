@@ -1,4 +1,4 @@
-package com.takaichi00.sample.quarkus.domain.client;
+package com.takaichi00.sample.quarkus.integration.client;
 
 import com.takaichi00.sample.quarkus.integration.dto.GoogleReadApiMicroProfileResponse;
 import javax.ws.rs.GET;
