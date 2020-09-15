@@ -8,7 +8,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import java.util.Set;
 
-
+@Path("/v2")
+@RegisterRestClient
 public interface CountriesService {
   @GET
   @Path("/name/{name}")
