@@ -6,6 +6,7 @@
 - [ ] Quarkus version up
     - [x] 1.6
     - [x] 1.7.3
+    - [ ] 1.9.0
 - [x] Error Handling
     - [x] Error Testing
 - [ ] MicroProfile Client
