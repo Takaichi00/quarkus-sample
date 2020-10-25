@@ -4,8 +4,6 @@
 - [x] Configuration Profiles
     - https://quarkus.io/guides/config#configuration-profiles
 - [ ] Quarkus version up
-    - [x] 1.6
-    - [x] 1.7.3
     - [ ] 1.9.0
 - [x] Error Handling
     - [x] Error Testing
@@ -20,6 +18,7 @@
 - [ ] Swagger (Open API)
 - [ ] JFR
 - [ ] Performance Test
+- [ ] gRPC https://www.google.com/amp/s/rheb.hatenablog.com/entry/quarkus_grpc%3Famp%3D1
 
 ## Sub
 - [x] Fix `BookRepositoryImplTest` and `GoogleBooksApiClientImplTest`
