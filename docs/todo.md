@@ -9,7 +9,7 @@
     - [x] Error Testing
 - [ ] MicroProfile Client
 - [ ] Logging
-- [ ] Flyway
+- [x] Flyway
 - [ ] Integration Test
 - [ ] Containerizing
 - [ ] Tuning JVM Option 

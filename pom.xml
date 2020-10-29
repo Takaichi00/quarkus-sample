@@ -20,6 +20,8 @@
     <mockito.version>3.3.3</mockito.version>
     <h2database.version>1.4.200</h2database.version>
     <wiremock.version>2.26.3</wiremock.version>
+    <flyway.version>7.0.4</flyway.version>
+    <mysql-driver.version>8.0.20</mysql-driver.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -52,6 +54,10 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-jdbc-mysql</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-flyway</artifactId>
     </dependency>
 
     <!-- Provided Scoped Dependencies Start -->
@@ -138,6 +144,20 @@
           </systemProperties>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.flywaydb</groupId>
+        <artifactId>flyway-maven-plugin</artifactId>
+        <version>${flyway.version}</version>
+        <configuration>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-driver.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
     </plugins>
   </build>
   <profiles>
@@ -171,6 +191,17 @@
       </build>
       <properties>
         <quarkus.package.type>native</quarkus.package.type>
+      </properties>
+    </profile>
+    <profile>
+      <id>local</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <flyway.user>docker</flyway.user>
+        <flyway.password>docker</flyway.password>
+        <flyway.url><![CDATA[jdbc:mysql://localhost:3306/test_database]]></flyway.url>
       </properties>
     </profile>
   </profiles>
