@@ -2,6 +2,18 @@
 Implementing sample API following [Quarkus getting started](https://quarkus.io/get-started/).
 
 # How to use
+- start MySQL DB with docker
+```
+cd quarkus-sample/local-environment
+docker-compose up -d
+```
+
+- create table
+```
+cd quarkus-sample
+mvn flyway:migrate
+```
+ 
 - run application dev mode
 ```
 mvn compile quarkus:dev
