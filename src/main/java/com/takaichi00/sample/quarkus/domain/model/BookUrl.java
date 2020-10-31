@@ -2,10 +2,9 @@ package com.takaichi00.sample.quarkus.domain.model;
 
 import com.takaichi00.sample.quarkus.common.constant.ErrorCode;
 import com.takaichi00.sample.quarkus.common.exception.ApplicationException;
-import lombok.EqualsAndHashCode;
-
 import java.net.MalformedURLException;
 import java.net.URL;
+import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
 public class BookUrl {

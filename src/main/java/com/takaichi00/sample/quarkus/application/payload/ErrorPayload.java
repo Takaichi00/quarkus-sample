@@ -1,7 +1,6 @@
 package com.takaichi00.sample.quarkus.application.payload;
 
 import javax.json.bind.annotation.JsonbProperty;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
