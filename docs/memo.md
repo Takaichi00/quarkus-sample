@@ -145,6 +145,12 @@ java.lang.RuntimeException: java.lang.RuntimeException: io.quarkus.builder.Build
 - 以下サイトを参考に実装
     - https://stackoverflow.com/questions/26092318/create-response-with-location-header-in-jax-rs
 
+## MicroProfile REST Client を利用する際、設定を間違えた Client を Injection すると 404 NotFound になってしまう
+- [QUARKUS - USING THE REST CLIENT](https://quarkus.io/guides/rest-client) を参考に Google Books API のクライアントを作成しようとした
+- GoogleBooks API の URL は https://www.googleapis.com/books/v1/volumes?q={isbn} の形式
+ - 例えば `volumes` の Path を `volumesaaa` のように間違えると、@RegisterClient をつけた Client が 404 Error を返却するのではなく、@RegisterClient を Inject しているエンドポイントを定義するメソッドそのものが 404 Not Found となってしまう。
+ - 本来ならエンドポイント自体は機能しているので、404 Not Found ではなく 500系のエラーを返してほしいところ
+
 # アーキテクチャメモ
 ## 凹型レイヤー
 ### Pro
