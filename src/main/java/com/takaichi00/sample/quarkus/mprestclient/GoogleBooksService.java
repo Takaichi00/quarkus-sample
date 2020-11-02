@@ -1,17 +1,17 @@
 package com.takaichi00.sample.quarkus.mprestclient;
 
-import java.util.Set;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
-import org.jboss.resteasy.annotations.jaxrs.PathParam;
+import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 
-@Path("/v2")
+@Path("/books")
 @RegisterRestClient
-public interface CountriesService {
+public interface GoogleBooksService {
+
   @GET
-  @Path("/name/{name}")
+  @Path("/v1/volumes")
   @Produces("application/json")
-  Set<Country> getByName(@PathParam String name);
+  GoogleBooks getByIsbn(@QueryParam("q") String q);
 }

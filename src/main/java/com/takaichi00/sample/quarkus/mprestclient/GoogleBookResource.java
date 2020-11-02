@@ -1,6 +1,5 @@
 package com.takaichi00.sample.quarkus.mprestclient;
 
-import java.util.Set;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -9,17 +8,17 @@ import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
-@Path("/country")
-public class CountriesResource {
+@Path("/google/books")
+public class GoogleBookResource {
 
   @Inject
   @RestClient
-  CountriesService countriesService;
+  GoogleBooksService googleBooksService;
 
   @GET
-  @Path("/name/{name}")
+  @Path("/{isbn}")
   @Produces(MediaType.APPLICATION_JSON)
-  public Set<Country> name(@PathParam String name) {
-    return countriesService.getByName(name);
+  public GoogleBooks name(@PathParam String isbn) {
+    return googleBooksService.getByIsbn("isbn:9784043636037");
   }
 }
