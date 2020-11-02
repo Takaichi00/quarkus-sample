@@ -19,6 +19,6 @@ public class GoogleBookResource {
   @Path("/{isbn}")
   @Produces(MediaType.APPLICATION_JSON)
   public GoogleBooks name(@PathParam String isbn) {
-    return googleBooksService.getByIsbn("isbn:9784043636037");
+    return googleBooksService.getByIsbn("isbn:" + isbn);
   }
 }
