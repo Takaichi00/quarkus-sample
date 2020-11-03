@@ -1,4 +1,4 @@
-package com.takaichi00.sample.quarkus.mprestclient;
+package com.takaichi00.sample.quarkus.integration.dto;
 
 import java.util.List;
 import lombok.Getter;

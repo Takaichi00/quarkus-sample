@@ -3,7 +3,7 @@ package com.takaichi00.sample.quarkus.integration.client;
 import com.takaichi00.sample.quarkus.domain.client.GoogleBooksApiMicroProfileClient;
 import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
-import com.takaichi00.sample.quarkus.mprestclient.GoogleBooks;
+import com.takaichi00.sample.quarkus.integration.dto.GoogleBooks;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import org.eclipse.microprofile.rest.client.inject.RestClient;

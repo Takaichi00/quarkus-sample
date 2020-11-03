@@ -1,6 +1,6 @@
 package com.takaichi00.sample.quarkus.integration.client;
 
-import com.takaichi00.sample.quarkus.mprestclient.GoogleBooks;
+import com.takaichi00.sample.quarkus.integration.dto.GoogleBooks;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
