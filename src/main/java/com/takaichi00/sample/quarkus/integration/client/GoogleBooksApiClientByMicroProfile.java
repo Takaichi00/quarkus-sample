@@ -1,18 +1,18 @@
 package com.takaichi00.sample.quarkus.integration.client;
 
-import com.takaichi00.sample.quarkus.integration.dto.GoogleReadApiMicroProfileResponse;
+import com.takaichi00.sample.quarkus.mprestclient.GoogleBooks;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
-import org.jboss.resteasy.annotations.jaxrs.PathParam;
+import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 
-@Path("/v1")
+@Path("/books")
 @RegisterRestClient
 public interface GoogleBooksApiClientByMicroProfile {
 
   @GET
-  @Path("/books/v1/volumes/{q}")
+  @Path("/v1/volumes")
   @Produces("application/json")
-  GoogleReadApiMicroProfileResponse getByIsbn(@PathParam String q);
+  GoogleBooks getByIsbn(@QueryParam("q") String q);
 }

@@ -2,6 +2,7 @@ package com.takaichi00.sample.quarkus.application.controller;
 
 import com.takaichi00.sample.quarkus.application.domain.BookMicroProfileService;
 import com.takaichi00.sample.quarkus.application.payload.BookPayload;
+import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import java.util.Arrays;
 import javax.inject.Inject;
@@ -22,20 +23,13 @@ public class BookV2Controller {
   @Produces(MediaType.APPLICATION_JSON)
   public BookPayload searchBook(@PathParam String isbn) {
 
-    bookMicroProfileService.searchBook(Isbn.of(isbn));
+    Book result = bookMicroProfileService.searchBook(Isbn.of(isbn));
 
     return BookPayload.builder()
                       .isbn("1234567890123")
-                      .title("tmp")
+                      .title(result.getTitle())
                       .authors(Arrays.asList("1", "2"))
                       .url("http://example.com")
                       .build();
-//    return BookPayload.builder()
-//                      .isbn(book.getIsbn().toString())
-//                      .title(book.getTitle())
-//                      .authors(book.getAuthors())
-//                      .url(book.getUrl().toString())
-//                      .build();
-
   }
 }
