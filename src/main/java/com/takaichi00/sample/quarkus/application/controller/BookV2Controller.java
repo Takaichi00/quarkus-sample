@@ -26,10 +26,10 @@ public class BookV2Controller {
     Book result = bookMicroProfileService.searchBook(Isbn.of(isbn));
 
     return BookPayload.builder()
-                      .isbn("1234567890123")
+                      .isbn(result.getIsbn().toString())
                       .title(result.getTitle())
-                      .authors(Arrays.asList("1", "2"))
-                      .url("http://example.com")
+                      .authors(result.getAuthors())
+                      .url(result.getUrl().toString())
                       .build();
   }
 }

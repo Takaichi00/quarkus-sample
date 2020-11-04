@@ -15,6 +15,8 @@ public class GoogleBooks {
 
   public static class VolumeInfo {
     public String title;
+    public List<String> authors;
+    public String previewLink;
   }
 
 }
