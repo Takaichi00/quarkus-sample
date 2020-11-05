@@ -8,7 +8,7 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 import org.jboss.resteasy.annotations.jaxrs.QueryParam;
 
 @Path("/books")
-@RegisterRestClient
+@RegisterRestClient(configKey="google-books-api")
 public interface GoogleBooksApiClientByMicroProfile {
 
   @GET
