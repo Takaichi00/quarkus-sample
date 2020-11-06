@@ -18,7 +18,8 @@
 - [ ] Swagger (Open API)
 - [ ] JFR
 - [ ] Performance Test
-- [ ] gRPC https://www.google.com/amp/s/rheb.hatenablog.com/entry/quarkus_grpc%3Famp%3D1
+- [ ] gRPC (https://www.google.com/amp/s/rheb.hatenablog.com/entry/quarkus_grpc%3Famp%3D1)
+- [ ] Micrometer + Prometeus + Grafana (https://yuya-hirooka.hatenablog.com/entry/2020/11/04/232853)
 
 ## Sub
 - [x] Fix `BookRepositoryImplTest` and `GoogleBooksApiClientImplTest`
