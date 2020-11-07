@@ -108,6 +108,12 @@
       <version>${wiremock.version}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-junit5-mockito</artifactId>
+      <version>${quarkus.version}</version>
+      <scope>test</scope>
+    </dependency>
     <!-- Test Scoped Dependencies End -->
   </dependencies>
   <build>

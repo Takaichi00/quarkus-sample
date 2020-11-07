@@ -51,13 +51,13 @@ class BookmarkV1ControllerTest {
 
     // execute
     BookPayload actual = given()
-                                 .when()
-                                   .pathParam("isbn", "1234567890123")
-                                   .get("/v1/books/{isbn}")
-                                 .then()
-                                   .statusCode(200)
-                                   .extract()
-                                   .body().jsonPath().getObject(".", BookPayload.class);
+                           .when()
+                             .pathParam("isbn", "1234567890123")
+                             .get("/v1/books/{isbn}")
+                           .then()
+                             .statusCode(200)
+                             .extract()
+                             .body().jsonPath().getObject(".", BookPayload.class);
     // assert
     assertEquals(expected, actual);
   }
