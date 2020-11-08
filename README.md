@@ -45,3 +45,20 @@ mvn test-compile failsafe:integration-test
 ```
 export QUARKUS_PROFILE=custom
 ```
+
+# Sample Request
+## Get All Bookmarks
+```
+curl localhost:8080/v1/bookmarks
+```
+
+## Search book info by ISBN (using GoogleBooks API)
+```
+curl localhost:8080/v1/books/9784865942248
+curl localhost:8080/v2/books/9784865942248
+```
+
+## Register Book as Bookmarks
+```
+curl -X POST localhost:8080/v1/bookmarks/9784865942248
+```
