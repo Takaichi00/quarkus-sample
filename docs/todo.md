@@ -8,6 +8,9 @@
 - [x] Error Handling
     - [x] Error Testing
 - [ ] MicroProfile Client
+    - [x] Request Google Books API
+    - [x] Test with wiremock
+    - [ ] Client Settings
 - [ ] Logging
 - [x] Flyway
 - [ ] Integration Test
