@@ -4,7 +4,7 @@
 - [x] Configuration Profiles
     - https://quarkus.io/guides/config#configuration-profiles
 - [ ] Quarkus version up
-    - [ ] 1.9.1Final
+    - [ ] 1.9.2Final
 - [x] Error Handling
     - [x] Error Testing
 - [ ] MicroProfile Client
