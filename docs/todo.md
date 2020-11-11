@@ -4,13 +4,14 @@
 - [x] Configuration Profiles
     - https://quarkus.io/guides/config#configuration-profiles
 - [x] Quarkus version up
-    - [x] 1.9.2Final
+    - [x] 1.9.2.Final
 - [x] Error Handling
     - [x] Error Testing
 - [ ] MicroProfile Client
     - [x] Request Google Books API
     - [x] Test with wiremock
-    - [ ] Client Settings
+    - [x] Client Settings
+    - [ ] Exception Handling and Test
 - [ ] Logging
 - [x] Flyway
 - [ ] Integration Test
@@ -28,3 +29,4 @@
 ## Sub
 - [x] Fix `BookRepositoryImplTest` and `GoogleBooksApiClientImplTest`
 - [ ] Assert Location Header `BookmarkControllerTest.test_registerBookmark()`
+- [ ] Validation when eegister bookmark
