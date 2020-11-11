@@ -7,7 +7,7 @@
     - [x] 1.9.2.Final
 - [x] Error Handling
     - [x] Error Testing
-- [ ] MicroProfile Client
+- [ ] MicroProfile Client (https://download.eclipse.org/microprofile/microprofile-rest-client-1.2.1/microprofile-rest-client-1.2.1.html)
     - [x] Request Google Books API
     - [x] Test with wiremock
     - [x] Client Settings
