@@ -2,6 +2,8 @@ package com.takaichi00.sample.quarkus.integration.client;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
+import com.takaichi00.sample.quarkus.common.constant.ErrorCode;
+import com.takaichi00.sample.quarkus.common.exception.ApplicationException;
 import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.BookUrl;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
@@ -66,6 +68,25 @@ class GoogleBooksApiMicroProfileClientImplTest {
     verify(getRequestedFor(urlEqualTo("/books/v1/volumes?q=isbn%3A9784043636037")));
 
   }
+
+  @Test
+  void test_Timeout_getBookByIsbn() throws Exception {
+    // setup
+    wireMock.stubFor(get(urlEqualTo("/books/v1/volumes?q=isbn%3A9784043636037"))
+      .willReturn(aResponse()
+                    .withStatus(200)
+                    .withFixedDelay(3500)
+                    .withHeader("Content-Type", "application/json")
+                    .withBody(readMockResponseFile("isbnResponse.json"))));
+
+    ApplicationException actual = assertThrows(ApplicationException.class, () -> testTarget.getBook(Isbn.of("9784043636037")));
+
+    assertEquals(ErrorCode.GOOGLE_BOOKS_API_REQUEST_FAILED_BY_MICRO_PROFILE, actual.getErrorCode());
+    assertEquals("Google Books API Request Failed (MicroProfile).", actual.getMessage());
+    verify(getRequestedFor(urlEqualTo("/books/v1/volumes?q=isbn%3A9784043636037")));
+
+  }
+
   private static String readMockResponseFile(String filename) throws IOException {
     try (FileInputStream input = new FileInputStream("src/test/resources/__files/" + filename)) {
       return IOUtils.toString(input, StandardCharsets.UTF_8);

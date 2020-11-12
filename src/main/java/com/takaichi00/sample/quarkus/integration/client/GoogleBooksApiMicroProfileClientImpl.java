@@ -9,6 +9,8 @@ import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import com.takaichi00.sample.quarkus.integration.dto.GoogleBooks;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.ProcessingException;
+
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 @ApplicationScoped
@@ -20,7 +22,13 @@ public class GoogleBooksApiMicroProfileClientImpl implements GoogleBooksApiMicro
 
   @Override
   public Book getBook(Isbn isbn) {
-    GoogleBooks result = googleBooksApiClientByMicroProfile.getByIsbn("isbn:" + isbn);
+    GoogleBooks result;
+    try {
+      result = googleBooksApiClientByMicroProfile.getByIsbn("isbn:" + isbn);
+    } catch (ProcessingException e) {
+      throw new ApplicationException("Google Books API Request Failed (MicroProfile).", e, ErrorCode.GOOGLE_BOOKS_API_REQUEST_FAILED_BY_MICRO_PROFILE);
+    }
+
     if (result.getTotalItems() == 0) {
       throw new ApplicationException("isbn:" + isbn.toString() + " is not founds", ErrorCode.ISBN_NOTFOUND);
     }
