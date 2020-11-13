@@ -11,6 +11,7 @@
     - [x] Request Google Books API
     - [x] Test with wiremock
     - [x] Client Settings
+    - [x] [Fault-Tolerance](https://quarkus.io/guides/microprofile-fault-tolerance)
     - [ ] Exception Handling and Test
 - [ ] Logging
 - [x] Flyway
