@@ -7,15 +7,16 @@
     - [x] 1.9.2.Final
 - [x] Error Handling
     - [x] Error Testing
-- [ ] MicroProfile Client (https://download.eclipse.org/microprofile/microprofile-rest-client-1.2.1/microprofile-rest-client-1.2.1.html)
+- [x] MicroProfile Client (https://download.eclipse.org/microprofile/microprofile-rest-client-1.2.1/microprofile-rest-client-1.2.1.html)
     - [x] Request Google Books API
     - [x] Test with wiremock
     - [x] Client Settings
     - [x] [Fault-Tolerance](https://quarkus.io/guides/microprofile-fault-tolerance)
-    - [ ] Exception Handling and Test
+    - [x] Exception Handling and Test
 - [ ] Logging
 - [x] Flyway
 - [ ] Integration Test
+- [ ] Native Image Test
 - [ ] Containerizing
 - [ ] Tuning JVM Option 
 - [ ] Feature Flag
