@@ -13,7 +13,7 @@
     - [x] Client Settings
     - [x] [Fault-Tolerance](https://quarkus.io/guides/microprofile-fault-tolerance)
     - [x] Exception Handling and Test
-- [ ] Logging
+- [ ] [Logging](https://quarkus.io/guides/logging) → Now
 - [x] Flyway
 - [ ] Integration Test
 - [ ] Native Image Test

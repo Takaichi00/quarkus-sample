@@ -7,7 +7,6 @@ import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.BookUrl;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import com.takaichi00.sample.quarkus.integration.dto.GoogleReadApiResponse;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -18,9 +17,11 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
+@Slf4j
 @ApplicationScoped
 @RequiredArgsConstructor(onConstructor = @__({@Inject}))
 public class GoogleBooksApiClientImpl implements GoogleBooksApiClient {
@@ -53,6 +54,8 @@ public class GoogleBooksApiClientImpl implements GoogleBooksApiClient {
                                 .get();
 
       GoogleReadApiResponse googleReadApiResponse = response.readEntity(GoogleReadApiResponse.class);
+
+      log.debug(googleReadApiResponse.toString());
 
       books.add(
               Book.builder()
