@@ -2,6 +2,7 @@ package com.takaichi00.sample.quarkus.application.controller;
 
 import com.takaichi00.sample.quarkus.application.domain.BookService;
 import com.takaichi00.sample.quarkus.application.payload.BookPayload;
+import com.takaichi00.sample.quarkus.common.interceptor.DumpLog;
 import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class BookmarkV1Controller {
 
   private final BookService bookService;
 
+  @DumpLog
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   public List<BookPayload> getAllBookmarks() {
