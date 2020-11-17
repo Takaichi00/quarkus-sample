@@ -2,6 +2,7 @@ package com.takaichi00.sample.quarkus.application.controller;
 
 import com.takaichi00.sample.quarkus.application.domain.BookService;
 import com.takaichi00.sample.quarkus.application.payload.BookPayload;
+import com.takaichi00.sample.quarkus.common.interceptor.DumpLog;
 import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import javax.inject.Inject;
@@ -18,6 +19,7 @@ public class BookV1Controller {
 
   private final BookService bookService;
 
+  @DumpLog
   @GET
   @Path("/{isbn}")
   @Produces(MediaType.APPLICATION_JSON)

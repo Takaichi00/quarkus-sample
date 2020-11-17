@@ -82,6 +82,7 @@ public class GoogleBooksApiClientImpl implements GoogleBooksApiClient {
     GoogleReadApiResponse googleReadApiResponse = response.readEntity(GoogleReadApiResponse.class);
 
     if (googleReadApiResponse.getTotalItems() == 0) {
+      log.warn("isbn:" + isbn.toString() + " is not founds");
       throw new ApplicationException("isbn:" + isbn.toString() + " is not founds", ErrorCode.ISBN_NOTFOUND);
     }
 

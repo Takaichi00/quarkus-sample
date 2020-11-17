@@ -47,6 +47,7 @@ public class BookmarkV1Controller {
     return bookPayloadList;
   }
 
+  @DumpLog
   @POST
   @Path("/{isbn}")
   public Response registerBookmark(@PathParam String isbn, @Context UriInfo uriInfo) {

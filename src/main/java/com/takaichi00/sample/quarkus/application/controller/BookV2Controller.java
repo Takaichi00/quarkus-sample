@@ -2,9 +2,9 @@ package com.takaichi00.sample.quarkus.application.controller;
 
 import com.takaichi00.sample.quarkus.application.domain.BookMicroProfileService;
 import com.takaichi00.sample.quarkus.application.payload.BookPayload;
+import com.takaichi00.sample.quarkus.common.interceptor.DumpLog;
 import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
-import java.util.Arrays;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -18,6 +18,7 @@ public class BookV2Controller {
   @Inject
   BookMicroProfileService bookMicroProfileService;
 
+  @DumpLog
   @GET
   @Path("/{isbn}")
   @Produces(MediaType.APPLICATION_JSON)
