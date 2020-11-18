@@ -14,6 +14,7 @@
     - [x] [Fault-Tolerance](https://quarkus.io/guides/microprofile-fault-tolerance)
     - [x] Exception Handling and Test
 - [ ] [Logging](https://quarkus.io/guides/logging) → Now
+    - [ ] ErrorCode にメッセージフォーマットをもたせる?
 - [x] Flyway
 - [ ] Integration Test
 - [ ] Native Image Test

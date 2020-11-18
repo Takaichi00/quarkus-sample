@@ -1,6 +1,6 @@
 package com.takaichi00.sample.quarkus.domain.model;
 
-import com.takaichi00.sample.quarkus.common.constant.ErrorCode;
+import com.takaichi00.sample.quarkus.common.constant.Error;
 import com.takaichi00.sample.quarkus.common.exception.ApplicationException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,7 +18,7 @@ public class BookUrl {
     try {
       return new BookUrl(new URL(url));
     } catch (MalformedURLException e) {
-      throw new ApplicationException("url is invalid:" + url, e, ErrorCode.URL_INVALID);
+      throw new ApplicationException("url is invalid:" + url, e, Error.URL_INVALID);
     }
   }
 

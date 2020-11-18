@@ -3,7 +3,7 @@ package com.takaichi00.sample.quarkus.integration.repository;
 import com.ninja_squad.dbsetup.DbSetup;
 import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
 import com.ninja_squad.dbsetup.operation.Operation;
-import com.takaichi00.sample.quarkus.common.constant.ErrorCode;
+import com.takaichi00.sample.quarkus.common.constant.Error;
 import com.takaichi00.sample.quarkus.common.exception.ApplicationException;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import com.takaichi00.sample.quarkus.domain.repository.BookmarkRepository;
@@ -80,7 +80,7 @@ class BookmarkRepositoryImplTest {
 
     // assert
     assertEquals(expected, actual1);
-    assertEquals(ErrorCode.REGISTER_BOOKMARK_IS_FAILED, actual2.getErrorCode());
+    assertEquals(Error.REGISTER_BOOKMARK_IS_FAILED, actual2.getError());
     assertEquals("register bookmark is failed.", actual2.getMessage());
   }
 

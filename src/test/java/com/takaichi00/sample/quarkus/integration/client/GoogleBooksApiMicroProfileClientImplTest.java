@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
-import com.takaichi00.sample.quarkus.common.constant.ErrorCode;
+import com.takaichi00.sample.quarkus.common.constant.Error;
 import com.takaichi00.sample.quarkus.common.exception.ApplicationException;
 import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.BookUrl;
@@ -79,7 +79,7 @@ class GoogleBooksApiMicroProfileClientImplTest {
 
     ApplicationException actual = assertThrows(ApplicationException.class, () -> testTarget.getBook(Isbn.of("9784043636037")));
 
-    assertEquals(ErrorCode.GOOGLE_BOOKS_API_REQUEST_FAILED_BY_MICRO_PROFILE, actual.getErrorCode());
+    assertEquals(Error.GOOGLE_BOOKS_API_REQUEST_FAILED_BY_MICRO_PROFILE, actual.getError());
     assertEquals("Google Books API Request Failed (MicroProfile).", actual.getMessage());
     verify(getRequestedFor(urlEqualTo("/books/v1/volumes?q=isbn%3A9784043636037")));
 

@@ -1,20 +1,20 @@
 package com.takaichi00.sample.quarkus.common.exception;
 
-import com.takaichi00.sample.quarkus.common.constant.ErrorCode;
+import com.takaichi00.sample.quarkus.common.constant.Error;
 import lombok.Getter;
 
 @Getter
 public class ApplicationException extends RuntimeException {
 
-  private final ErrorCode errorCode;
+  private final Error error;
 
-  public ApplicationException(String message, Throwable cause, ErrorCode errorCode) {
+  public ApplicationException(String message, Throwable cause, Error error) {
     super(message, cause);
-    this.errorCode = errorCode;
+    this.error = error;
   }
 
-  public ApplicationException(String message, ErrorCode errorCode) {
+  public ApplicationException(String message, Error error) {
     super(message);
-    this.errorCode = errorCode;
+    this.error = error;
   }
 }

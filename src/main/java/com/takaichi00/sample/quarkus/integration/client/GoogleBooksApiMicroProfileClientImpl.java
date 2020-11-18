@@ -1,6 +1,6 @@
 package com.takaichi00.sample.quarkus.integration.client;
 
-import com.takaichi00.sample.quarkus.common.constant.ErrorCode;
+import com.takaichi00.sample.quarkus.common.constant.Error;
 import com.takaichi00.sample.quarkus.common.exception.ApplicationException;
 import com.takaichi00.sample.quarkus.domain.client.GoogleBooksApiMicroProfileClient;
 import com.takaichi00.sample.quarkus.domain.model.Book;
@@ -25,11 +25,11 @@ public class GoogleBooksApiMicroProfileClientImpl implements GoogleBooksApiMicro
     try {
       result = googleBooksApiClientByMicroProfile.getByIsbn("isbn:" + isbn);
     } catch (TimeoutException e) {
-      throw new ApplicationException("Google Books API Request Failed (MicroProfile).", e, ErrorCode.GOOGLE_BOOKS_API_REQUEST_FAILED_BY_MICRO_PROFILE);
+      throw new ApplicationException("Google Books API Request Failed (MicroProfile).", e, Error.GOOGLE_BOOKS_API_REQUEST_FAILED_BY_MICRO_PROFILE);
     }
 
     if (result.getTotalItems() == 0) {
-      throw new ApplicationException("isbn:" + isbn.toString() + " is not founds", ErrorCode.ISBN_NOTFOUND);
+      throw new ApplicationException("isbn:" + isbn.toString() + " is not founds", Error.ISBN_NOTFOUND);
     }
     return Book.builder()
                .isbn(isbn)
