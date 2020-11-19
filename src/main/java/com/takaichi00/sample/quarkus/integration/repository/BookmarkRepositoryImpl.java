@@ -41,7 +41,7 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
     try {
       entityManager.persist(BookEntity.builder().isbn(isbn.getIsbn().toString()).build());
     } catch (PersistenceException e) {
-      throw new ApplicationException("register bookmark is failed.", e, Error.REGISTER_BOOKMARK_IS_FAILED);
+      throw new ApplicationException(Error.REGISTER_BOOKMARK_IS_FAILED.getErrorMessage(null), e, Error.REGISTER_BOOKMARK_IS_FAILED);
     }
     return isbn;
   }

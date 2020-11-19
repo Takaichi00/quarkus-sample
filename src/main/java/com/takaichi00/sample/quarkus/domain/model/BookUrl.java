@@ -18,7 +18,7 @@ public class BookUrl {
     try {
       return new BookUrl(new URL(url));
     } catch (MalformedURLException e) {
-      throw new ApplicationException("url is invalid:" + url, e, Error.URL_INVALID);
+      throw new ApplicationException(Error.URL_INVALID.getErrorMessage(url), e, Error.URL_INVALID);
     }
   }
 

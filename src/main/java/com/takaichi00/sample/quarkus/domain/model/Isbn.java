@@ -19,7 +19,7 @@ public class Isbn {
 
   public static Isbn of(Long isbn) {
     if (isNull(isbn) || isbn.toString().length() != 13) {
-      throw new ApplicationException("isbn is invalid:" + isbn.toString(), Error.ISBN_INVALID);
+      throw new ApplicationException(Error.ISBN_INVALID.getErrorMessage(isbn.toString()), Error.ISBN_INVALID);
     }
 
     return new Isbn(isbn);
@@ -29,7 +29,7 @@ public class Isbn {
   public static Isbn of(String isbn) {
 
     if (isbn.length() != 13) {
-      throw new ApplicationException("isbn is invalid:" + isbn, Error.ISBN_INVALID);
+      throw new ApplicationException(Error.ISBN_INVALID.getErrorMessage(isbn), Error.ISBN_INVALID);
     }
 
     Long convertedIsbn = null;
@@ -37,7 +37,7 @@ public class Isbn {
     try {
       convertedIsbn = Long.valueOf(isbn);
     } catch (NumberFormatException e) {
-      throw new ApplicationException("isbn is invalid:" + isbn, e, Error.ISBN_INVALID);
+      throw new ApplicationException(Error.ISBN_INVALID.getErrorMessage(isbn), e, Error.ISBN_INVALID);
     }
 
     return new Isbn(convertedIsbn);
