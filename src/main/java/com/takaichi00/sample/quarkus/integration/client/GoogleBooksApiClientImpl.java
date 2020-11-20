@@ -55,8 +55,6 @@ public class GoogleBooksApiClientImpl implements GoogleBooksApiClient {
 
       GoogleReadApiResponse googleReadApiResponse = response.readEntity(GoogleReadApiResponse.class);
 
-      log.debug(googleReadApiResponse.toString());
-
       books.add(
               Book.builder()
                   .isbn(isbn)
