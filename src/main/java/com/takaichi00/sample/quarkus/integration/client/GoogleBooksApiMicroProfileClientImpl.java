@@ -25,7 +25,7 @@ public class GoogleBooksApiMicroProfileClientImpl implements GoogleBooksApiMicro
     try {
       result = googleBooksApiClientByMicroProfile.getByIsbn("isbn:" + isbn);
     } catch (TimeoutException e) {
-      throw new ApplicationException(Error.GOOGLE_BOOKS_API_REQUEST_FAILED_BY_MICRO_PROFILE.getqErrorMessage(null), e, Error.GOOGLE_BOOKS_API_REQUEST_FAILED_BY_MICRO_PROFILE);
+      throw new ApplicationException(Error.GOOGLE_BOOKS_API_REQUEST_FAILED_BY_MICRO_PROFILE.getErrorMessage(null), e, Error.GOOGLE_BOOKS_API_REQUEST_FAILED_BY_MICRO_PROFILE);
     }
 
     if (result.getTotalItems() == 0) {
