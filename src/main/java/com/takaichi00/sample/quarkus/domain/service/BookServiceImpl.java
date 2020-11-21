@@ -38,6 +38,9 @@ public class BookServiceImpl implements BookService {
 
   @Override
   public void registerBook(Isbn isbn) {
+
+    googleBooksApiClient.getBook(isbn);
+
     bookmarkRepository.registerBookmark(isbn);
   }
 }
