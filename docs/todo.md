@@ -16,6 +16,7 @@
 - [ ] [Logging](https://quarkus.io/guides/logging) → Now
     - [x] Dumping Request/Response Json
     - [x] ErrorCode has Message
+    - [x] Client Logging
 - [x] Flyway
 - [ ] Integration Test
 - [ ] Native Image Test
