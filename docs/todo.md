@@ -13,10 +13,9 @@
     - [x] Client Settings
     - [x] [Fault-Tolerance](https://quarkus.io/guides/microprofile-fault-tolerance)
     - [x] Exception Handling and Test
-- [ ] [Logging](https://quarkus.io/guides/logging) → Now
+- [x] [Logging](https://quarkus.io/guides/logging)
     - [x] Dumping Request/Response Json
     - [x] ErrorCode has Message
-    - [ ] Google Books API Client Logging
 - [x] Flyway
 - [ ] Integration Test
 - [ ] Native Image Test
