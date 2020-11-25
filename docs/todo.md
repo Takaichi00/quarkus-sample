@@ -18,6 +18,7 @@
     - [x] ErrorCode has Message
 - [x] Flyway
 - [ ] Integration Test
+    - [ ] coexist IT and NativeImage Test
 - [ ] Native Image Test
 - [ ] Containerizing
 - [ ] Tuning JVM Option 
