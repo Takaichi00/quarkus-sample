@@ -1,6 +1,8 @@
 package com.takaichi00.sample.quarkus.it;
 
 import com.takaichi00.sample.quarkus.application.payload.BookPayload;
+import io.restassured.RestAssured;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -13,27 +15,33 @@ import static org.hamcrest.Matchers.is;
 
 public class BookApiItTemplate {
 
-  @Disabled
+  @BeforeAll
+  static void beforeAll() {
+    RestAssured.baseURI = "http://localhost";
+    RestAssured.port = 8080;
+    RestAssured.basePath = "";
+  }
+
   @Test
   void test_v1booksApi() {
     // setup
     List<BookPayload> expected = Arrays.asList(
             BookPayload.builder()
-                    .isbn("test-isbn")
-                    .title("test-title")
-                    .authors(Arrays.asList("authors1", "authors2"))
+                    .isbn("9784043636037")
+                    .title("アラビアの夜の種族")
+                    .authors(Arrays.asList("古川日出男"))
+                    .url("http://books.google.co.jp/books?id=s4CRHAAACAAJ&dq=isbn:9784043636037&hl=&cd=1&source=gbs_api")
                     .build()
     );
 
 
     // execute
-    List<BookPayload> actual = given()
-            .when()
-            .get("/v1/books")
-            .then()
-            .statusCode(200)
-            .extract()
-            .body().jsonPath().getList(".", BookPayload.class);
+    List<BookPayload> actual = given().when()
+                                        .get("/v1/bookmarks")
+                                      .then()
+                                        .statusCode(200)
+                                      .extract()
+                                        .body().jsonPath().getList(".", BookPayload.class);
 
     // assert
     assertThat(actual, is(expected));
