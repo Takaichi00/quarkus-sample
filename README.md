@@ -32,7 +32,26 @@ mvn verify -Pnative
 mvn test
 ```
 
-- Testing an existing native executable
+### Testing an existing native executable
+
+- Start MySQL docker container
+```
+cd quarkus-sample/local-environment
+docker-compose up -d
+```
+
+- Create table
+```
+cd ../
+mvn flyway:clean flyway:migrate
+```
+
+- Native Image Compile
+```
+mvn verify -Pnative
+```
+
+- Execute Integration Test to executable native image
 ```
 mvn test-compile failsafe:integration-test
 ```
