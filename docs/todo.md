@@ -17,9 +17,9 @@
     - [x] Dumping Request/Response Json
     - [x] ErrorCode has Message
 - [x] Flyway
-- [ ] Integration Test
-    - [x] Native Image Test
+- [x] Native Image Test
 - [ ] Containerizing
+- [ ] Integration Test
 - [ ] Tuning JVM Option 
 - [ ] Feature Flag
 - [ ] Javadoc

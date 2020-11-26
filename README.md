@@ -32,7 +32,7 @@ mvn verify -Pnative
 mvn test
 ```
 
-### Testing an existing native executable
+### Testing native image
 
 - Start MySQL docker container
 ```
