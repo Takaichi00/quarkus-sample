@@ -2,28 +2,38 @@
 Implementing sample API following [Quarkus getting started](https://quarkus.io/get-started/).
 
 # How to use
-- start MySQL DB with docker
+- Start MySQL DB with docker
 ```
 cd quarkus-sample/local-environment
 docker-compose up -d
 ```
 
-- create table
+- Create table
 ```
 cd quarkus-sample
 mvn flyway:migrate
 ```
  
-- run application dev mode
+- Run application dev mode
 ```
 mvn compile quarkus:dev
 ```
 
-- create native image
+- Create the native image
     - Setting your terminal by [Official Document](https://quarkus.io/guides/building-native-image)
     - run this command
  ```
 mvn verify -Pnative
+```
+
+- Create the native image for Linux (https://quarkus.io/guides/building-native-image#container-runtime)
+```
+mvn clean package -Pnative -Dnative-image.docker-build=true
+``` 
+
+- Create docker image with native image 
+```
+mvn package -Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true
 ```
 
 ## Testing

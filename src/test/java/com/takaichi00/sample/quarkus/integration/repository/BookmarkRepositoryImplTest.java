@@ -37,7 +37,7 @@ class BookmarkRepositoryImplTest {
   @BeforeEach
   void setUp() {
     Operation operation = sequenceOf(DELETE_ALL, INSERT_BOOKS);
-    DbSetup dbSetup = new DbSetup(new DriverManagerDestination("jdbc:h2:mem:test;MODE=MYSQL;DB_CLOSE_DELAY=-1", "testuser", "testpass"), operation);
+    DbSetup dbSetup = new DbSetup(new DriverManagerDestination("jdbc:mysql://127.0.0.1:3306/test_database", "docker", "docker"), operation);
     dbSetup.launch();
   }
 
