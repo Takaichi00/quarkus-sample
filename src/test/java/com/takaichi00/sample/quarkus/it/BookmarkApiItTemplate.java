@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static com.ninja_squad.dbsetup.Operations.deleteAllFrom;
 import static com.ninja_squad.dbsetup.Operations.insertInto;
@@ -17,12 +18,13 @@ import static com.ninja_squad.dbsetup.Operations.sequenceOf;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BookApiItTemplate {
+public class BookmarkApiItTemplate {
 
   public static final Operation DELETE_ALL = deleteAllFrom("books");
   public static final Operation INSERT_BOOKS = insertInto("books").columns("id", "isbn")
                                                                         .values(1, "9784043636037")
                                                                         .build();
+
 
   @BeforeAll
   static void beforeAll() {
@@ -39,22 +41,25 @@ public class BookApiItTemplate {
   }
 
   @Test
-  void test_v1BooksApi() {
+  void test_v1booksApi() {
     // setup
-    BookPayload expected = BookPayload.builder().isbn("9784043636037")
-                                                .title("アラビアの夜の種族")
-                                                .authors(Arrays.asList("古川日出男"))
-                                                .url("http://books.google.co.jp/books?id=s4CRHAAACAAJ&dq=isbn:9784043636037&hl=&cd=1&source=gbs_api")
-                                                .build();
+    List<BookPayload> expected = Arrays.asList(
+            BookPayload.builder()
+                    .isbn("9784043636037")
+                    .title("アラビアの夜の種族")
+                    .authors(Arrays.asList("古川日出男"))
+                    .url("http://books.google.co.jp/books?id=s4CRHAAACAAJ&dq=isbn:9784043636037&hl=&cd=1&source=gbs_api")
+                    .build()
+    );
+
 
     // execute
-    BookPayload actual = given().when()
-                                  .pathParam("isbn", "9784043636037")
-                                  .get("/v1/books/{isbn}")
-                                .then()
-                                  .statusCode(200)
-                                .extract()
-                                  .body().jsonPath().getObject(".", BookPayload.class);
+    List<BookPayload> actual = given().when()
+                                        .get("/v1/bookmarks")
+                                      .then()
+                                        .statusCode(200)
+                                      .extract()
+                                        .body().jsonPath().getList(".", BookPayload.class);
 
     // assert
     assertEquals(expected, actual);

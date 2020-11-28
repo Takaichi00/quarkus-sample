@@ -17,7 +17,10 @@
     - [x] Dumping Request/Response Json
     - [x] ErrorCode has Message
 - [x] Flyway
-- [x] Native Image Test
+- [ ] Native Image Test
+    - [x] RestAssured Testing
+    - [ ] DbSetup
+    - [ ] Wiremock
 - [ ] Containerizing
     - [x] native image for Linux
     - [ ] create application docker image 
