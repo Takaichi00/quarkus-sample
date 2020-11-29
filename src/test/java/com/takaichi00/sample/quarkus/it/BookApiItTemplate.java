@@ -1,42 +1,14 @@
 package com.takaichi00.sample.quarkus.it;
 
-import com.ninja_squad.dbsetup.DbSetup;
-import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
-import com.ninja_squad.dbsetup.operation.Operation;
-import com.takaichi00.sample.quarkus.application.payload.BookPayload;
-import io.restassured.RestAssured;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
-
-import static com.ninja_squad.dbsetup.Operations.deleteAllFrom;
-import static com.ninja_squad.dbsetup.Operations.insertInto;
-import static com.ninja_squad.dbsetup.Operations.sequenceOf;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BookApiItTemplate {
+import com.takaichi00.sample.quarkus.application.payload.BookPayload;
+import java.util.Arrays;
+import org.junit.jupiter.api.Test;
 
-  public static final Operation DELETE_ALL = deleteAllFrom("books");
-  public static final Operation INSERT_BOOKS = insertInto("books").columns("id", "isbn")
-                                                                        .values(1, "9784043636037")
-                                                                        .build();
+public class BookApiItTemplate extends IntegrationTestTemplate {
 
-  @BeforeAll
-  static void beforeAll() {
-    RestAssured.baseURI = "http://localhost";
-    RestAssured.port = 8080;
-    RestAssured.basePath = "";
-  }
-
-  @BeforeEach
-  void beforeEach() {
-    Operation operation = sequenceOf(DELETE_ALL, INSERT_BOOKS);
-    DbSetup dbSetup = new DbSetup(new DriverManagerDestination("jdbc:mysql://127.0.0.1:3306/test_database", "docker", "docker"), operation);
-    dbSetup.launch();
-  }
 
   @Test
   void test_v1BooksApi() {
