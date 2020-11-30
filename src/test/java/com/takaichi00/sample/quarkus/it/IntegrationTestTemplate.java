@@ -15,14 +15,14 @@ public class IntegrationTestTemplate {
 
   public static final Operation DELETE_ALL = deleteAllFrom("books");
   public static final Operation INSERT_BOOKS = insertInto("books").columns("id", "isbn")
-    .values(1, "9784043636037")
-    .build();
+                                                                        .values(1, "9784043636037")
+                                                                        .build();
 
   @BeforeAll
   static void beforeAll() {
-    RestAssured.baseURI = "http://localhost";
-    RestAssured.port = 8080;
-    RestAssured.basePath = "";
+    RestAssured.baseURI = System.getProperty("it.quarkus.url", "http://localhost");
+    RestAssured.port = Integer.getInteger("it.quarkus.port", 8080);;
+    RestAssured.basePath = System.getProperty("it.quarkus.base.path", "");;
   }
 
   @BeforeEach
