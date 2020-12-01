@@ -11,15 +11,15 @@ import org.junit.jupiter.api.Test;
 public class BookmarkApiItTemplate extends IntegrationTestTemplate {
 
   @Test
-  void test_v1booksApi() {
+  void test_v1GetBookmarksApi() {
     // setup
     List<BookPayload> expected = Arrays.asList(
             BookPayload.builder()
-                    .isbn("9784043636037")
-                    .title("アラビアの夜の種族")
-                    .authors(Arrays.asList("古川日出男"))
-                    .url("http://books.google.co.jp/books?id=s4CRHAAACAAJ&dq=isbn:9784043636037&hl=&cd=1&source=gbs_api")
-                    .build()
+                       .isbn("9784043636037")
+                       .title("アラビアの夜の種族")
+                       .authors(Arrays.asList("古川日出男"))
+                       .url("http://books.google.co.jp/books?id=s4CRHAAACAAJ&dq=isbn:9784043636037&hl=&cd=1&source=gbs_api")
+                       .build()
     );
 
 
@@ -34,4 +34,15 @@ public class BookmarkApiItTemplate extends IntegrationTestTemplate {
     // assert
     assertEquals(expected, actual);
   }
+
+  @Test
+  void test_v1RegisterBookmarkApi() {
+    // execute
+    given().when()
+             .pathParam("isbn", "9784865942248")
+             .post("/v1/bookmarks/{isbn}")
+           .then()
+             .statusCode(201);
+  }
+
 }
