@@ -21,7 +21,7 @@ public class IntegrationTestTemplate {
   public static final Operation INSERT_BOOKS = insertInto("books").columns("id", "isbn")
                                                                         .values(1, "9784043636037")
                                                                         .build();
-  private static WireMockServer wireMock = new WireMockServer(options().port(18080));
+  protected static WireMockServer wireMock = new WireMockServer(options().port(18080));
 
   @BeforeAll
   static void beforeAll() {
