@@ -8,6 +8,7 @@ import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -54,6 +55,14 @@ public class BookmarkV1Controller {
     bookService.registerBook(Isbn.of(isbn));
     UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
     return Response.created(uriBuilder.build()).build();
+  }
+
+  @DumpLog
+  @DELETE
+  @Path("/{isbn}")
+  public Response deleteBookmark(@PathParam String isbn) {
+//    bookService.registerBook(Isbn.of(isbn));
+    return Response.noContent().build();
   }
 
 }

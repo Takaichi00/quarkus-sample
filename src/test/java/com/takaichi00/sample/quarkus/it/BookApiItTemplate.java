@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.takaichi00.sample.quarkus.application.payload.BookPayload;
 
-import java.io.IOException;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 

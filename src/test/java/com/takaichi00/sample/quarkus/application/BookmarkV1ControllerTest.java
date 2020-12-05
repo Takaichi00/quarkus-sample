@@ -85,7 +85,6 @@ class BookmarkV1ControllerTest {
 
   @Test
   void test_registerBookmark() {
-
     // execute & assert
     given()
       .when()
@@ -94,6 +93,16 @@ class BookmarkV1ControllerTest {
       .then()
         .statusCode(201);
 //        .header("Location:", "http://localhost:8080/v1/bookmarks/1234567890123");
+  }
+
+  @Test
+  void test_deleteBookmark() {
+    given()
+      .when()
+        .pathParam("isbn", "1234567890123")
+      .delete("/v1/bookmarks/{isbn}")
+        .then()
+        .statusCode(204);
   }
 
 }
