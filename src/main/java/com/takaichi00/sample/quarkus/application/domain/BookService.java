@@ -12,4 +12,5 @@ public interface BookService {
 
   void registerBook(Isbn isbn);
 
+  void deleteBookmark(Isbn of);
 }

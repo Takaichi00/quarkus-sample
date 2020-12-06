@@ -6,4 +6,5 @@ import java.util.List;
 public interface BookmarkRepository {
   List<Isbn> getAllIsbn();
   Isbn registerBookmark(Isbn isbn);
+  void deleteBookmark(Isbn isbn);
 }

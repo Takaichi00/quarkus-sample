@@ -43,4 +43,9 @@ public class BookServiceImpl implements BookService {
 
     bookmarkRepository.registerBookmark(isbn);
   }
+
+  @Override
+  public void deleteBookmark(Isbn isbn) {
+    bookmarkRepository.deleteBookmark(isbn);
+  }
 }

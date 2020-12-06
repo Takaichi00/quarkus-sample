@@ -39,4 +39,9 @@ public class MockBookService implements BookService {
 
   }
 
+  @Override
+  public void deleteBookmark(Isbn of) {
+
+  }
+
 }

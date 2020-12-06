@@ -45,4 +45,9 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
     }
     return isbn;
   }
+
+  @Override
+  public void deleteBookmark(Isbn isbn) {
+    entityManager.remove(BookEntity.builder().isbn(isbn.getIsbn().toString()).build());
+  }
 }

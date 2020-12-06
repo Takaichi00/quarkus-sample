@@ -61,7 +61,7 @@ public class BookmarkV1Controller {
   @DELETE
   @Path("/{isbn}")
   public Response deleteBookmark(@PathParam String isbn) {
-//    bookService.registerBook(Isbn.of(isbn));
+    bookService.deleteBookmark(Isbn.of(isbn));
     return Response.noContent().build();
   }
 
