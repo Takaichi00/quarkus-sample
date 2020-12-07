@@ -26,7 +26,7 @@ class BookServiceImplTest {
   BookmarkRepository mockBookmarkRepository;
 
   @Mock
-  GoogleBooksApiClient googleBooksApiClient;
+  GoogleBooksApiClient mockGoogleBooksApiClient;
 
   @BeforeEach
   void setUp() {
@@ -58,7 +58,7 @@ class BookServiceImplTest {
     );
 
     when(mockBookmarkRepository.getAllIsbn()).thenReturn(mockReturnIsbnList);
-    when(googleBooksApiClient.getAllBooks(mockReturnIsbnList)).thenReturn(mockReturnBooks);
+    when(mockGoogleBooksApiClient.getAllBooks(mockReturnIsbnList)).thenReturn(mockReturnBooks);
 
     // execute
     List<Book> actual = target.getAllBookmarks();
@@ -66,7 +66,7 @@ class BookServiceImplTest {
     // assert
     assertEquals(expected, actual);
     verify(mockBookmarkRepository, times(1)).getAllIsbn();
-    verify(googleBooksApiClient, times(1)).getAllBooks(mockReturnIsbnList);
+    verify(mockGoogleBooksApiClient, times(1)).getAllBooks(mockReturnIsbnList);
   }
 
   @Test
@@ -84,14 +84,25 @@ class BookServiceImplTest {
             .authors(Arrays.asList("authors1", "authors2"))
             .build();
 
-    when(googleBooksApiClient.getBook(Isbn.of(1234567890123L))).thenReturn(mockReturn);
+    when(mockGoogleBooksApiClient.getBook(Isbn.of(1234567890123L))).thenReturn(mockReturn);
 
     // execute
     Book actual = target.searchBook(Isbn.of(1234567890123L));
 
     // assert
     assertEquals(expected, actual);
-    verify(googleBooksApiClient, times(1)).getBook(Isbn.of(1234567890123L));
+    verify(mockGoogleBooksApiClient, times(1)).getBook(Isbn.of(1234567890123L));
+  }
+
+  @Test
+  void test_registerBookmark() {
+
+    // execute
+    target.registerBook(Isbn.of(1234567890123L));
+
+    // assert
+    verify(mockGoogleBooksApiClient, times(1)).getBook(Isbn.of(1234567890123L));
+    verify(mockBookmarkRepository, times(1)).registerBookmark(Isbn.of(1234567890123L));
   }
 
 }
