@@ -11,6 +11,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -24,7 +25,8 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
   @Transactional
   public List<Isbn> getAllIsbn() {
 
-    TypedQuery<BookEntity> query = entityManager.createQuery("From BookEntity", BookEntity.class);
+    TypedQuery<BookEntity> query =
+      entityManager.createQuery("FROM BookEntity", BookEntity.class);
     List<BookEntity> bookEntities = query.getResultList();
 
     List<Isbn> isbnList = new ArrayList<>();
@@ -41,13 +43,20 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
     try {
       entityManager.persist(BookEntity.builder().isbn(isbn.getIsbn().toString()).build());
     } catch (PersistenceException e) {
-      throw new ApplicationException(Error.REGISTER_BOOKMARK_IS_FAILED.getErrorMessage(null), e, Error.REGISTER_BOOKMARK_IS_FAILED);
+      throw new ApplicationException(
+        Error.REGISTER_BOOKMARK_IS_FAILED.getErrorMessage(null),
+        e,
+        Error.REGISTER_BOOKMARK_IS_FAILED
+      );
     }
     return isbn;
   }
 
   @Override
+  @Transactional
   public void deleteBookmark(Isbn isbn) {
-    entityManager.remove(BookEntity.builder().isbn(isbn.getIsbn().toString()).build());
+    Query query = entityManager.createQuery("DELETE FROM BookEntity WHERE isbn = :isbn")
+                               .setParameter("isbn", isbn.toString());
+    query.executeUpdate();
   }
 }

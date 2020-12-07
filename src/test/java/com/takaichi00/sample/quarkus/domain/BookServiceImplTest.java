@@ -96,7 +96,6 @@ class BookServiceImplTest {
 
   @Test
   void test_registerBookmark() {
-
     // execute
     target.registerBook(Isbn.of(1234567890123L));
 
@@ -105,4 +104,12 @@ class BookServiceImplTest {
     verify(mockBookmarkRepository, times(1)).registerBookmark(Isbn.of(1234567890123L));
   }
 
+  @Test
+  void test_deleteBookmark() {
+    // execute
+    target.deleteBookmark(Isbn.of(1234567890123L));
+
+    // setup
+    verify(mockBookmarkRepository, times(1)).deleteBookmark(Isbn.of(1234567890123L));
+  }
 }

@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -82,6 +83,19 @@ class BookmarkRepositoryImplTest {
     assertEquals(expected, actual1);
     assertEquals(Error.REGISTER_BOOKMARK_IS_FAILED, actual2.getError());
     assertEquals("register bookmark is failed.", actual2.getMessage());
+  }
+
+  @Test
+  void deleteIsbn() {
+    // setup
+    List<Isbn> expected = new ArrayList<>();
+
+    // execute
+    bookmarkRepository.deleteBookmark(Isbn.of("1234567890123"));
+
+    // assert
+    List<Isbn> actual = bookmarkRepository.getAllIsbn();
+    assertEquals(expected, actual);
   }
 
 }
