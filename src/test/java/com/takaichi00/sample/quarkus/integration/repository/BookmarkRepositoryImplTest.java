@@ -77,12 +77,12 @@ class BookmarkRepositoryImplTest {
 
     // execute
     Isbn actual1 = bookmarkRepository.registerBookmark(Isbn.of("1234567890124"));
-    ApplicationException actual2 = assertThrows(ApplicationException.class, () -> bookmarkRepository.registerBookmark(Isbn.of("1234567890124")));
+    ApplicationException actual2 = assertThrows(ApplicationException.class,
+      () -> bookmarkRepository.registerBookmark(Isbn.of("1234567890124")));
 
     // assert
     assertEquals(expected, actual1);
     assertEquals(Error.REGISTER_BOOKMARK_IS_FAILED, actual2.getError());
-    assertEquals("register bookmark is failed.", actual2.getMessage());
   }
 
   @Test
@@ -96,6 +96,16 @@ class BookmarkRepositoryImplTest {
     // assert
     List<Isbn> actual = bookmarkRepository.getAllIsbn();
     assertEquals(expected, actual);
+  }
+
+  @Test
+  void deleteNotExistIsbn() {
+    // execute
+    ApplicationException actual = assertThrows(ApplicationException.class,
+      () -> bookmarkRepository.deleteBookmark(Isbn.of("1234567890000")));
+
+    // assert
+    assertEquals(Error.DELETE_BOOKMARK_IS_FAILED, actual.getError());
   }
 
 }

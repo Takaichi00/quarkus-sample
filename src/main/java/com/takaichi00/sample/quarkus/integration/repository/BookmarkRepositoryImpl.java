@@ -10,6 +10,7 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -25,8 +26,9 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
   @Transactional
   public List<Isbn> getAllIsbn() {
 
-    TypedQuery<BookEntity> query =
-      entityManager.createQuery("FROM BookEntity", BookEntity.class);
+    TypedQuery<BookEntity> query
+      = entityManager.createQuery("FROM BookEntity", BookEntity.class);
+
     List<BookEntity> bookEntities = query.getResultList();
 
     List<Isbn> isbnList = new ArrayList<>();
@@ -55,8 +57,21 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
   @Override
   @Transactional
   public void deleteBookmark(Isbn isbn) {
-    Query query = entityManager.createQuery("DELETE FROM BookEntity WHERE isbn = :isbn")
-                               .setParameter("isbn", isbn.toString());
-    query.executeUpdate();
+    TypedQuery<BookEntity> query1
+      = entityManager.createQuery("FROM BookEntity WHERE isbn = :isbn", BookEntity.class)
+                   .setParameter("isbn", isbn.toString());
+
+    BookEntity bookEntity;
+    try {
+      bookEntity = query1.getSingleResult();
+    } catch (NoResultException e) {
+      throw new ApplicationException(Error.DELETE_BOOKMARK_IS_FAILED.getErrorMessage(null),
+        e,
+        Error.DELETE_BOOKMARK_IS_FAILED);
+    }
+
+    Query query2 = entityManager.createQuery("DELETE FROM BookEntity WHERE isbn = :isbn")
+                               .setParameter("isbn", bookEntity.getIsbn());
+    query2.executeUpdate();
   }
 }

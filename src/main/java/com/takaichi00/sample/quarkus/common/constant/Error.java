@@ -5,7 +5,8 @@ public enum Error {
   URL_INVALID("0002", "url %s is invalid:"),
   ISBN_NOTFOUND("0003", "isbn %s is not found"),
   REGISTER_BOOKMARK_IS_FAILED("0004", "register bookmark is failed."),
-  GOOGLE_BOOKS_API_REQUEST_FAILED_BY_MICRO_PROFILE("0005", "Google Books API Request Failed (MicroProfile).");
+  GOOGLE_BOOKS_API_REQUEST_FAILED_BY_MICRO_PROFILE("0005", "Google Books API Request Failed (MicroProfile)."),
+  DELETE_BOOKMARK_IS_FAILED("0005", "delete bookmark is failed.");
 
   private static final String PRE_STRING = "QUARKUS_SAMPLE";
 
