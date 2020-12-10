@@ -27,7 +27,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 public class GoogleBooksApiClientImpl implements GoogleBooksApiClient {
 
   @ConfigProperty(name = "google.book.api.endpoint")
-  private String apiEndpoint;
+  String apiEndpoint;
 
   private Client client;
 
