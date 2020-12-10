@@ -63,7 +63,7 @@ mvn verify -Pnative
 
 - Execute Integration Test to executable native image
 ```
-mvn test-compile failsafe:integration-test
+QUARKUS_PROFILE=it-local bash -c 'mvn test-compile failsafe:integration-test'
 ```
 
 ## Profile
