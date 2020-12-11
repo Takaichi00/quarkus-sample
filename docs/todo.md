@@ -3,8 +3,7 @@
 ## Main
 - [x] Configuration Profiles
     - https://quarkus.io/guides/config#configuration-profiles
-- [x] Quarkus version up
-    - [x] 1.9.2.Final
+- [x] Quarkus version up (1.10.3Final Now)
 - [x] Error Handling
     - [x] Error Testing
 - [x] MicroProfile Client (https://download.eclipse.org/microprofile/microprofile-rest-client-1.2.1/microprofile-rest-client-1.2.1.html)
@@ -17,10 +16,10 @@
     - [x] Dumping Request/Response Json
     - [x] ErrorCode has Message
 - [x] Flyway
-- [ ] Native Image Test
+- [x] Native Image Test
     - [x] RestAssured Testing
-    - [ ] DbSetup
-    - [ ] Wiremock
+    - [x] DbSetup
+    - [x] Wiremock
 - [ ] Containerizing
     - [x] native image for Linux
     - [ ] create application docker image 

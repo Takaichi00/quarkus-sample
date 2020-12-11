@@ -10,8 +10,8 @@ public enum Error {
 
   private static final String PRE_STRING = "QUARKUS_SAMPLE";
 
-  private String errorCode;
-  private String message;
+  private final String errorCode;
+  private final String message;
 
   private Error(String code, String message) {
     this.errorCode = code;

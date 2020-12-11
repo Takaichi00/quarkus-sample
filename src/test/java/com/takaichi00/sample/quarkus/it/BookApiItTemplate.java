@@ -10,12 +10,10 @@ import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.takaichi00.sample.quarkus.application.payload.BookPayload;
-
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 public class BookApiItTemplate extends IntegrationTestTemplate {
-
 
   @Test
   void test_v1GetBooksApi() throws Exception {

@@ -10,7 +10,6 @@ import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.takaichi00.sample.quarkus.application.payload.BookPayload;
-
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -33,7 +32,6 @@ public class BookmarkApiItTemplate extends IntegrationTestTemplate {
                        .url("http://books.google.co.jp/books?id=s4CRHAAACAAJ&dq=isbn:9784043636037&hl=&cd=1&source=gbs_api")
                        .build()
     );
-
 
     // execute
     List<BookPayload> actual = given().when()
@@ -65,5 +63,4 @@ public class BookmarkApiItTemplate extends IntegrationTestTemplate {
 
     verify(getRequestedFor(urlEqualTo("/books/v1/volumes?q=isbn%3A9784865942248")));
   }
-
 }

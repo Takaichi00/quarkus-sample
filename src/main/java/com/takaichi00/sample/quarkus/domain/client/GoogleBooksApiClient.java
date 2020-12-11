@@ -5,7 +5,6 @@ import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import java.util.List;
 
 public interface GoogleBooksApiClient {
-
   List<Book> getAllBooks(List<Isbn> isbnList);
 
   Book getBook(Isbn isbn);
