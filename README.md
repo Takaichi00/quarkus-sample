@@ -31,10 +31,14 @@ mvn verify -Pnative
 mvn clean package -Pnative -Dnative-image.docker-build=true
 ``` 
 
-- Create docker image with native image 
+- Create docker image with native image
+   
 ```
 mvn package -Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true
 ```
+
+※ If OOM Error occurred, you should set "Limit the resource available to Docker Engine"  
+![docker-setting](https://miro.medium.com/max/4800/1*mXAD66LClH0Bry5vVNekzA.png)
 
 ## Testing
 - Unit Test
