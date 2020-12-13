@@ -151,6 +151,13 @@ java.lang.RuntimeException: java.lang.RuntimeException: io.quarkus.builder.Build
  - 例えば `volumes` の Path を `volumesaaa` のように間違えると、@RegisterClient をつけた Client が 404 Error を返却するのではなく、@RegisterClient を Inject しているエンドポイントを定義するメソッドそのものが 404 Not Found となってしまう。
  - 本来ならエンドポイント自体は機能しているので、404 Not Found ではなく 500系のエラーを返してほしいところ
 
+## コンテナ化
+- 最初からある Dockerfile.native のイメージは `registry.access.redhat.com/ubi8/ubi-minimal:8.1` で、267MB ほど
+- ubuntu:18.04 のベースイメージを使うと 223MB ほど
+- alpine でも実施してみたが `error while loading shared libraries: libstdc++.so.6` が発生。以下参考。
+    - https://github.com/quarkusio/quarkus-images/issues/61
+ 
+
 # アーキテクチャメモ
 ## 凹型レイヤー
 ### Pro
