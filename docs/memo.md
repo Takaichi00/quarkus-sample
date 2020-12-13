@@ -155,6 +155,7 @@ java.lang.RuntimeException: java.lang.RuntimeException: io.quarkus.builder.Build
 - 最初からある Dockerfile.native のイメージは `registry.access.redhat.com/ubi8/ubi-minimal:8.1` で、267MB ほど
 - ubuntu:18.04 のベースイメージを使うと 223MB ほど
 - alpine でも実施してみたが `error while loading shared libraries: libstdc++.so.6` が発生。以下参考。
+    - https://github.com/quarkusio/quarkus/issues/4647
     - https://github.com/quarkusio/quarkus-images/issues/61
  
 
