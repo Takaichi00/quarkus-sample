@@ -20,23 +20,22 @@
     - [x] RestAssured Testing
     - [x] DbSetup
     - [x] Wiremock
-- [ ] Containerizing
+- [x] Containerizing
     - [x] native image for Linux
     - [x] create application docker image 
         - https://quarkus.io/guides/building-native-image#container-runtime
         - https://medium.com/@kenta.kosugi/quarkus-%E3%81%A7%E4%BD%9C%E3%82%8B%E7%88%86%E9%80%9F-java-micro-service-2-4ba8596319e8
+- [ ] JFR
+- [ ] Swagger (Open API)
+- [ ] Performance Test
+- [ ] Micrometer + Prometeus + Grafana (https://yuya-hirooka.hatenablog.com/entry/2020/11/04/232853)
+- [ ] gRPC (https://www.google.com/amp/s/rheb.hatenablog.com/entry/quarkus_grpc%3Famp%3D1)
 - [ ] Integration Test
+- [ ] Reactive (https://github.com/yoshioterada/Reactive-Java-CosmosDB-On-Quarkus)
 - [ ] Tuning JVM Option 
 - [ ] Feature Flag
 - [ ] Javadoc
-- [ ] Swagger (Open API)
-- [ ] JFR
-- [ ] Performance Test
-- [ ] gRPC (https://www.google.com/amp/s/rheb.hatenablog.com/entry/quarkus_grpc%3Famp%3D1)
-- [ ] Micrometer + Prometeus + Grafana (https://yuya-hirooka.hatenablog.com/entry/2020/11/04/232853)
-- [ ] Reactive (https://github.com/yoshioterada/Reactive-Java-CosmosDB-On-Quarkus)
 
 ## Sub
 - [x] Fix `BookRepositoryImplTest` and `GoogleBooksApiClientImplTest`
 - [ ] Assert Location Header `BookmarkControllerTest.test_registerBookmark()`
-- [ ] Validation when eegister bookmark

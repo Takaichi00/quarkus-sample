@@ -156,7 +156,12 @@ java.lang.RuntimeException: java.lang.RuntimeException: io.quarkus.builder.Build
 - ubuntu:18.04 のベースイメージを使うと 223MB ほど
 - alpine でも実施してみたが `error while loading shared libraries: libstdc++.so.6` が発生。以下参考。
     - https://github.com/quarkusio/quarkus/issues/4647
+        - native image の実行には glibc が必要
+    - https://www.labohyt.net/blog/server/post-3309/
+        - こちらのサイトを参考に Dockerfile に設定を追加
+        - しかし `./application: error while loading shared libraries: libstdc++.so.6: cannot open shared object file: No such file or directory` というエラーが発生。
     - https://github.com/quarkusio/quarkus-images/issues/61
+    - https://qiita.com/MiCHiLU/items/1e80a5325b2746eaf2d4 によれば、source から build が必要のよう。断念。
  
 
 # アーキテクチャメモ
