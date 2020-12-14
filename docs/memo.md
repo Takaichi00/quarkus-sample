@@ -162,7 +162,15 @@ java.lang.RuntimeException: java.lang.RuntimeException: io.quarkus.builder.Build
         - しかし `./application: error while loading shared libraries: libstdc++.so.6: cannot open shared object file: No such file or directory` というエラーが発生。
     - https://github.com/quarkusio/quarkus-images/issues/61
     - https://qiita.com/MiCHiLU/items/1e80a5325b2746eaf2d4 によれば、source から build が必要のよう。断念。
- 
+
+# JFR
+## 参考文献
+- [最初の1リクエスト目で何をしているのか？](https://b.chiroito.dev/entry/2020/09/20/212719)
+- [Quarkus で JFR Event Streaming](https://b.chiroito.dev/entry/2020/05/28/185832)
+- [JITとコードの暖気の実体](https://b.chiroito.dev/entry/2020/09/18/221458)
+- [Rediness Probeでアプリケーションが十分にJITされたことを検知する](https://b.chiroito.dev/entry/2020/09/19/225533)
+- [Java Mission Control の紹介 (JMC)](https://docs.oracle.com/javase/jp/7/technotes/guides/jmc/intro.html)
+- [パフォーマンスのトラブルシュート入門](https://speakerdeck.com/chiroito/getting-started-performance-troubleshoot)
 
 # アーキテクチャメモ
 ## 凹型レイヤー
