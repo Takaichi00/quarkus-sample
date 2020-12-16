@@ -171,6 +171,24 @@ java.lang.RuntimeException: java.lang.RuntimeException: io.quarkus.builder.Build
 - [Rediness Probeでアプリケーションが十分にJITされたことを検知する](https://b.chiroito.dev/entry/2020/09/19/225533)
 - [Java Mission Control の紹介 (JMC)](https://docs.oracle.com/javase/jp/7/technotes/guides/jmc/intro.html)
 - [パフォーマンスのトラブルシュート入門](https://speakerdeck.com/chiroito/getting-started-performance-troubleshoot)
+- [Java 11のFlight Recorderを試す](https://matsumana.info/blog/2018/10/16/jdk11-flight-recorder/)
+- [JFR に関する情報がまとまった gitbook ページ](https://koduki.github.io/docs/book-introduction-of-jfr/site/)
+
+## 実行メモ
+- 実行時に `-XX:StartFlightRecording` をつける
+    - [Java 11のFlight Recorderを試す](https://matsumana.info/blog/2018/10/16/jdk11-flight-recorder/)
+```
+mvn clean package -DskipTests=true
+java -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar -XX:StartFlightRecording
+```
+- `jmc` コマンドを実行しようとしたが、`$JAVA_HOME` に jmc コマンドがない
+    - [1.4 JFRの動作環境とJMCのインストール](https://koduki.github.io/docs/book-introduction-of-jfr/site/01/04-install_jmc.html)を参考に、docker で起動してみる
+```
+git clone https://github.com/openjdk/jmc.git
+cd jmc
+docker-compose -f docker/docker-compose.yml run jmc
+```
+
 
 # アーキテクチャメモ
 ## 凹型レイヤー
