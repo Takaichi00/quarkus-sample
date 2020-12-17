@@ -5,7 +5,6 @@ import com.takaichi00.sample.quarkus.application.domain.BookService;
 import com.takaichi00.sample.quarkus.domain.model.BookUrl;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import io.quarkus.test.Mock;
-
 import java.util.Arrays;
 import java.util.List;
 

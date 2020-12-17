@@ -1,5 +1,15 @@
 package com.takaichi00.sample.quarkus.integration.client;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.verify;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
+import static com.takaichi00.sample.quarkus.TestUtils.readMockResponseFile;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.takaichi00.sample.quarkus.common.constant.Error;
@@ -8,26 +18,12 @@ import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.BookUrl;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
 import io.quarkus.test.junit.QuarkusTest;
-import org.apache.commons.io.IOUtils;
+import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import javax.inject.Inject;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.List;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
-import static com.github.tomakehurst.wiremock.client.WireMock.verify;
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @QuarkusTest
 class GoogleBooksApiClientImplTest {
@@ -119,12 +115,4 @@ class GoogleBooksApiClientImplTest {
 
     verify(getRequestedFor(urlEqualTo("/books/v1/volumes?q=isbn%3A9781111111111")));
   }
-
-
-  private static String readMockResponseFile(String filename) throws IOException {
-    try (FileInputStream input = new FileInputStream("src/test/resources/__files/" + filename)) {
-      return IOUtils.toString(input, StandardCharsets.UTF_8);
-    }
-  }
-
 }

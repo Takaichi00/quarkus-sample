@@ -6,6 +6,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
+import static com.takaichi00.sample.quarkus.TestUtils.readMockResponseFile;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
@@ -83,11 +84,5 @@ class GoogleBooksApiMicroProfileClientImplTest {
     assertEquals("Google Books API Request Failed (MicroProfile).", actual.getMessage());
     verify(getRequestedFor(urlEqualTo("/books/v1/volumes?q=isbn%3A9784043636037")));
 
-  }
-
-  private static String readMockResponseFile(String filename) throws IOException {
-    try (FileInputStream input = new FileInputStream("src/test/resources/__files/" + filename)) {
-      return IOUtils.toString(input, StandardCharsets.UTF_8);
-    }
   }
 }

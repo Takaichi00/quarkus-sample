@@ -1,10 +1,9 @@
 package com.takaichi00.sample.quarkus;
 
-import org.apache.commons.io.IOUtils;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import org.apache.commons.io.IOUtils;
 
 public class TestUtils {
 

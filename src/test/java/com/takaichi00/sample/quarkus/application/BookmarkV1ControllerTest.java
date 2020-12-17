@@ -3,10 +3,9 @@ package com.takaichi00.sample.quarkus.application;
 import com.takaichi00.sample.quarkus.application.payload.BookPayload;
 import com.takaichi00.sample.quarkus.application.payload.ErrorPayload;
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 import java.util.List;
+import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
