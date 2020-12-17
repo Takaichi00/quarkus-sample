@@ -188,6 +188,7 @@ git clone https://github.com/openjdk/jmc.git
 cd jmc
 docker-compose -f docker/docker-compose.yml run jmc
 ```
+→ しかし `docker-compose` で起動したところエラーが発生、調査中 
 
 
 # アーキテクチャメモ
