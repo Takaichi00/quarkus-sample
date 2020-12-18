@@ -28,7 +28,7 @@ public class Isbn {
 
   public static Isbn of(String isbn) {
 
-    if (isbn.length() != 13) {
+    if (isNull(isbn) || isbn.length() != 13) {
       throw new ApplicationException(Error.ISBN_INVALID.getErrorMessage(isbn), Error.ISBN_INVALID);
     }
 

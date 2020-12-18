@@ -21,7 +21,7 @@ public class BookV2ControllerTest {
   BookMicroProfileService bookMicroProfileService;
 
   @Test
-  void test_mocking() {
+  void test_v2Controller() {
     Book book = Book.builder()
                     .title("title1")
                     .authors(Arrays.asList("author1", "author2"))
@@ -40,5 +40,15 @@ public class BookV2ControllerTest {
                             .extract()
                             .body().jsonPath().getObject(".", BookPayload.class);
     assertEquals("title1", actual.getTitle());
+  }
+
+  @Test
+  void test_v2Error() {
+    given()
+      .when()
+        .pathParam("isbn", "invalidIsbn")
+        .get("/v2/books/{isbn}")
+      .then()
+        .statusCode(400);
   }
 }
