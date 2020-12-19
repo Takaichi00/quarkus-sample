@@ -1,6 +1,7 @@
 package com.takaichi00.sample.quarkus.application;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.when;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.takaichi00.sample.quarkus.application.domain.BookMicroProfileService;
@@ -14,6 +15,8 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import javax.transaction.SystemException;
+
 @QuarkusTest
 public class BookV2ControllerTest {
 
@@ -21,7 +24,7 @@ public class BookV2ControllerTest {
   BookMicroProfileService bookMicroProfileService;
 
   @Test
-  void test_v2Controller() {
+  void test_v2_200_Controller() {
     Book book = Book.builder()
                     .title("title1")
                     .authors(Arrays.asList("author1", "author2"))
@@ -43,12 +46,25 @@ public class BookV2ControllerTest {
   }
 
   @Test
-  void test_v2Error() {
+  void test_v2_400Error_Controller() {
     given()
       .when()
         .pathParam("isbn", "invalidIsbn")
         .get("/v2/books/{isbn}")
       .then()
         .statusCode(400);
+  }
+
+  @Test
+  void test_v2_500Error_Controller() {
+    Mockito.when(bookMicroProfileService.searchBook(Isbn.of("1234567890123")))
+           .thenThrow(new RuntimeException());
+
+    given()
+      .when()
+      .pathParam("isbn", "1234567890123")
+      .get("/v2/books/{isbn}")
+      .then()
+      .statusCode(500);
   }
 }
