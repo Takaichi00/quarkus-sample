@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.takaichi00.sample.quarkus.application.domain.BookMicroProfileService;
 import com.takaichi00.sample.quarkus.application.payload.BookPayload;
+import com.takaichi00.sample.quarkus.application.payload.ErrorPayload;
 import com.takaichi00.sample.quarkus.domain.model.Book;
 import com.takaichi00.sample.quarkus.domain.model.BookUrl;
 import com.takaichi00.sample.quarkus.domain.model.Isbn;
@@ -47,12 +48,27 @@ public class BookV2ControllerTest {
 
   @Test
   void test_v2_400Error_Controller() {
-    given()
-      .when()
-        .pathParam("isbn", "invalidIsbn")
-        .get("/v2/books/{isbn}")
-      .then()
-        .statusCode(400);
+
+    // setup
+    ErrorPayload expected = ErrorPayload.builder()
+                                        .errorCode("0001")
+                                        .message("isbn invalid-isbn is invalid")
+                                        .build();
+
+    // execute & assert
+    ErrorPayload actual = given()
+                            .when()
+                              .pathParam("isbn", "invalid-isbn")
+                              .get("/v2/books/{isbn}")
+                            .then()
+                              .statusCode(400)
+                            .extract()
+                              .body()
+                              .jsonPath()
+                              .getObject(".", ErrorPayload.class);
+
+    // assert
+    assertEquals(expected, actual);
   }
 
   @Test

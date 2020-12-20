@@ -65,9 +65,9 @@ class BookmarkV1ControllerTest {
   void test_errorInvalidIsbn() {
     // setup
     ErrorPayload expected = ErrorPayload.builder()
-      .errorCode("0001")
-      .message("isbn invalid-isbn is invalid")
-      .build();
+                                        .errorCode("0001")
+                                        .message("isbn invalid-isbn is invalid")
+                                        .build();
 
     // execute
     ErrorPayload actual = given()
