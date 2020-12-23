@@ -256,6 +256,13 @@ Caused by: org.eclipse.tycho.repository.local.MirroringArtifactProvider$Mirrorin
 
 ```
 
+- [AdoptOpenJDK の JMC (Mac) をダウンロード](https://adoptopenjdk.net/jmc.html)
+- 以下を実行することで .app ファイルが取得できる
+```
+cat org.openjdk.jmc-7.1.1-macosx.cocoa.x86_64.tar.gz |tar xv -
+```
+
+
 # アーキテクチャメモ
 ## 凹型レイヤー
 ### Pro
