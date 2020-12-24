@@ -173,6 +173,8 @@ java.lang.RuntimeException: java.lang.RuntimeException: io.quarkus.builder.Build
 - [パフォーマンスのトラブルシュート入門](https://speakerdeck.com/chiroito/getting-started-performance-troubleshoot)
 - [Java 11のFlight Recorderを試す](https://matsumana.info/blog/2018/10/16/jdk11-flight-recorder/)
 - [JFR に関する情報がまとまった gitbook ページ](https://koduki.github.io/docs/book-introduction-of-jfr/site/)
+    - [1.2 Javaにおけるパフォーマンス分析と障害診断](https://koduki.github.io/docs/book-introduction-of-jfr/site/01/02-other_tools.html)
+        - こちらは JFR に限らず Java におけるいろいろなツール (jps, jstack, etc...)が紹介されている
 
 ## 実行メモ
 - 実行時に `-XX:StartFlightRecording` をつける
@@ -261,6 +263,17 @@ Caused by: org.eclipse.tycho.repository.local.MirroringArtifactProvider$Mirrorin
     - 必要に応じて [Mac 番の JDK をインストールする](https://www.oracle.com/java/technologies/javase-jdk15-downloads.html)
 ```
 cat org.openjdk.jmc-7.1.1-macosx.cocoa.x86_64.tar.gz |tar xv -
+```
+
+- Quarkus アプリの jar を作成
+```
+mvn clean package
+```
+
+- 起動
+    - アプリケーションを終了すると target 配下に quarkus-sample.jfr が生成されている
+```
+java -XX:StartFlightRecording=dumponexit=true,filename=./target/quarkus-sample.jfr -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
 ```
 
 
