@@ -276,6 +276,10 @@ mvn clean package
 java -XX:StartFlightRecording=dumponexit=true,filename=./target/quarkus-sample.jfr -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
 ```
 
+- JMC を起動
+    - 「ファイル(F)」→「ファイルを開く」から生成した quarkus-sample.jfr を選択すると以下のように分析結果が表示されている
+![jmc](./jmc.png "jmc")
+
 
 # アーキテクチャメモ
 ## 凹型レイヤー
