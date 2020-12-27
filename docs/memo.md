@@ -166,6 +166,7 @@ java.lang.RuntimeException: java.lang.RuntimeException: io.quarkus.builder.Build
 # JFR
 ## 参考文献
 - [最初の1リクエスト目で何をしているのか？](https://b.chiroito.dev/entry/2020/09/20/212719)
+- [Java Flight Recorderでトラブルシューティング](https://qiita.com/sahn/items/952f8c1fdc463fa372b4)
 - [JDBC & JFR Sample](https://github.com/chiroito/Jfr4Jdbc)
 - [Quarkus で JFR Event Streaming](https://b.chiroito.dev/entry/2020/05/28/185832)
 - [JITとコードの暖気の実体](https://b.chiroito.dev/entry/2020/09/18/221458)
