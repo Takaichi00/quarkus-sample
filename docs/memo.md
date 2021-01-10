@@ -182,6 +182,26 @@ java -XX:StartFlightRecording=dumponexit=true,filename=./target/quarkus-sample.j
 
 # アーキテクチャメモ
 ## 凹型レイヤー
+![凹型レイヤー](https://terasolunaorg.github.io/guideline/5.0.0.RELEASE/ja/_images/LayerDependencies.png)
+- package structure
+```
+- application
+ - controller
+ - domain
+ - payload
+ - exceptionhandler
+- domain
+ - client
+ - model
+ - repository
+ - service
+- integration
+ - client
+ - dto
+ - entity
+ - repository
+```
+
 ### Pro
 - Front First な開発ができる
     - 後ろの層が完成していなくても Mock にすることで開発が進められる 
@@ -190,3 +210,12 @@ java -XX:StartFlightRecording=dumponexit=true,filename=./target/quarkus-sample.j
 - ドメインモデルと値の詰替えが冗長になる
     - 例えばドメインモデルの IF が変更になると、テストも含めて影響範囲が大きい
         - レイヤーごとに単体テストを書くとドメインモデルの 1 フィールドが変更になるだけで Controller, Domain, Repository のテストに同じような修正を入れないといけない。
+
+## オニオンアーキテクチャ
+- [Reference](https://buildersbox.corp-sansan.com/entry/2019/07/10/110000)
+```
+- application
+- domain
+- infrastructure
+- presentation
+```
