@@ -100,3 +100,23 @@ curl localhost:8080/v2/books/9784865942248
 ```
 curl -X POST localhost:8080/v1/bookmarks/9784865942248
 ```
+
+# SonarQube
+## set up
+- clone https://github.com/Takaichi00/sonarqube-docker
+- execute `docker-compose up -d` and run sonarqube
+- browse http://localhost:9000
+
+## run test
+- when execute `mvn clean test` command, jacoco outputs report in `target/`
+    - pom.xml → `jacoco-maven-plugin`
+
+## analytics with sonarqube
+- sonarqube settings file is sonar-project.properties
+- exclude lombok → lombok.config `lombok.addLombokGeneratedAnnotation = true`
+```
+mvn sonar:sonar
+``` 
+
+## Confirm
+- http://localhost:9000/dashboard?id=com.takaichi00%3Aquarkus-sample
