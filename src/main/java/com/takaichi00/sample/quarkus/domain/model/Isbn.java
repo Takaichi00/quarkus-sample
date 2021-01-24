@@ -18,12 +18,13 @@ public class Isbn {
   }
 
   public static Isbn of(Long isbn) {
-    if (isNull(isbn) || isbn.toString().length() != 13) {
+    if (isNull(isbn)) {
+      throw new ApplicationException(Error.ISBN_INVALID.getErrorMessage("null"), Error.ISBN_INVALID);
+    }
+    if (isbn.toString().length() != 13) {
       throw new ApplicationException(Error.ISBN_INVALID.getErrorMessage(isbn.toString()), Error.ISBN_INVALID);
     }
-
     return new Isbn(isbn);
-
   }
 
   public static Isbn of(String isbn) {
@@ -31,17 +32,13 @@ public class Isbn {
     if (isNull(isbn) || isbn.length() != 13) {
       throw new ApplicationException(Error.ISBN_INVALID.getErrorMessage(isbn), Error.ISBN_INVALID);
     }
-
     Long convertedIsbn = null;
-
     try {
       convertedIsbn = Long.valueOf(isbn);
     } catch (NumberFormatException e) {
       throw new ApplicationException(Error.ISBN_INVALID.getErrorMessage(isbn), e, Error.ISBN_INVALID);
     }
-
     return new Isbn(convertedIsbn);
-
   }
 
   @Override
