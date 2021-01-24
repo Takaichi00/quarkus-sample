@@ -102,10 +102,16 @@ curl -X POST localhost:8080/v1/bookmarks/9784865942248
 ```
 
 # SonarQube
-## set up
+## set up SonarQube
 - clone https://github.com/Takaichi00/sonarqube-docker
 - execute `docker-compose up -d` and run sonarqube
-- browse http://localhost:9000
+- browse: http://localhost:9000
+
+## install java plugin to SonarQube
+- browse: http://localhost:9000/admin/marketplace
+    - id/pass = admin/admin
+- install plugins "Java Code Quality and Security" and "JaCoCo"
+- push「Restart Server」
 
 ## run test
 - when execute `mvn clean test` command, jacoco outputs report in `target/`
