@@ -11,10 +11,10 @@ import lombok.Getter;
 @EqualsAndHashCode
 public class Isbn {
 
-  private final Long isbn;
+  private final Long value;
 
-  private Isbn(Long isbn) {
-    this.isbn = isbn;
+  private Isbn(Long value) {
+    this.value = value;
   }
 
   public static Isbn of(Long isbn) {
@@ -43,7 +43,7 @@ public class Isbn {
 
   @Override
   public String toString() {
-    return isbn.toString();
+    return value.toString();
   }
 
 }

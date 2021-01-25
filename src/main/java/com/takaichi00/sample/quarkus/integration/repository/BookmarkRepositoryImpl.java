@@ -43,7 +43,7 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
   @Transactional
   public Isbn registerBookmark(Isbn isbn) {
     try {
-      entityManager.persist(BookEntity.builder().isbn(isbn.getIsbn().toString()).build());
+      entityManager.persist(BookEntity.builder().isbn(isbn.getValue().toString()).build());
     } catch (PersistenceException e) {
       throw new ApplicationException(
         Error.REGISTER_BOOKMARK_IS_FAILED.getErrorMessage(null),

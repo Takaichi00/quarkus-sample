@@ -8,10 +8,10 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
 public class BookUrl {
-  private final URL bookUrl;
+  private final URL value;
 
-  private BookUrl(URL bookUrl) {
-    this.bookUrl = bookUrl;
+  private BookUrl(URL value) {
+    this.value = value;
   }
 
   public static BookUrl of(String url) {
@@ -24,7 +24,7 @@ public class BookUrl {
 
   @Override
   public String toString() {
-    return bookUrl.toString();
+    return value.toString();
   }
 
 }
