@@ -1,7 +1,6 @@
-package com.takaichi00.sample.quarkus.application;
+package com.takaichi00.sample.quarkus.application.controller;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.takaichi00.sample.quarkus.application.domain.BookMicroProfileService;
@@ -16,10 +15,8 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import javax.transaction.SystemException;
-
 @QuarkusTest
-public class BookV2ControllerTest {
+class BookV2ControllerTest {
 
   @InjectMock
   BookMicroProfileService bookMicroProfileService;

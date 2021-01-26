@@ -22,7 +22,7 @@
     <wiremock.version>2.26.3</wiremock.version>
     <flyway.version>7.0.4</flyway.version>
     <mysql-driver.version>8.0.20</mysql-driver.version>
-    <jacoco.version>0.8.5</jacoco.version>
+    <jacoco.version>0.8.6</jacoco.version>
   </properties>
   <dependencyManagement>
     <dependencies>
