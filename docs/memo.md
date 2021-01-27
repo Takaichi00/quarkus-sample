@@ -180,6 +180,56 @@ java -XX:StartFlightRecording=dumponexit=true,filename=./target/quarkus-sample.j
 ![jmc](./jmc.png "jmc")
 
 
+# "Execution data for class xxx does not match." という warning が出て jacoco の test coverage が計測できない
+```
+$ mvn clean test
+...
+[WARNING] Classes in bundle 'quarkus-sample' do not match with execution data. For report generation the same class files must be used as at runtime.
+[WARNING] Execution data for class com/takaichi00/sample/quarkus/application/controller/BookmarkV1Controller does not match.
+[WARNING] Execution data for class com/takaichi00/sample/quarkus/application/controller/BookV1Controller does not match.
+[WARNING] Execution data for class com/takaichi00/sample/quarkus/integration/entity/BookEntity does not match.
+```
+
+## 原因
+- BookV1Controller は Constructor Injection をしており、以下のような実装となっていた
+```
+@Path("/v1/books")
+@RequiredArgsConstructor(onConstructor = @__({@Inject}))
+public class BookV1Controller {
+
+  private final BookService bookService;
+  ...
+
+```
+
+- 以下のように `@RequiredArgsConstructor(onConstructor = @__({@Inject}))` を利用しないようにしてもダメだった
+    - しかし、BookServiceImpl では以下のように Constructor Injection をしているにもかかわらず jacoco による test coverage が出力されている
+    - `@QuakrusTest` アノテーションが関係しているのかも?
+```
+@Path("/v1/books")
+public class BookV1Controller {
+
+  private final BookService bookService;
+
+  public BookV1Controller(BookService bookService) {
+    this.bookService = bookService;
+  }
+```
+
+- 詳しい原因については TODO
+
+## 解決策
+
+- 以下のように、Field Injection に変更すると `Execution data for class com/takaichi00/sample/quarkus/application/controller/BookV1Controller does not match.`  は出力されず、test coverage も出力されるようになった。
+```
+@Path("/v1/books")
+public class BookV1Controller {
+
+  @Inject
+  BookService bookService;
+  ...
+```
+
 # アーキテクチャメモ
 ## 凹型レイヤー
 ![凹型レイヤー](https://terasolunaorg.github.io/guideline/5.0.0.RELEASE/ja/_images/LayerDependencies.png)

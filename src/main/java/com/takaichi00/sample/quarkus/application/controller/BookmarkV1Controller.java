@@ -18,14 +18,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
-import lombok.RequiredArgsConstructor;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 @Path("/v1/bookmarks")
-@RequiredArgsConstructor(onConstructor = @__({@Inject}))
 public class BookmarkV1Controller {
 
-  private final BookService bookService;
+  @Inject
+  BookService bookService;
 
   @DumpLog
   @GET

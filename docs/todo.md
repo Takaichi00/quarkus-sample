@@ -26,7 +26,7 @@
         - https://quarkus.io/guides/building-native-image#container-runtime
         - https://medium.com/@kenta.kosugi/quarkus-%E3%81%A7%E4%BD%9C%E3%82%8B%E7%88%86%E9%80%9F-java-micro-service-2-4ba8596319e8
 - [x] JFR → [Moving jfr-sample repository](https://github.com/Takaichi00/jfr-sample)
-- [ ] SonarQube
+- [x] SonarQube
     - [x] setup env → https://github.com/Takaichi00/sonarqube-docker
     - [x] analytics
     - [x] coverage

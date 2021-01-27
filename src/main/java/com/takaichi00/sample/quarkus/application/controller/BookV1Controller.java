@@ -10,14 +10,13 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import lombok.RequiredArgsConstructor;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 @Path("/v1/books")
-@RequiredArgsConstructor(onConstructor = @__({@Inject}))
 public class BookV1Controller {
 
-  private final BookService bookService;
+  @Inject
+  BookService bookService;
 
   @DumpLog
   @GET
