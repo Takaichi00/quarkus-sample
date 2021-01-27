@@ -216,6 +216,11 @@ public class BookV1Controller {
   }
 ```
 
+- 試しに BookV2Controller を Constructor Injection にしてみると、上記同様に以下のエラーがでた。よって `@QuarkusTest` と Constructor Injection 原因そう
+```
+Execution data for class com/takaichi00/sample/quarkus/application/controller/BookV2Controller does not match.
+```
+
 - 詳しい原因については TODO
 
 ## 解決策
