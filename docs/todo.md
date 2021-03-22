@@ -3,7 +3,7 @@
 ## Main
 - [x] Configuration Profiles
     - https://quarkus.io/guides/config#configuration-profiles
-- [x] Quarkus version up (1.10.5Final Now)
+- [x] Quarkus version up (1.12.2.Final Now)
 - [x] Error Handling
     - [x] Error Testing
 - [x] MicroProfile Client (https://download.eclipse.org/microprofile/microprofile-rest-client-1.2.1/microprofile-rest-client-1.2.1.html)
