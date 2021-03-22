@@ -24,6 +24,7 @@ mvn compile quarkus:dev
     - run this command
  ```
 mvn verify -Pnative
+#  Quarkus currently supports 21.0. (GraalVM Version) 
 ```
 
 - Create the native image for Linux (https://quarkus.io/guides/building-native-image#container-runtime)
