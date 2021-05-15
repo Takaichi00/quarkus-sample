@@ -15,6 +15,7 @@
 - [x] [Logging](https://quarkus.io/guides/logging)
     - [x] Dumping Request/Response Json
     - [x] ErrorCode has Message
+    - [ ] Logging Test
 - [x] Flyway
 - [x] Native Image Test
     - [x] RestAssured Testing
@@ -30,7 +31,10 @@
     - [x] setup env → https://github.com/Takaichi00/sonarqube-docker
     - [x] analytics
     - [x] coverage
-    - [x] exclusion
+    - [ ] exclusion
+    - [ ] exclusion coverage
+- [ ] Data Cache
+- [ ] Retryable
 - [ ] Swagger (Open API)
 - [ ] Performance Test
 - [ ] Micrometer + Prometeus + Grafana (https://yuya-hirooka.hatenablog.com/entry/2020/11/04/232853)
