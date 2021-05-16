@@ -23,6 +23,13 @@
     <flyway.version>7.0.4</flyway.version>
     <mysql-driver.version>8.0.20</mysql-driver.version>
     <jacoco.version>0.8.6</jacoco.version>
+    <sonar.exclusions>
+      src/test/**,
+      src/main/java/com/takaichi00/sample/quarkus/integration/dto/*.java
+    </sonar.exclusions>
+    <sonar.coverage.exclusions>
+      src/main/java/com/takaichi00/sample/quarkus/integration/dto/*.java
+    </sonar.coverage.exclusions>
   </properties>
   <dependencyManagement>
     <dependencies>
