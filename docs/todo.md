@@ -31,8 +31,8 @@
     - [x] setup env → https://github.com/Takaichi00/sonarqube-docker
     - [x] analytics
     - [x] coverage
-    - [ ] exclusion
-    - [ ] exclusion coverage
+    - [x] exclusion
+    - [x] exclusion coverage
 - [ ] Data Cache
 - [ ] Retryable
 - [ ] Swagger (Open API)
