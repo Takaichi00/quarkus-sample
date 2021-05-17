@@ -33,6 +33,7 @@
     - [x] coverage
     - [x] exclusion
     - [x] exclusion coverage
+- [ ] Configure Thread Pool
 - [ ] Data Cache
 - [ ] Retryable
 - [ ] Swagger (Open API)
