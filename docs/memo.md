@@ -237,7 +237,10 @@ public class BookV1Controller {
 
 ## Manage Thread Pool
 - [Quarkus の HTTP レイヤーのスレッドプールについて](https://rheb.hatenablog.com/entry/quarkus-threadpool-20191220) によると、「Quarkus 1.1.0.Final 以降からは、Quarkus RESTEasy では Vert.x スレッドプールは使われなくなり、Servlet 依存の有無によらず quarkus.thread-pool.max-threads で設定される main のスレッドプールが利用されるように動作が変更され」るとの記載がある
-- `application.properties` に `quarkus.thread-pool.max-threads=5` を設定して、Thread Dump を取得してみる 
+    - `application.properties` に `quarkus.thread-pool.max-threads=5` を設定して、Thread Dump を取得してみる
+- 一方で、https://stackoverflow.com/questions/64493361/how-to-setting-http-thread-pool-max-size-on-quarkus によれば以下も関連してそうなので調査してみる
+    - `quarkus.http.io-threads`
+    - `quarkus.vertx.worker-pool-size` 
 
 # アーキテクチャメモ
 ## 凹型レイヤー
