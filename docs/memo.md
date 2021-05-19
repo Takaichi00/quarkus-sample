@@ -242,6 +242,14 @@ public class BookV1Controller {
     - `quarkus.http.io-threads`
     - `quarkus.vertx.worker-pool-size` 
 ### quarkus.thread-pool.max-threads で Thread Dump を取得
+- [README](https://github.com/Takaichi00/quarkus-sample) に従い、アプリケーションを起動
+
+- vegeta で一定の負荷をかけながらリクエストを実施
+    - ※ [vegeta コマンドのインストール](https://github.com/chidakiyo/vegeta)が必要
+```
+./load-test/vegeta.sh
+```
+
 - `quarkus.thread-pool.max-threads=5` の場合
     - application を起動し、以下のコマンドを実行して Thread Dump を取得 
 ```
