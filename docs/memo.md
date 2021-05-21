@@ -261,6 +261,15 @@ $ jstack -e `jps | grep quarkus | awk '{print $1}'` > ./output/threaddump-thread
 $ jstack -e `jps | grep quarkus | awk '{print $1}'` > ./output/threaddump-thread20.txt
 ```
 
+#### 確認
+- `executor-thread-x` というスレッドが、`quarkus.thread-pool.max-threads` で指定した数だけあることがわかる
+- その他
+    - `vert.x-worker-thread-x` というスレッドが、`quarkus.thread-pool.max-threads=20` のとき13, `quarkus.thread-pool.max-threads=5` のとき11存在している
+    - `vert.x-eventloop-thread-x` というスレッドが、両者9存在している
+    - `vert.x-internal-blocking-x` というスレッドが、両者20存在している
+- StackTrace を見ると、`executor-thread-x` のスレッドが実際のリクエストを受け付け、処理しているように見える
+→ `quarkus.thread-pool.max-threads` で指定したスレッドが実際のリクエストを受け付けるスレッドの数と見て良さそう
+
 
 # アーキテクチャメモ
 ## 凹型レイヤー
