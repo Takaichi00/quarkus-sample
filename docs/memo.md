@@ -270,6 +270,25 @@ $ jstack -e `jps | grep quarkus | awk '{print $1}'` > ./output/threaddump-thread
 - StackTrace を見ると、`executor-thread-x` のスレッドが実際のリクエストを受け付け、処理しているように見える
 → `quarkus.thread-pool.max-threads` で指定したスレッドが実際のリクエストを受け付けるスレッドの数と見て良さそう
 
+### 結論その1
+- 実際のリクエストを実行する Thread の数は `quarkus.thread-pool.max-threads` で取得する
+
+### JFR, Memory Analyzer で解析
+- ↑ での検証で、vegeta report ./load-test/result.bin で 結果をを見てみると、`quarkus.thread-pool.max-threads=20` でもエラーが発生している
+```
+$ vegeta report result.bin
+Requests      [total, rate, throughput]         1200, 40.03, 2.42
+Duration      [total, attack, wait]             41.273s, 29.977s, 11.296s
+Latencies     [min, mean, 50, 90, 95, 99, max]  88.708µs, 6.321s, 6.901s, 12.687s, 12.939s, 13.15s, 13.341s
+Bytes In      [total, mean]                     59650, 49.71
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           8.33%
+Status Codes  [code:count]                      0:403  200:100  500:697
+Error Set:
+500 Internal Server Error
+Get "http://localhost:8080/v1/books/9784865942248": dial tcp: lookup localhost: no such host
+```
+- おそらくリクエストが食い切れていないというのが容易に想像がつくので、JFR と Memory Analyzer で確認してみる
 
 # アーキテクチャメモ
 ## 凹型レイヤー
