@@ -290,6 +290,14 @@ Get "http://localhost:8080/v1/books/9784865942248": dial tcp: lookup localhost: 
 ```
 - おそらくリクエストが食い切れていないというのが容易に想像がつくので、JFR と Memory Analyzer で確認してみる
 
+#### JFR で解析
+- Uber jar で Quakrus を起動する
+    - https://quarkus.io/guides/maven-tooling#uber-jar-maven を参考にする
+    - 「quarkus.package.type=uber-jar configuration option in your application.properties (or <quarkus.package.type>uber-jar</quarkus.package.type> in your pom.xml」とあるので、まずは applicaiton.properties に指定してみる
+```
+quarkus.package.type=uber-jar
+```
+
 # アーキテクチャメモ
 ## 凹型レイヤー
 ![凹型レイヤー](https://terasolunaorg.github.io/guideline/5.0.0.RELEASE/ja/_images/LayerDependencies.png)
