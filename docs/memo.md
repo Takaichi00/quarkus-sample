@@ -297,6 +297,28 @@ Get "http://localhost:8080/v1/books/9784865942248": dial tcp: lookup localhost: 
 ```
 quarkus.package.type=uber-jar
 ```
+- pom.xml を以下のようにコメントアウトすることで、uber-jar が生成できた
+```
+     <plugin>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-maven-plugin</artifactId>
+        <version>${quarkus.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>build</goal>
+<!--              <goal>native-image</goal>-->
+            </goals>
+            <configuration>
+<!--              <enableHttpUrlHandler>true</enableHttpUrlHandler>-->
+<!--              <additionalBuildArgs>-->
+<!--                <additionalBuildArg>&#45;&#45;allow-incomplete-classpath</additionalBuildArg>-->
+<!--              </additionalBuildArgs>-->
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+```
 
 # アーキテクチャメモ
 ## 凹型レイヤー
