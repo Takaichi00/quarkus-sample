@@ -320,6 +320,11 @@ quarkus.package.type=uber-jar
       </plugin>
 ```
 
+- JFR を有効にして起動
+```
+
+```
+
 # アーキテクチャメモ
 ## 凹型レイヤー
 ![凹型レイヤー](https://terasolunaorg.github.io/guideline/5.0.0.RELEASE/ja/_images/LayerDependencies.png)

@@ -91,6 +91,11 @@ export QUARKUS_PROFILE=custom
 curl localhost:8080/v1/bookmarks
 ```
 
+## Get All Isbn of Bookmarks
+```
+curl localhost:8080/v1/bookmarks/isbn
+```
+
 ## Search book info by ISBN (using GoogleBooks API)
 ```
 curl localhost:8080/v1/books/9784865942248

@@ -20,6 +20,11 @@ public class BookServiceImpl implements BookService {
   private final GoogleBooksApiClient googleBooksApiClient;
 
   @Override
+  public List<Isbn> getAllBookmarksIsbn() {
+    return bookmarkRepository.getAllIsbn();
+  }
+
+  @Override
   public List<Book> getAllBookmarks() {
 
     List<Isbn> isbnList = bookmarkRepository.getAllIsbn();

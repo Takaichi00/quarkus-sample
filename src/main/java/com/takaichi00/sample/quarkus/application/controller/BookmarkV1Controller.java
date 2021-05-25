@@ -26,6 +26,23 @@ public class BookmarkV1Controller {
   @Inject
   BookService bookService;
 
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  @Path("/isbn")
+  public List<BookPayload> getAllBookmarksIsbn() {
+    List<Isbn> allBooks = bookService.getAllBookmarksIsbn();
+
+    List<BookPayload> bookPayloadList = new ArrayList<>();
+    for (Isbn isbn : allBooks) {
+      bookPayloadList.add(
+          BookPayload.builder()
+              .isbn(isbn.toString())
+              .build()
+      );
+    }
+    return bookPayloadList;
+  }
+
   @DumpLog
   @GET
   @Produces(MediaType.APPLICATION_JSON)

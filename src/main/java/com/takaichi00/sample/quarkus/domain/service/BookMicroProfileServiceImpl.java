@@ -17,5 +17,4 @@ public class BookMicroProfileServiceImpl implements BookMicroProfileService {
   public Book searchBook(Isbn isbn) {
     return googleBooksApiMicroProfileClient.getBook(isbn);
   }
-
 }
