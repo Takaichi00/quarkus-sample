@@ -273,22 +273,72 @@ $ jstack -e `jps | grep quarkus | awk '{print $1}'` > ./output/threaddump-thread
 ### 結論その1
 - 実際のリクエストを実行する Thread の数は `quarkus.thread-pool.max-threads` で取得する
 
-### JFR, Memory Analyzer で解析
-- ↑ での検証で、vegeta report ./load-test/result.bin で 結果をを見てみると、`quarkus.thread-pool.max-threads=20` でもエラーが発生している
+- Thread=5 の場合
 ```
-$ vegeta report result.bin
-Requests      [total, rate, throughput]         1200, 40.03, 2.42
-Duration      [total, attack, wait]             41.273s, 29.977s, 11.296s
-Latencies     [min, mean, 50, 90, 95, 99, max]  88.708µs, 6.321s, 6.901s, 12.687s, 12.939s, 13.15s, 13.341s
-Bytes In      [total, mean]                     59650, 49.71
+$ ./vegeta.sh thread5
+Requests      [total, rate, throughput]         1200, 40.03, 40.02
+Duration      [total, attack, wait]             29.985s, 29.975s, 10.258ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  6.578ms, 11.459ms, 10.541ms, 14.921ms, 17.753ms, 25.922ms, 41.234ms
+Bytes In      [total, mean]                     31200, 26.00
 Bytes Out     [total, mean]                     0, 0.00
-Success       [ratio]                           8.33%
-Status Codes  [code:count]                      0:403  200:100  500:697
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:1200
 Error Set:
-500 Internal Server Error
-Get "http://localhost:8080/v1/books/9784865942248": dial tcp: lookup localhost: no such host
 ```
-- おそらくリクエストが食い切れていないというのが容易に想像がつくので、JFR と Memory Analyzer で確認してみる
+
+- Thread=20 の場合
+    - Thread=5のときより悪化している
+```
+ ./vegeta.sh thread20
+Requests      [total, rate, throughput]         1200, 40.04, 40.02
+Duration      [total, attack, wait]             29.982s, 29.974s, 8.272ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  7.85ms, 30.24ms, 12.064ms, 18.115ms, 24.64ms, 908.383ms, 1.411s
+Bytes In      [total, mean]                     31200, 26.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:1200
+Error Set:
+```
+
+- Thread=100 の場合
+    - Thread=20 のときより悪化している
+```
+$ ./vegeta.sh thread100
+Requests      [total, rate, throughput]         1200, 40.03, 40.02
+Duration      [total, attack, wait]             29.987s, 29.974s, 12.966ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  8.063ms, 35.496ms, 12.365ms, 19.116ms, 25.28ms, 1.129s, 1.688s
+Bytes In      [total, mean]                     31200, 26.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:1200
+Error Set:
+```
+→ このあたりの傾向を JFR で見ても面白そう
+
+### JFR, Memory Analyzer で解析
+- Thread 5の場合、rate=250 ではすべてリクエストは成功したが、rate=300 を指定するとエラーが置き始めた
+    - このあたりの差分を JFR で解析してみる
+```
+$ ./vegeta.sh 250
+Requests      [total, rate, throughput]         1250, 250.21, 207.61
+Duration      [total, attack, wait]             6.021s, 4.996s, 1.025s
+Latencies     [min, mean, 50, 90, 95, 99, max]  34.21ms, 702.441ms, 842.183ms, 956.043ms, 967.096ms, 1.006s, 1.05s
+Bytes In      [total, mean]                     32500, 26.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:1250
+```
+
+```
+$ ./vegeta.sh 300
+Requests      [total, rate, throughput]         1498, 299.72, 214.79
+Duration      [total, attack, wait]             5.862s, 4.998s, 863.705ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  80.911µs, 747.024ms, 1.003s, 1.106s, 1.141s, 1.161s, 1.179s
+Bytes In      [total, mean]                     32734, 21.85
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           84.05%
+Status Codes  [code:count]                      0:239  200:1259
+```
 
 #### JFR で解析
 - Uber jar で Quakrus を起動する
