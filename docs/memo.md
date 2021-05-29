@@ -372,7 +372,25 @@ quarkus.package.type=uber-jar
 
 - JFR を有効にして起動
 ```
+java \
+-XX:StartFlightRecording=\
+dumponexit=true,\
+filename=./output/quakrus-load-test-thread5.jfr \
+-Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
 
+- rate 250 にしたところ、ちょうどよくエラーが出た
+```
+$ ./vegeta.sh 250
+Requests      [total, rate, throughput]         1250, 250.22, 122.55
+Duration      [total, attack, wait]             6.251s, 4.996s, 1.255s
+Latencies     [min, mean, 50, 90, 95, 99, max]  70.796µs, 1.006s, 1.339s, 1.882s, 1.995s, 2.175s, 2.241s
+Bytes In      [total, mean]                     19916, 15.93
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           61.28%
+Status Codes  [code:count]                      0:484  200:766
+Error Set:
+Get "http://localhost:8080/v1/bookmarks/isbn": dial tcp: lookup localhost: no such host
 ```
 
 # アーキテクチャメモ
