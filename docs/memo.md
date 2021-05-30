@@ -392,6 +392,13 @@ Status Codes  [code:count]                      0:484  200:766
 Error Set:
 Get "http://localhost:8080/v1/bookmarks/isbn": dial tcp: lookup localhost: no such host
 ```
+と、思ったが、これは file descriptor の上限に引っかかった時に出るエラーらしい
+https://stackoverflow.com/questions/26228163/localhost-no-such-host-after-250-connections-in-go-when-using-responsewriter
+
+デフォルトでは256らしいので、この上限を上げて試した方が良さそう。
+まあこれはこれで jfr で解析する
+
+https://wilsonmar.github.io/maximum-limits/
 
 # アーキテクチャメモ
 ## 凹型レイヤー
