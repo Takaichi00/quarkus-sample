@@ -396,9 +396,26 @@ Get "http://localhost:8080/v1/bookmarks/isbn": dial tcp: lookup localhost: no su
 https://stackoverflow.com/questions/26228163/localhost-no-such-host-after-250-connections-in-go-when-using-responsewriter
 
 デフォルトでは256らしいので、この上限を上げて試した方が良さそう。
-まあこれはこれで jfr で解析する
-
+まあこれはこれで jfr で解析する。
 https://wilsonmar.github.io/maximum-limits/
+
+#### 250 rps / 120s
+```
+Requests      [total, rate, throughput]         30000, 250.01, 246.84
+Duration      [total, attack, wait]             2m0s, 2m0s, 8.871ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  89.239µs, 241.748ms, 24.621ms, 885.615ms, 1.083s, 1.257s, 1.386s
+Bytes In      [total, mean]                     770172, 25.67
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           98.74%
+Status Codes  [code:count]                      0:378  200:29622
+Error Set:
+Get "http://localhost:8080/v1/bookmarks/isbn": dial tcp: lookup localhost: no such host
+```
+![250rps-120s](./img/todo)
+- ヒープ使用率を見ると、適切にメモリが開放されている
+- CPU 使用率は開始 45s から低くなった
+- メソッドプロファイリングは起動直後に多く発生する
+
 
 # アーキテクチャメモ
 ## 凹型レイヤー
