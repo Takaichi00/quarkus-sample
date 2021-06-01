@@ -177,7 +177,7 @@ java -XX:StartFlightRecording=dumponexit=true,filename=./target/quarkus-sample.j
 
 - JMC を起動
     - 「ファイル(F)」→「ファイルを開く」から生成した quarkus-sample.jfr を選択すると以下のように分析結果が表示されている
-![jmc](./jmc.png "jmc")
+![jmc](img/jmc.png "jmc")
 
 
 # "Execution data for class xxx does not match." という warning が出て jacoco の test coverage が計測できない
@@ -399,7 +399,7 @@ https://stackoverflow.com/questions/26228163/localhost-no-such-host-after-250-co
 まあこれはこれで jfr で解析する。
 https://wilsonmar.github.io/maximum-limits/
 
-#### 250 rps / 120s
+#### 250 rps / 120s (file descriptor 256)
 ```
 Requests      [total, rate, throughput]         30000, 250.01, 246.84
 Duration      [total, attack, wait]             2m0s, 2m0s, 8.871ms
@@ -411,10 +411,34 @@ Status Codes  [code:count]                      0:378  200:29622
 Error Set:
 Get "http://localhost:8080/v1/bookmarks/isbn": dial tcp: lookup localhost: no such host
 ```
-![250rps-120s](./img/todo)
+![250rps-120s](./img/250rps-120s-main-default-filedescriptor.png)
 - ヒープ使用率を見ると、適切にメモリが開放されている
 - CPU 使用率は開始 45s から低くなった
 - メソッドプロファイリングは起動直後に多く発生する
+- 合計ブロック時間があるものと無いものの違いはなにか?
+
+#### 250 rps / 120s
+```
+java \
+-XX:StartFlightRecording=\
+dumponexit=true,\
+filename=./output/quakrus-load-test-thread5.jfr \
+-Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 250
+Requests      [total, rate, throughput]         30000, 250.01, 250.00
+Duration      [total, attack, wait]             2m0s, 2m0s, 5.704ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  2.93ms, 316.968ms, 7.438ms, 1.208s, 2.458s, 3.259s, 3.36s
+Bytes In      [total, mean]                     780000, 26.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:30000
+Error Set:
+```
+→ エラーは発生しなかった。大まかな傾向は変わらず。
+![250rps-120s](./img/250rps-120s-main.png)
+
 
 
 # アーキテクチャメモ
