@@ -163,23 +163,6 @@ java.lang.RuntimeException: java.lang.RuntimeException: io.quarkus.builder.Build
     - https://github.com/quarkusio/quarkus-images/issues/61
     - https://qiita.com/MiCHiLU/items/1e80a5325b2746eaf2d4 によれば、source から build が必要のよう。断念。
 
-# JFR
-- Quarkus アプリの jar を作成
-```
-mvn clean package
-```
-
-- 起動
-    - アプリケーションを終了すると target 配下に quarkus-sample.jfr が生成されている
-```
-java -XX:StartFlightRecording=dumponexit=true,filename=./target/quarkus-sample.jfr -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
-```
-
-- JMC を起動
-    - 「ファイル(F)」→「ファイルを開く」から生成した quarkus-sample.jfr を選択すると以下のように分析結果が表示されている
-![jmc](img/jmc.png "jmc")
-
-
 # "Execution data for class xxx does not match." という warning が出て jacoco の test coverage が計測できない
 ```
 $ mvn clean test
@@ -235,6 +218,23 @@ public class BookV1Controller {
   ...
 ```
 
+# JFR
+- Quarkus アプリの jar を作成
+```
+mvn clean package
+```
+
+- 起動
+    - アプリケーションを終了すると target 配下に quarkus-sample.jfr が生成されている
+```
+java -XX:StartFlightRecording=dumponexit=true,filename=./target/quarkus-sample.jfr -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+
+- JMC を起動
+    - 「ファイル(F)」→「ファイルを開く」から生成した quarkus-sample.jfr を選択すると以下のように分析結果が表示されている
+![jmc](img/jmc.png "jmc")
+
+
 ## Manage Thread Pool
 - [Quarkus の HTTP レイヤーのスレッドプールについて](https://rheb.hatenablog.com/entry/quarkus-threadpool-20191220) によると、「Quarkus 1.1.0.Final 以降からは、Quarkus RESTEasy では Vert.x スレッドプールは使われなくなり、Servlet 依存の有無によらず quarkus.thread-pool.max-threads で設定される main のスレッドプールが利用されるように動作が変更され」るとの記載がある
     - `application.properties` に `quarkus.thread-pool.max-threads` を設定して、Thread Dump を取得してみる
@@ -261,7 +261,7 @@ $ jstack -e `jps | grep quarkus | awk '{print $1}'` > ./output/threaddump-thread
 $ jstack -e `jps | grep quarkus | awk '{print $1}'` > ./output/threaddump-thread20.txt
 ```
 
-#### 確認
+### 確認
 - `executor-thread-x` というスレッドが、`quarkus.thread-pool.max-threads` で指定した数だけあることがわかる
 - その他
     - `vert.x-worker-thread-x` というスレッドが、`quarkus.thread-pool.max-threads=20` のとき13, `quarkus.thread-pool.max-threads=5` のとき11存在している
@@ -315,7 +315,7 @@ Error Set:
 ```
 → このあたりの傾向を JFR で見ても面白そう
 
-### JFR, Memory Analyzer で解析
+## JFR, Memory Analyzer で解析
 - Thread 5の場合、rate=250 ではすべてリクエストは成功したが、rate=300 を指定するとエラーが置き始めた
     - このあたりの差分を JFR で解析してみる
 ```
@@ -340,7 +340,7 @@ Success       [ratio]                           84.05%
 Status Codes  [code:count]                      0:239  200:1259
 ```
 
-#### JFR で解析
+## JFR で解析
 - Uber jar で Quakrus を起動する
     - https://quarkus.io/guides/maven-tooling#uber-jar-maven を参考にする
     - 「quarkus.package.type=uber-jar configuration option in your application.properties (or <quarkus.package.type>uber-jar</quarkus.package.type> in your pom.xml」とあるので、まずは applicaiton.properties に指定してみる
@@ -399,7 +399,7 @@ https://stackoverflow.com/questions/26228163/localhost-no-such-host-after-250-co
 まあこれはこれで jfr で解析する。
 https://wilsonmar.github.io/maximum-limits/
 
-#### 250 rps / 120s (file descriptor 256)
+## 250 rps / 120s (file descriptor 256)
 ```
 Requests      [total, rate, throughput]         30000, 250.01, 246.84
 Duration      [total, attack, wait]             2m0s, 2m0s, 8.871ms
@@ -417,7 +417,7 @@ Get "http://localhost:8080/v1/bookmarks/isbn": dial tcp: lookup localhost: no su
 - メソッドプロファイリングは起動直後に多く発生する
 - 合計ブロック時間があるものと無いものの違いはなにか?
 
-#### 250 rps / 120s
+## 250 rps / 120s
 ```
 java \
 -XX:StartFlightRecording=\
@@ -440,7 +440,7 @@ Error Set:
 ![250rps-120s](./img/250rps-120s-main.png)
 - rps を上げてエラーが出るまで試してみる
 
-#### 1000 rps / 120s
+## 1000 rps / 120s
 - 1000 rps では quarkus から大量にエラーが発生し、1つもリクエストが成功しなかった。やりすぎたか。
 ```
 java \
@@ -660,257 +660,7 @@ The last packet successfully received from the server was 69,443 milliseconds ag
 	at org.jboss.threads.JBossThread.run(JBossThread.java:501)
 
 09:58:19.574 WARN  [co.ar.at.jta] (executor-thread-1) ARJUNA016138: Failed to enlist XA resource io.agroal.narayana.LocalXAResource@3c512707: javax.transaction.xa.XAException: Error trying to start local transaction: Communications link failure
-
-The last packet successfully received from the server was 69,443 milliseconds ago. The last packet sent successfully to the server was 69,520 milliseconds ago.
-	at io.agroal.narayana.LocalXAResource.start(LocalXAResource.java:45)
-	at com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionImple.enlistResource(TransactionImple.java:661)
-	at com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionImple.enlistResource(TransactionImple.java:422)
-	at io.agroal.narayana.NarayanaTransactionIntegration.associate(NarayanaTransactionIntegration.java:90)
-	at io.agroal.pool.ConnectionPool.getConnection(ConnectionPool.java:222)
-	at io.agroal.pool.DataSource.getConnection(DataSource.java:81)
-	at io.quarkus.hibernate.orm.runtime.customized.QuarkusConnectionProvider.getConnection(QuarkusConnectionProvider.java:23)
-	at org.hibernate.internal.NonContextualJdbcConnectionAccess.obtainConnection(NonContextualJdbcConnectionAccess.java:38)
-	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:108)
-	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getPhysicalConnection(LogicalConnectionManagedImpl.java:138)
-	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl.connection(StatementPreparerImpl.java:50)
-	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$5.doPrepare(StatementPreparerImpl.java:149)
-	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$StatementPreparationTemplate.prepareStatement(StatementPreparerImpl.java:176)
-	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl.prepareQueryStatement(StatementPreparerImpl.java:151)
-	at org.hibernate.loader.Loader.prepareQueryStatement(Loader.java:2103)
-	at org.hibernate.loader.Loader.executeQueryStatement(Loader.java:2040)
-	at org.hibernate.loader.Loader.executeQueryStatement(Loader.java:2018)
-	at org.hibernate.loader.Loader.doQuery(Loader.java:948)
-	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:349)
-	at org.hibernate.loader.Loader.doList(Loader.java:2849)
-	at org.hibernate.loader.Loader.doList(Loader.java:2831)
-	at org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2663)
-	at org.hibernate.loader.Loader.list(Loader.java:2658)
-	at org.hibernate.loader.hql.QueryLoader.list(QueryLoader.java:506)
-	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.list(QueryTranslatorImpl.java:400)
-	at org.hibernate.engine.query.spi.HQLQueryPlan.performList(HQLQueryPlan.java:219)
-	at org.hibernate.internal.SessionImpl.list(SessionImpl.java:1414)
-	at org.hibernate.query.internal.AbstractProducedQuery.doList(AbstractProducedQuery.java:1625)
-	at org.hibernate.query.internal.AbstractProducedQuery.list(AbstractProducedQuery.java:1593)
-	at org.hibernate.query.Query.getResultList(Query.java:165)
-	at com.takaichi00.sample.quarkus.integration.repository.BookmarkRepositoryImpl.getAllIsbn(BookmarkRepositoryImpl.java:32)
-	at com.takaichi00.sample.quarkus.integration.repository.BookmarkRepositoryImpl_Subclass.getAllIsbn$$superaccessor2(BookmarkRepositoryImpl_Subclass.zig:370)
-	at com.takaichi00.sample.quarkus.integration.repository.BookmarkRepositoryImpl_Subclass$$function$$2.apply(BookmarkRepositoryImpl_Subclass$$function$$2.zig:29)
-	at io.quarkus.arc.impl.AroundInvokeInvocationContext.proceed(AroundInvokeInvocationContext.java:54)
-	at io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorBase.invokeInOurTx(TransactionalInterceptorBase.java:127)
-	at io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorBase.invokeInOurTx(TransactionalInterceptorBase.java:100)
-	at io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorRequired.doIntercept(TransactionalInterceptorRequired.java:32)
-	at io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorBase.intercept(TransactionalInterceptorBase.java:53)
-	at io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorRequired.intercept(TransactionalInterceptorRequired.java:26)
-	at io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorRequired_Bean.intercept(TransactionalInterceptorRequired_Bean.zig:340)
-	at io.quarkus.arc.impl.InterceptorInvocation.invoke(InterceptorInvocation.java:41)
-	at io.quarkus.arc.impl.AroundInvokeInvocationContext.perform(AroundInvokeInvocationContext.java:41)
-	at io.quarkus.arc.impl.InvocationContexts.performAroundInvoke(InvocationContexts.java:32)
-	at com.takaichi00.sample.quarkus.integration.repository.BookmarkRepositoryImpl_Subclass.getAllIsbn(BookmarkRepositoryImpl_Subclass.zig:328)
-	at com.takaichi00.sample.quarkus.integration.repository.BookmarkRepositoryImpl_ClientProxy.getAllIsbn(BookmarkRepositoryImpl_ClientProxy.zig:126)
-	at com.takaichi00.sample.quarkus.domain.service.BookServiceImpl.getAllBookmarksIsbn(BookServiceImpl.java:24)
-	at com.takaichi00.sample.quarkus.domain.service.BookServiceImpl_ClientProxy.getAllBookmarksIsbn(BookServiceImpl_ClientProxy.zig:277)
-	at com.takaichi00.sample.quarkus.application.controller.BookmarkV1Controller.getAllBookmarksIsbn(BookmarkV1Controller.java:33)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:170)
-	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:130)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.internalInvokeOnTarget(ResourceMethodInvoker.java:643)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTargetAfterFilter(ResourceMethodInvoker.java:507)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.lambda$invokeOnTarget$2(ResourceMethodInvoker.java:457)
-	at org.jboss.resteasy.core.interception.jaxrs.PreMatchContainerRequestContext.filter(PreMatchContainerRequestContext.java:364)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTarget(ResourceMethodInvoker.java:459)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:419)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:393)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:68)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:492)
-	at org.jboss.resteasy.core.SynchronousDispatcher.lambda$invoke$4(SynchronousDispatcher.java:261)
-	at org.jboss.resteasy.core.SynchronousDispatcher.lambda$preprocess$0(SynchronousDispatcher.java:161)
-	at org.jboss.resteasy.core.interception.jaxrs.PreMatchContainerRequestContext.filter(PreMatchContainerRequestContext.java:364)
-	at org.jboss.resteasy.core.SynchronousDispatcher.preprocess(SynchronousDispatcher.java:164)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:247)
-	at io.quarkus.resteasy.runtime.standalone.RequestDispatcher.service(RequestDispatcher.java:73)
-	at io.quarkus.resteasy.runtime.standalone.VertxRequestHandler.dispatch(VertxRequestHandler.java:138)
-	at io.quarkus.resteasy.runtime.standalone.VertxRequestHandler.access$000(VertxRequestHandler.java:41)
-	at io.quarkus.resteasy.runtime.standalone.VertxRequestHandler$1.run(VertxRequestHandler.java:93)
-	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2415)
-	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1436)
-	at org.jboss.threads.DelegatingRunnable.run(DelegatingRunnable.java:29)
-	at org.jboss.threads.ThreadLocalResettingRunnable.run(ThreadLocalResettingRunnable.java:29)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-	at org.jboss.threads.JBossThread.run(JBossThread.java:501)
-
-09:58:19.577 WARN  [or.hi.en.jd.sp.SqlExceptionHelper] (executor-thread-1) SQL Error: 0, SQLState: 08003
-09:58:19.577 ERROR [or.hi.en.jd.sp.SqlExceptionHelper] (executor-thread-1) No operations allowed after connection closed.
-09:58:19.598 WARN  [co.ar.at.arjuna] (executor-thread-1) ARJUNA012077: Abort called on already aborted atomic action 0:ffffc0a80267:ddb1:60b6d765:13
-
-
-
 09:58:19.547 WARN  [co.ar.at.jta] (executor-thread-1) ARJUNA016061: TransactionImple.enlistResource - XAResource.start returned: ARJUNA016099: Unknown error code:0 for < formatId=131077, gtrid_length=35, bqual_length=36, tx_uid=0:ffffc0a80267:ddb1:60b6d765:13, node_name=quarkus, branch_uid=0:ffffc0a80267:ddb1:60b6d765:17, subordinatenodename=null, eis_name=0 >: javax.transaction.xa.XAException: Error trying to start local transaction: Communications link failure
-
-The last packet successfully received from the server was 69,443 milliseconds ago. The last packet sent successfully to the server was 69,520 milliseconds ago.
-	at io.agroal.narayana.LocalXAResource.start(LocalXAResource.java:45)
-	at com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionImple.enlistResource(TransactionImple.java:661)
-	at com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionImple.enlistResource(TransactionImple.java:422)
-	at io.agroal.narayana.NarayanaTransactionIntegration.associate(NarayanaTransactionIntegration.java:90)
-	at io.agroal.pool.ConnectionPool.getConnection(ConnectionPool.java:222)
-	at io.agroal.pool.DataSource.getConnection(DataSource.java:81)
-	at io.quarkus.hibernate.orm.runtime.customized.QuarkusConnectionProvider.getConnection(QuarkusConnectionProvider.java:23)
-	at org.hibernate.internal.NonContextualJdbcConnectionAccess.obtainConnection(NonContextualJdbcConnectionAccess.java:38)
-	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:108)
-	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getPhysicalConnection(LogicalConnectionManagedImpl.java:138)
-	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl.connection(StatementPreparerImpl.java:50)
-	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$5.doPrepare(StatementPreparerImpl.java:149)
-	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$StatementPreparationTemplate.prepareStatement(StatementPreparerImpl.java:176)
-	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl.prepareQueryStatement(StatementPreparerImpl.java:151)
-	at org.hibernate.loader.Loader.prepareQueryStatement(Loader.java:2103)
-	at org.hibernate.loader.Loader.executeQueryStatement(Loader.java:2040)
-	at org.hibernate.loader.Loader.executeQueryStatement(Loader.java:2018)
-	at org.hibernate.loader.Loader.doQuery(Loader.java:948)
-	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:349)
-	at org.hibernate.loader.Loader.doList(Loader.java:2849)
-	at org.hibernate.loader.Loader.doList(Loader.java:2831)
-	at org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2663)
-	at org.hibernate.loader.Loader.list(Loader.java:2658)
-	at org.hibernate.loader.hql.QueryLoader.list(QueryLoader.java:506)
-	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.list(QueryTranslatorImpl.java:400)
-	at org.hibernate.engine.query.spi.HQLQueryPlan.performList(HQLQueryPlan.java:219)
-	at org.hibernate.internal.SessionImpl.list(SessionImpl.java:1414)
-	at org.hibernate.query.internal.AbstractProducedQuery.doList(AbstractProducedQuery.java:1625)
-	at org.hibernate.query.internal.AbstractProducedQuery.list(AbstractProducedQuery.java:1593)
-	at org.hibernate.query.Query.getResultList(Query.java:165)
-	at com.takaichi00.sample.quarkus.integration.repository.BookmarkRepositoryImpl.getAllIsbn(BookmarkRepositoryImpl.java:32)
-	at com.takaichi00.sample.quarkus.integration.repository.BookmarkRepositoryImpl_Subclass.getAllIsbn$$superaccessor2(BookmarkRepositoryImpl_Subclass.zig:370)
-	at com.takaichi00.sample.quarkus.integration.repository.BookmarkRepositoryImpl_Subclass$$function$$2.apply(BookmarkRepositoryImpl_Subclass$$function$$2.zig:29)
-	at io.quarkus.arc.impl.AroundInvokeInvocationContext.proceed(AroundInvokeInvocationContext.java:54)
-	at io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorBase.invokeInOurTx(TransactionalInterceptorBase.java:127)
-	at io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorBase.invokeInOurTx(TransactionalInterceptorBase.java:100)
-	at io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorRequired.doIntercept(TransactionalInterceptorRequired.java:32)
-	at io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorBase.intercept(TransactionalInterceptorBase.java:53)
-	at io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorRequired.intercept(TransactionalInterceptorRequired.java:26)
-	at io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorRequired_Bean.intercept(TransactionalInterceptorRequired_Bean.zig:340)
-	at io.quarkus.arc.impl.InterceptorInvocation.invoke(InterceptorInvocation.java:41)
-	at io.quarkus.arc.impl.AroundInvokeInvocationContext.perform(AroundInvokeInvocationContext.java:41)
-	at io.quarkus.arc.impl.InvocationContexts.performAroundInvoke(InvocationContexts.java:32)
-	at com.takaichi00.sample.quarkus.integration.repository.BookmarkRepositoryImpl_Subclass.getAllIsbn(BookmarkRepositoryImpl_Subclass.zig:328)
-	at com.takaichi00.sample.quarkus.integration.repository.BookmarkRepositoryImpl_ClientProxy.getAllIsbn(BookmarkRepositoryImpl_ClientProxy.zig:126)
-	at com.takaichi00.sample.quarkus.domain.service.BookServiceImpl.getAllBookmarksIsbn(BookServiceImpl.java:24)
-	at com.takaichi00.sample.quarkus.domain.service.BookServiceImpl_ClientProxy.getAllBookmarksIsbn(BookServiceImpl_ClientProxy.zig:277)
-	at com.takaichi00.sample.quarkus.application.controller.BookmarkV1Controller.getAllBookmarksIsbn(BookmarkV1Controller.java:33)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:170)
-	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:130)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.internalInvokeOnTarget(ResourceMethodInvoker.java:643)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTargetAfterFilter(ResourceMethodInvoker.java:507)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.lambda$invokeOnTarget$2(ResourceMethodInvoker.java:457)
-	at org.jboss.resteasy.core.interception.jaxrs.PreMatchContainerRequestContext.filter(PreMatchContainerRequestContext.java:364)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTarget(ResourceMethodInvoker.java:459)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:419)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:393)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:68)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:492)
-	at org.jboss.resteasy.core.SynchronousDispatcher.lambda$invoke$4(SynchronousDispatcher.java:261)
-	at org.jboss.resteasy.core.SynchronousDispatcher.lambda$preprocess$0(SynchronousDispatcher.java:161)
-	at org.jboss.resteasy.core.interception.jaxrs.PreMatchContainerRequestContext.filter(PreMatchContainerRequestContext.java:364)
-	at org.jboss.resteasy.core.SynchronousDispatcher.preprocess(SynchronousDispatcher.java:164)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:247)
-	at io.quarkus.resteasy.runtime.standalone.RequestDispatcher.service(RequestDispatcher.java:73)
-	at io.quarkus.resteasy.runtime.standalone.VertxRequestHandler.dispatch(VertxRequestHandler.java:138)
-	at io.quarkus.resteasy.runtime.standalone.VertxRequestHandler.access$000(VertxRequestHandler.java:41)
-	at io.quarkus.resteasy.runtime.standalone.VertxRequestHandler$1.run(VertxRequestHandler.java:93)
-	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2415)
-	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1436)
-	at org.jboss.threads.DelegatingRunnable.run(DelegatingRunnable.java:29)
-	at org.jboss.threads.ThreadLocalResettingRunnable.run(ThreadLocalResettingRunnable.java:29)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-	at org.jboss.threads.JBossThread.run(JBossThread.java:501)
-
-09:58:19.574 WARN  [co.ar.at.jta] (executor-thread-1) ARJUNA016138: Failed to enlist XA resource io.agroal.narayana.LocalXAResource@3c512707: javax.transaction.xa.XAException: Error trying to start local transaction: Communications link failure
-
-The last packet successfully received from the server was 69,443 milliseconds ago. The last packet sent successfully to the server was 69,520 milliseconds ago.
-	at io.agroal.narayana.LocalXAResource.start(LocalXAResource.java:45)
-	at com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionImple.enlistResource(TransactionImple.java:661)
-	at com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionImple.enlistResource(TransactionImple.java:422)
-	at io.agroal.narayana.NarayanaTransactionIntegration.associate(NarayanaTransactionIntegration.java:90)
-	at io.agroal.pool.ConnectionPool.getConnection(ConnectionPool.java:222)
-	at io.agroal.pool.DataSource.getConnection(DataSource.java:81)
-	at io.quarkus.hibernate.orm.runtime.customized.QuarkusConnectionProvider.getConnection(QuarkusConnectionProvider.java:23)
-	at org.hibernate.internal.NonContextualJdbcConnectionAccess.obtainConnection(NonContextualJdbcConnectionAccess.java:38)
-	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:108)
-	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getPhysicalConnection(LogicalConnectionManagedImpl.java:138)
-	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl.connection(StatementPreparerImpl.java:50)
-	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$5.doPrepare(StatementPreparerImpl.java:149)
-	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$StatementPreparationTemplate.prepareStatement(StatementPreparerImpl.java:176)
-	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl.prepareQueryStatement(StatementPreparerImpl.java:151)
-	at org.hibernate.loader.Loader.prepareQueryStatement(Loader.java:2103)
-	at org.hibernate.loader.Loader.executeQueryStatement(Loader.java:2040)
-	at org.hibernate.loader.Loader.executeQueryStatement(Loader.java:2018)
-	at org.hibernate.loader.Loader.doQuery(Loader.java:948)
-	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:349)
-	at org.hibernate.loader.Loader.doList(Loader.java:2849)
-	at org.hibernate.loader.Loader.doList(Loader.java:2831)
-	at org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2663)
-	at org.hibernate.loader.Loader.list(Loader.java:2658)
-	at org.hibernate.loader.hql.QueryLoader.list(QueryLoader.java:506)
-	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.list(QueryTranslatorImpl.java:400)
-	at org.hibernate.engine.query.spi.HQLQueryPlan.performList(HQLQueryPlan.java:219)
-	at org.hibernate.internal.SessionImpl.list(SessionImpl.java:1414)
-	at org.hibernate.query.internal.AbstractProducedQuery.doList(AbstractProducedQuery.java:1625)
-	at org.hibernate.query.internal.AbstractProducedQuery.list(AbstractProducedQuery.java:1593)
-	at org.hibernate.query.Query.getResultList(Query.java:165)
-	at com.takaichi00.sample.quarkus.integration.repository.BookmarkRepositoryImpl.getAllIsbn(BookmarkRepositoryImpl.java:32)
-	at com.takaichi00.sample.quarkus.integration.repository.BookmarkRepositoryImpl_Subclass.getAllIsbn$$superaccessor2(BookmarkRepositoryImpl_Subclass.zig:370)
-	at com.takaichi00.sample.quarkus.integration.repository.BookmarkRepositoryImpl_Subclass$$function$$2.apply(BookmarkRepositoryImpl_Subclass$$function$$2.zig:29)
-	at io.quarkus.arc.impl.AroundInvokeInvocationContext.proceed(AroundInvokeInvocationContext.java:54)
-	at io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorBase.invokeInOurTx(TransactionalInterceptorBase.java:127)
-	at io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorBase.invokeInOurTx(TransactionalInterceptorBase.java:100)
-	at io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorRequired.doIntercept(TransactionalInterceptorRequired.java:32)
-	at io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorBase.intercept(TransactionalInterceptorBase.java:53)
-	at io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorRequired.intercept(TransactionalInterceptorRequired.java:26)
-	at io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorRequired_Bean.intercept(TransactionalInterceptorRequired_Bean.zig:340)
-	at io.quarkus.arc.impl.InterceptorInvocation.invoke(InterceptorInvocation.java:41)
-	at io.quarkus.arc.impl.AroundInvokeInvocationContext.perform(AroundInvokeInvocationContext.java:41)
-	at io.quarkus.arc.impl.InvocationContexts.performAroundInvoke(InvocationContexts.java:32)
-	at com.takaichi00.sample.quarkus.integration.repository.BookmarkRepositoryImpl_Subclass.getAllIsbn(BookmarkRepositoryImpl_Subclass.zig:328)
-	at com.takaichi00.sample.quarkus.integration.repository.BookmarkRepositoryImpl_ClientProxy.getAllIsbn(BookmarkRepositoryImpl_ClientProxy.zig:126)
-	at com.takaichi00.sample.quarkus.domain.service.BookServiceImpl.getAllBookmarksIsbn(BookServiceImpl.java:24)
-	at com.takaichi00.sample.quarkus.domain.service.BookServiceImpl_ClientProxy.getAllBookmarksIsbn(BookServiceImpl_ClientProxy.zig:277)
-	at com.takaichi00.sample.quarkus.application.controller.BookmarkV1Controller.getAllBookmarksIsbn(BookmarkV1Controller.java:33)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:170)
-	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:130)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.internalInvokeOnTarget(ResourceMethodInvoker.java:643)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTargetAfterFilter(ResourceMethodInvoker.java:507)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.lambda$invokeOnTarget$2(ResourceMethodInvoker.java:457)
-	at org.jboss.resteasy.core.interception.jaxrs.PreMatchContainerRequestContext.filter(PreMatchContainerRequestContext.java:364)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTarget(ResourceMethodInvoker.java:459)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:419)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:393)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:68)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:492)
-	at org.jboss.resteasy.core.SynchronousDispatcher.lambda$invoke$4(SynchronousDispatcher.java:261)
-	at org.jboss.resteasy.core.SynchronousDispatcher.lambda$preprocess$0(SynchronousDispatcher.java:161)
-	at org.jboss.resteasy.core.interception.jaxrs.PreMatchContainerRequestContext.filter(PreMatchContainerRequestContext.java:364)
-	at org.jboss.resteasy.core.SynchronousDispatcher.preprocess(SynchronousDispatcher.java:164)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:247)
-	at io.quarkus.resteasy.runtime.standalone.RequestDispatcher.service(RequestDispatcher.java:73)
-	at io.quarkus.resteasy.runtime.standalone.VertxRequestHandler.dispatch(VertxRequestHandler.java:138)
-	at io.quarkus.resteasy.runtime.standalone.VertxRequestHandler.access$000(VertxRequestHandler.java:41)
-	at io.quarkus.resteasy.runtime.standalone.VertxRequestHandler$1.run(VertxRequestHandler.java:93)
-	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2415)
-	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1436)
-	at org.jboss.threads.DelegatingRunnable.run(DelegatingRunnable.java:29)
-	at org.jboss.threads.ThreadLocalResettingRunnable.run(ThreadLocalResettingRunnable.java:29)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-	at org.jboss.threads.JBossThread.run(JBossThread.java:501)
-
 09:58:19.577 WARN  [or.hi.en.jd.sp.SqlExceptionHelper] (executor-thread-1) SQL Error: 0, SQLState: 08003
 09:58:19.577 ERROR [or.hi.en.jd.sp.SqlExceptionHelper] (executor-thread-1) No operations allowed after connection closed.
 09:58:19.598 WARN  [co.ar.at.arjuna] (executor-thread-1) ARJUNA012077: Abort called on already aborted atomic action 0:ffffc0a80267:ddb1:60b6d765:13
@@ -1032,6 +782,20 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
 09:59:46.773 ERROR [or.hi.en.jd.sp.SqlExceptionHelper] (executor-thread-2) Communications link failure
 ```
 
+### JFR を解析 (1000rps-120s)
+![1000rps-120s](./img/1000rps-120s-main.png)
+- 250rps の頃に比べてヒープは全然増えていない
+- JVM の CPU 使用率も全然使われていない
+
+![1000rps-120s](./img/1000rps-120s-socket.png)
+- ソケットI/O を見ると、リモートポート 3306 で合計 I/O 時間が 2min50s となっている
+    - 負荷をかけた時間が 2min なので、ほとんどの時間を MySQL のソケット通信に費やしている
+
+![1000rps-120s](./img/1000rps-120s-thread1.png)
+- executor thread は5つともほとんど稼働していない
+
+![1000rps-120s](./img/1000rps-120s-thread-mysqlconnection.png)
+- agroal-11 という Thread が Mysql の Socket Read などをしているようだが、前半はほとんど Socket Read で時間を費やしている
 
 # アーキテクチャメモ
 ## 凹型レイヤー
