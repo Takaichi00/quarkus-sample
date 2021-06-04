@@ -796,6 +796,8 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
 
 ![1000rps-120s](./img/1000rps-120s-thread-mysqlconnection.png)
 - agroal-11 という Thread が Mysql の Socket Read などをしているようだが、前半はほとんど Socket Read で時間を費やしている
+- [QUARKUS - DATASOURCES](https://quarkus.io/guides/datasource) で、[Agroal](https://agroal.github.io/) は Connection Pool の実装として Quakrus で使われているとの記載がある
+- [公式ドキュメント](https://quarkus.io/guides/datasource#quarkus-agroal_quarkus.datasource.jdbc.max-size) では、最大20のコネクションプールが存在するよう。
 
 # アーキテクチャメモ
 ## 凹型レイヤー
