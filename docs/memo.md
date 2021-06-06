@@ -782,7 +782,7 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
 09:59:46.773 ERROR [or.hi.en.jd.sp.SqlExceptionHelper] (executor-thread-2) Communications link failure
 ```
 
-### JFR を解析 (1000rps-120s)
+### JFR で解析 (1000rps-120s)
 ![1000rps-120s](./img/1000rps-120s-main.png)
 - 250rps の頃に比べてヒープは全然増えていない
 - JVM の CPU 使用率も全然使われていない
@@ -798,6 +798,48 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
 - agroal-11 という Thread が Mysql の Socket Read などをしているようだが、前半はほとんど Socket Read で時間を費やしている
 - [QUARKUS - DATASOURCES](https://quarkus.io/guides/datasource) で、[Agroal](https://agroal.github.io/) は Connection Pool の実装として Quakrus で使われているとの記載がある
 - [公式ドキュメント](https://quarkus.io/guides/datasource#quarkus-agroal_quarkus.datasource.jdbc.max-size) では、最大20のコネクションプールが存在するよう。
+
+→ エラーが起こりつつ、正常なレスポンスが起こる rps を探す
+
+## 500rps-120s
+```
+java \
+-XX:StartFlightRecording=\
+dumponexit=true,\
+filename=./output/quakrus-load-test-thread5-rps500.jfr \
+-Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 500
+Requests      [total, rate, throughput]         19044, 90.61, 0.14
+Duration      [total, attack, wait]             4m42s, 3m30s, 1m12s
+Latencies     [min, mean, 50, 90, 95, 99, max]  858.343ms, 1m23s, 1m15s, 1m58s, 2m29s, 2m29s, 3m55s
+Bytes In      [total, mean]                     1014, 0.05
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           0.20%
+Status Codes  [code:count]                      0:19005  200:39
+Error Set:
+Get "http://localhost:8080/v1/bookmarks/isbn": read tcp [::1]:57712->[::1]:8080: read: connection reset by peer
+Get "http://localhost:8080/v1/bookmarks/isbn": read tcp [::1]:57715->[::1]:8080: read: connection reset by peer
+Get "http://localhost:8080/v1/bookmarks/isbn": read tcp [::1]:57718->[::1]:8080: read: connection reset by peer
+Get "http://localhost:8080/v1/bookmarks/isbn": read tcp [::1]:57725->[::1]:8080: read: connection reset by peer
+Get "http://localhost:8080/v1/bookmarks/isbn": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+Get "http://localhost:8080/v1/bookmarks/isbn": read tcp [::1]:57745->[::1]:8080: read: connection reset by peer (Client.Timeout exceeded while awaiting headers)
+```
+→ 200 OK は微増したが、それでもエラーが多い。もう少し減らしてみる
+
+## 300rps-120s
+```
+java \
+-XX:StartFlightRecording=\
+dumponexit=true,\
+filename=./output/quakrus-load-test-thread5-rps300.jfr \
+-Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 300
+```
+→ PC がクラッシュした。少ない rps から徐々に上げていく方針とする。
 
 # アーキテクチャメモ
 ## 凹型レイヤー
