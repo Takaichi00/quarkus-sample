@@ -841,6 +841,41 @@ filename=./output/quakrus-load-test-thread5-rps300.jfr \
 ```
 → PC がクラッシュした。少ない rps から徐々に上げていく方針とする。
 
+## 10rps-120s
+```
+java \
+-XX:StartFlightRecording=\
+dumponexit=true,\
+filename=./output/quakrus-load-test-thread5-rps10.jfr \
+-Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 10
+Requests      [total, rate, throughput]         1200, 10.01, 10.01
+Duration      [total, attack, wait]             2m0s, 2m0s, 12.24ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  8.569ms, 22.833ms, 12.576ms, 16.965ms, 20.032ms, 491.574ms, 1.025s
+Bytes In      [total, mean]                     31200, 26.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:1200
+```
+→ 余裕で成功した。もう少し上げる
+
+
+## xxrps-120s
+```
+java \
+-XX:StartFlightRecording=\
+dumponexit=true,\
+filename=./output/quakrus-load-test-thread5-rps250.jfr \
+-Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 250
+```
+→ 250 rps までは余裕だ... 300 rps との差があるのだろうか...
+
+
 # アーキテクチャメモ
 ## 凹型レイヤー
 ![凹型レイヤー](https://terasolunaorg.github.io/guideline/5.0.0.RELEASE/ja/_images/LayerDependencies.png)
