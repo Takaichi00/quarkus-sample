@@ -875,6 +875,24 @@ filename=./output/quakrus-load-test-thread5-rps250.jfr \
 ```
 → 250 rps までは余裕だ... 300 rps との差があるのだろうか...
 
+## 260rps-120s
+```
+java \
+-XX:StartFlightRecording=\
+dumponexit=true,\
+filename=./output/quakrus-load-test-thread5-rps260.jfr \
+-Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 260
+```
+- 260 rps では PC がクラッシュした。やっぱり 256 の file descriptor の設定が効いていないのでは...?
+    - しかし file descriptor のエラーは発生せずに、PC がクラッシュしてしまう。
+    - また、途中から Wifi に接続できなくなるなどの現象が発生
+    - JFR ファイルを解析しようとしたが、エラーとなってしまい解析できない...
+- Mac 側の file descriptor の設定は問題ないとすると、Docker で立てている MySQL に問題があるのかもしれない
+    - DB に接続しないエンドポイントを用意し、256 以上の rps でエラーがでないか確認する
+
 
 # アーキテクチャメモ
 ## 凹型レイヤー
