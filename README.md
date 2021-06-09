@@ -107,6 +107,13 @@ curl localhost:8080/v2/books/9784865942248
 curl -X POST localhost:8080/v1/bookmarks/9784865942248
 ```
 
+## HealthCheck
+```
+curl localhost:8080/q/health
+curl localhost:8080/q/health/live
+curl localhost:8080/q/health/ready
+```
+
 # SonarQube
 ## set up SonarQube
 - clone https://github.com/Takaichi00/sonarqube-docker

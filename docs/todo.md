@@ -26,6 +26,8 @@
     - [x] create application docker image 
         - https://quarkus.io/guides/building-native-image#container-runtime
         - https://medium.com/@kenta.kosugi/quarkus-%E3%81%A7%E4%BD%9C%E3%82%8B%E7%88%86%E9%80%9F-java-micro-service-2-4ba8596319e8
+- [ ] health check
+    - [x] add health check endpoint (https://redhat-developer-demos.github.io/quarkus-tutorial/quarkus-tutorial/health.html)    
 - [ ] JFR → [Moving jfr-sample repository](https://github.com/Takaichi00/jfr-sample)
     - [ ] load testing and JFR analysis
 - [x] SonarQube
