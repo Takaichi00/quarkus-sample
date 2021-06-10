@@ -893,6 +893,25 @@ filename=./output/quakrus-load-test-thread5-rps260.jfr \
 - Mac 側の file descriptor の設定は問題ないとすると、Docker で立てている MySQL に問題があるのかもしれない
     - DB に接続しないエンドポイントを用意し、256 以上の rps でエラーがでないか確認する
 
+## 260rps-120s-liveness
+```
+java \
+-XX:StartFlightRecording=\
+dumponexit=true,\
+filename=./output/quakrus-load-test-thread5-rps260-libeness.jfr \
+-Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta-liveness.sh 260
+Requests      [total, rate, throughput]         31200, 260.01, 260.01
+Duration      [total, attack, wait]             2m0s, 2m0s, 725.696µs
+Latencies     [min, mean, 50, 90, 95, 99, max]  150.149µs, 778.85µs, 514.93µs, 897.852µs, 1.107ms, 3.194ms, 188.929ms
+Bytes In      [total, mean]                     1435200, 46.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:31200
+```
+→ 余裕だった。やはり Local の Docker で立てている MySQL との接続に何かしら問題がありそう
 
 # アーキテクチャメモ
 ## 凹型レイヤー
