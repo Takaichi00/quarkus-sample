@@ -17,14 +17,14 @@ services:
     ports:
       - 3306:3306
 
-  # phpMyAdmin
-  phpmyadmin:
-    container_name: test_phpmyadmin
-    image: phpmyadmin/phpmyadmin
-    environment:
-      - PMA_ARBITRARY=1
-      - PMA_HOSTS=mysql_host
-      - PMA_USER=root
-      - PMA_PASSWORD=root
-    ports:
-      - 28080:80
+#  # phpMyAdmin
+#  phpmyadmin:
+#    container_name: test_phpmyadmin
+#    image: phpmyadmin/phpmyadmin
+#    environment:
+#      - PMA_ARBITRARY=1
+#      - PMA_HOSTS=mysql_host
+#      - PMA_USER=root
+#      - PMA_PASSWORD=root
+#    ports:
+#      - 28080:80

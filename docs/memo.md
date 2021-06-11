@@ -913,6 +913,44 @@ Status Codes  [code:count]                      200:31200
 ```
 → 余裕だった。やはり Local の Docker で立てている MySQL との接続に何かしら問題がありそう
 
+
+```
+# on mac 
+$ ulimit -n
+524288
+
+$ ulimit -u
+2784
+
+$ docker run mysql:8.0.20 sh -c 'ulimit -n'
+1048576
+
+$ docker run mysql:8.0.20 sh -c 'ulimit -a'
+
+$ docker run --ulimit nofile=524288:524288 mysql:8.0.20 sh -c 'ulimit -n'
+524288 
+```
+→ mac で設定している ulimit を上回っていることが原因? しかし 256 は大幅に上回っている
+
+- mac の max_connection の default は 151
+    - https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_max_connections
+- quarkus の connection_pool は デフォルトで最大20
+    - https://quarkus.io/guides/datasource#quarkus-agroal_quarkus.datasource.jdbc.max-size 
+いまいち 256 という数字がピンとこない。
+max_connection を 1000 に上げてみる。あまり関係ないと思うが...
+
+### max_connection を 1000 にあげて 260rps-120s
+```
+java \
+-XX:StartFlightRecording=\
+dumponexit=true,\
+filename=./output/quakrus-load-test-thread5-rps260-1000connection.jfr \
+-Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 260
+```
+
 # アーキテクチャメモ
 ## 凹型レイヤー
 ![凹型レイヤー](https://terasolunaorg.github.io/guideline/5.0.0.RELEASE/ja/_images/LayerDependencies.png)
