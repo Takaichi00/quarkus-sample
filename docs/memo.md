@@ -940,6 +940,12 @@ $ docker run --ulimit nofile=524288:524288 mysql:8.0.20 sh -c 'ulimit -n'
 max_connection を 1000 に上げてみる。あまり関係ないと思うが...
 
 ### max_connection を 1000 にあげて 260rps-120s
+- 以下を my.conf に追記
+```
+[mysqld]
+max_connections = 1000
+```
+- 実行
 ```
 java \
 -XX:StartFlightRecording=\
@@ -949,7 +955,19 @@ filename=./output/quakrus-load-test-thread5-rps260-1000connection.jfr \
 ```
 ```
 ./vegeta.sh 260
+MBP-13JAU-024:load-test totakaic$ ./vegeta.sh 260
+Requests      [total, rate, throughput]         31200, 260.01, 260.00
+Duration      [total, attack, wait]             2m0s, 2m0s, 5.879ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  5.085ms, 483.446ms, 15.549ms, 1.823s, 2.063s, 2.179s, 2.252s
+Bytes In      [total, mean]                     811200, 26.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:31200
+Error Set:
+MBP-13JAU-024:load-test tot
 ```
+→ 成功した! max connection が問題だったのか...?
+→ max connection を戻してもう一度実行してみる。
 
 # アーキテクチャメモ
 ## 凹型レイヤー
