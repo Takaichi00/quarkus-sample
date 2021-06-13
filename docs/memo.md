@@ -968,6 +968,25 @@ MBP-13JAU-024:load-test tot
 ```
 → 成功した! max connection が問題だったのか...?
 → max connection を戻してもう一度実行してみる。
+```
+java \
+-XX:StartFlightRecording=\
+dumponexit=true,\
+filename=./output/quakrus-load-test-thread5-rps260.jfr \
+-Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 260
+Requests      [total, rate, throughput]         31200, 260.01, 259.85
+Duration      [total, attack, wait]             2m0s, 2m0s, 73.086ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  5.507ms, 2.175s, 2.334s, 4.345s, 4.635s, 4.865s, 4.947s
+Bytes In      [total, mean]                     811200, 26.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:31200
+Error Set:
+```
+→ 成功した... 再現しない
 
 # アーキテクチャメモ
 ## 凹型レイヤー
