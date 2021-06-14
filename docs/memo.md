@@ -988,6 +988,11 @@ Error Set:
 ```
 → 成功した... 再現しない
 
+- 260 rps のときの JFR を解析
+→ 特に問題はなさそう
+![260rps](img/260rps-120s-main.png)
+![260rps](img/260rps-120s-socket.png)
+
 # アーキテクチャメモ
 ## 凹型レイヤー
 ![凹型レイヤー](https://terasolunaorg.github.io/guideline/5.0.0.RELEASE/ja/_images/LayerDependencies.png)
