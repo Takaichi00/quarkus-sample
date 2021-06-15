@@ -993,6 +993,152 @@ Error Set:
 ![260rps](img/260rps-120s-main.png)
 ![260rps](img/260rps-120s-socket.png)
 
+## 500rps-120s
+- 事象が解決したので再度 rps を上げて検証してみる
+```
+java \
+-XX:StartFlightRecording=\
+dumponexit=true,\
+filename=./output/quakrus-load-test-thread5-rps500.jfr \
+-Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 500
+$ ./vegeta.sh 500
+Requests      [total, rate, throughput]         19548, 122.62, 0.83
+Duration      [total, attack, wait]             4m52s, 2m39s, 2m13s
+Latencies     [min, mean, 50, 90, 95, 99, max]  913.669ms, 1m21s, 1m20s, 1m52s, 1m55s, 2m33s, 4m48s
+Bytes In      [total, mean]                     6344, 0.32
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           1.25%
+Status Codes  [code:count]                      0:19304  200:244
+Error Set:
+Get "http://localhost:8080/v1/bookmarks/isbn": read tcp [::1]:54418->[::1]:8080: read: connection reset by peer
+Get "http://localhost:8080/v1/bookmarks/isbn": read tcp [::1]:54438->[::1]:8080: read: connection reset by peer
+Get "http://localhost:8080/v1/bookmarks/isbn": read tcp [::1]:54436->[::1]:8080: read: connection reset by peer
+Get "http://localhost:8080/v1/bookmarks/isbn": read tcp [::1]:54439->[::1]:8080: read: connection reset by peer
+Get "http://localhost:8080/v1/bookmarks/isbn": read tcp [::1]:54434->[::1]:8080: read: connection reset by peer
+Get "http://localhost:8080/v1/bookmarks/isbn": read tcp [::1]:54454->[::1]:8080: read: connection reset by peer
+Get "http://localhost:8080/v1/bookmarks/isbn": read tcp [::1]:54432->[::1]:8080: read: connection reset by peer
+Get "http://localhost:8080/v1/bookmarks/isbn": read tcp [::1]:54455->[::1]:8080: read: connection reset by peer
+Get "http://localhost:8080/v1/bookmarks/isbn": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+```
+- 以下のような warn が発生
+```
+20:00:11.061 WARN  [co.ar.at.arjuna] (Transaction Reaper) ARJUNA012117: TransactionReaper::check timeout for TX 0:ffff0a0ae489:ce2e:60c887fb:6ac in state  RUN
+
+20:00:11.587 WARN  [co.ar.at.arjuna] (Transaction Reaper Worker 0) ARJUNA012095: Abort of action id 0:ffff0a0ae489:ce2e:60c887fb:6b3 invoked while multiple threads active within it.
+20:00:11.595 WARN  [co.ar.at.arjuna] (Transaction Reaper Worker 0) ARJUNA012381: Action id 0:ffff0a0ae489:ce2e:60c887fb:6b3 completed with multiple threads - thread executor-thread-2 was in progress with java.base@11.0.10/java.net.SocketInputStream.socketRead0(Native Method)
+java.base@11.0.10/java.net.SocketInputStream.socketRead(SocketInputStream.java:115)
+java.base@11.0.10/java.net.SocketInputStream.read(SocketInputStream.java:168)
+java.base@11.0.10/java.net.SocketInputStream.read(SocketInputStream.java:140)
+java.base@11.0.10/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:478)
+java.base@11.0.10/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:472)
+java.base@11.0.10/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)
+java.base@11.0.10/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1355)
+java.base@11.0.10/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:964)
+java.base@11.0.10/java.io.FilterInputStream.read(FilterInputStream.java:133)
+app//com.mysql.cj.protocol.FullReadInputStream.readFully(FullReadInputStream.java:64)
+app//com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:63)
+app//com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:45)
+app//com.mysql.cj.protocol.a.TimeTrackingPacketReader.readHeader(TimeTrackingPacketReader.java:52)
+app//com.mysql.cj.protocol.a.TimeTrackingPacketReader.readHeader(TimeTrackingPacketReader.java:41)
+app//com.mysql.cj.protocol.a.MultiPacketReader.readHeader(MultiPacketReader.java:54)
+app//com.mysql.cj.protocol.a.MultiPacketReader.readHeader(MultiPacketReader.java:44)
+app//com.mysql.cj.protocol.a.NativeProtocol.readMessage(NativeProtocol.java:540)
+app//com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:710)
+app//com.mysql.cj.protocol.a.NativeProtocol.sendCommand(NativeProtocol.java:649)
+app//com.mysql.cj.protocol.a.NativeProtocol.sendQueryPacket(NativeProtocol.java:948)
+app//com.mysql.cj.NativeSession.execSQL(NativeSession.java:1075)
+app//com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:930)
+app//com.mysql.cj.jdbc.ClientPreparedStatement.executeQuery(ClientPreparedStatement.java:1003)
+app//io.agroal.pool.wrapper.PreparedStatementWrapper.executeQuery(PreparedStatementWrapper.java:76)
+app//org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.extract(ResultSetReturnImpl.java:57)
+app//org.hibernate.loader.Loader.getResultSet(Loader.java:2303)
+app//org.hibernate.loader.Loader.executeQueryStatement(Loader.java:2056)
+app//org.hibernate.loader.Loader.executeQueryStatement(Loader.java:2018)
+app//org.hibernate.loader.Loader.doQuery(Loader.java:948)
+app//org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:349)
+app//org.hibernate.loader.Loader.doList(Loader.java:2849)
+app//org.hibernate.loader.Loader.doList(Loader.java:2831)
+app//org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2663)
+app//org.hibernate.loader.Loader.list(Loader.java:2658)
+app//org.hibernate.loader.hql.QueryLoader.list(QueryLoader.java:506)
+app//org.hibernate.hql.internal.ast.QueryTranslatorImpl.list(QueryTranslatorImpl.java:400)
+app//org.hibernate.engine.query.spi.HQLQueryPlan.performList(HQLQueryPlan.java:219)
+app//org.hibernate.internal.SessionImpl.list(SessionImpl.java:1414)
+app//org.hibernate.query.internal.AbstractProducedQuery.doList(AbstractProducedQuery.java:1625)
+app//org.hibernate.query.internal.AbstractProducedQuery.list(AbstractProducedQuery.java:1593)
+app//org.hibernate.query.Query.getResultList(Query.java:165)
+app//com.takaichi00.sample.quarkus.integration.repository.BookmarkRepositoryImpl.getAllIsbn(BookmarkRepositoryImpl.java:32)
+app//com.takaichi00.sample.quarkus.integration.repository.BookmarkRepositoryImpl_Subclass.getAllIsbn$$superaccessor3(BookmarkRepositoryImpl_Subclass.zig:483)
+app//com.takaichi00.sample.quarkus.integration.repository.BookmarkRepositoryImpl_Subclass$$function$$3.apply(BookmarkRepositoryImpl_Subclass$$function$$3.zig:29)
+app//io.quarkus.arc.impl.AroundInvokeInvocationContext.proceed(AroundInvokeInvocationContext.java:54)
+app//io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorBase.invokeInOurTx(TransactionalInterceptorBase.java:127)
+app//io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorBase.invokeInOurTx(TransactionalInterceptorBase.java:100)
+app//io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorRequired.doIntercept(TransactionalInterceptorRequired.java:32)
+app//io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorBase.intercept(TransactionalInterceptorBase.java:53)
+app//io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorRequired.intercept(TransactionalInterceptorRequired.java:26)
+app//io.quarkus.narayana.jta.runtime.interceptor.TransactionalInterceptorRequired_Bean.intercept(TransactionalInterceptorRequired_Bean.zig:340)
+app//io.quarkus.arc.impl.InterceptorInvocation.invoke(InterceptorInvocation.java:41)
+app//io.quarkus.arc.impl.AroundInvokeInvocationContext.perform(AroundInvokeInvocationContext.java:41)
+app//io.quarkus.arc.impl.InvocationContexts.performAroundInvoke(InvocationContexts.java:32)
+app//com.takaichi00.sample.quarkus.integration.repository.BookmarkRepositoryImpl_Subclass.getAllIsbn(BookmarkRepositoryImpl_Subclass.zig:441)
+app//com.takaichi00.sample.quarkus.integration.repository.BookmarkRepositoryImpl_ClientProxy.getAllIsbn(BookmarkRepositoryImpl_ClientProxy.zig:126)
+app//com.takaichi00.sample.quarkus.domain.service.BookServiceImpl.getAllBookmarksIsbn(BookServiceImpl.java:24)
+app//com.takaichi00.sample.quarkus.domain.service.BookServiceImpl_ClientProxy.getAllBookmarksIsbn(BookServiceImpl_ClientProxy.zig:277)
+app//com.takaichi00.sample.quarkus.application.controller.BookmarkV1Controller.getAllBookmarksIsbn(BookmarkV1Controller.java:33)
+jdk.internal.reflect.GeneratedMethodAccessor6.invoke(Unknown Source)
+java.base@11.0.10/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+java.base@11.0.10/java.lang.reflect.Method.invoke(Method.java:566)
+app//org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:170)
+app//org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:130)
+app//org.jboss.resteasy.core.ResourceMethodInvoker.internalInvokeOnTarget(ResourceMethodInvoker.java:643)
+app//org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTargetAfterFilter(ResourceMethodInvoker.java:507)
+app//org.jboss.resteasy.core.ResourceMethodInvoker.lambda$invokeOnTarget$2(ResourceMethodInvoker.java:457)
+app//org.jboss.resteasy.core.ResourceMethodInvoker$$Lambda$414/0x0000000840539440.get(Unknown Source)
+app//org.jboss.resteasy.core.interception.jaxrs.PreMatchContainerRequestContext.filter(PreMatchContainerRequestContext.java:364)
+app//org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTarget(ResourceMethodInvoker.java:459)
+app//org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:419)
+app//org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:393)
+app//org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:68)
+app//org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:492)
+app//org.jboss.resteasy.core.SynchronousDispatcher.lambda$invoke$4(SynchronousDispatcher.java:261)
+app//org.jboss.resteasy.core.SynchronousDispatcher$$Lambda$409/0x0000000840538440.run(Unknown Source)
+app//org.jboss.resteasy.core.SynchronousDispatcher.lambda$preprocess$0(SynchronousDispatcher.java:161)
+app//org.jboss.resteasy.core.SynchronousDispatcher$$Lambda$412/0x0000000840539040.get(Unknown Source)
+app//org.jboss.resteasy.core.interception.jaxrs.PreMatchContainerRequestContext.filter(PreMatchContainerRequestContext.java:364)
+app//org.jboss.resteasy.core.SynchronousDispatcher.preprocess(SynchronousDispatcher.java:164)
+app//org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:247)
+app//io.quarkus.resteasy.runtime.standalone.RequestDispatcher.service(RequestDispatcher.java:73)
+app//io.quarkus.resteasy.runtime.standalone.VertxRequestHandler.dispatch(VertxRequestHandler.java:138)
+app//io.quarkus.resteasy.runtime.standalone.VertxRequestHandler.access$000(VertxRequestHandler.java:41)
+app//io.quarkus.resteasy.runtime.standalone.VertxRequestHandler$1.run(VertxRequestHandler.java:93)
+app//org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2415)
+app//org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1436)
+app//org.jboss.threads.DelegatingRunnable.run(DelegatingRunnable.java:29)
+app//org.jboss.threads.ThreadLocalResettingRunnable.run(ThreadLocalResettingRunnable.java:29)
+java.base@11.0.10/java.lang.Thread.run(Thread.java:834)
+app//org.jboss.threads.JBossThread.run(JBossThread.java:501)
+
+20:00:12.083 WARN  [co.ar.at.arjuna] (Transaction Reaper) ARJUNA012378: ReaperElement appears to be wedged: app//com.mysql.cj.jdbc.ClientPreparedStatement.realClose(ClientPreparedStatement.java:1299)
+app//com.mysql.cj.jdbc.StatementImpl.close(StatementImpl.java:426)
+app//io.agroal.pool.wrapper.StatementWrapper.close(StatementWrapper.java:96)
+app//io.agroal.pool.wrapper.PreparedStatementWrapper.close(PreparedStatementWrapper.java:68)
+app//io.agroal.pool.wrapper.ConnectionWrapper.closeTrackedStatements(ConnectionWrapper.java:125)
+app//io.agroal.pool.wrapper.ConnectionWrapper.close(ConnectionWrapper.java:146)
+app//io.agroal.pool.ConnectionHandler.transactionRollback(ConnectionHandler.java:247)
+app//io.agroal.narayana.LocalXAResource.rollback(LocalXAResource.java:78)
+app//com.arjuna.ats.internal.jta.resources.arjunacore.XAResourceRecord.topLevelAbort(XAResourceRecord.java:362)
+app//com.arjuna.ats.arjuna.coordinator.BasicAction.doAbort(BasicAction.java:3032)
+app//com.arjuna.ats.arjuna.coordinator.BasicAction.doAbort(BasicAction.java:3011)
+app//com.arjuna.ats.arjuna.coordinator.BasicAction.Abort(BasicAction.java:1674)
+app//com.arjuna.ats.arjuna.coordinator.TwoPhaseCoordinator.cancel(TwoPhaseCoordinator.java:124)
+app//com.arjuna.ats.arjuna.AtomicAction.cancel(AtomicAction.java:215)
+app//com.arjuna.ats.arjuna.coordinator.TransactionReaper.doCancellations(TransactionReaper.java:381)
+app//com.arjuna.ats.internal.arjuna.coordinator.ReaperWorkerThread.run(ReaperWorkerThread.java:78)
+```
+
 # アーキテクチャメモ
 ## 凹型レイヤー
 ![凹型レイヤー](https://terasolunaorg.github.io/guideline/5.0.0.RELEASE/ja/_images/LayerDependencies.png)
