@@ -1139,6 +1139,30 @@ app//com.arjuna.ats.arjuna.coordinator.TransactionReaper.doCancellations(Transac
 app//com.arjuna.ats.internal.arjuna.coordinator.ReaperWorkerThread.run(ReaperWorkerThread.java:78)
 ```
 
+### 300rps-120s
+→ いい感じに成功と失敗が発生するように
+```
+ava -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-test-thread5-rps300.jfr -Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 300
+Requests      [total, rate, throughput]         35581, 67.52, 17.83
+Duration      [total, attack, wait]             9m17s, 8m47s, 30s
+Latencies     [min, mean, 50, 90, 95, 99, max]  587.639ms, 57.812s, 33.061s, 2m11s, 2m13s, 3m39s, 8m2s
+Bytes In      [total, mean]                     258154, 7.26
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           27.91%
+Status Codes  [code:count]                      0:25650  200:9929  503:2
+Error Set:
+Get "http://localhost:8080/v1/bookmarks/isbn": read tcp [::1]:58963->[::1]:8080: read: connection reset by peer
+Get "http://localhost:8080/v1/bookmarks/isbn": read tcp [::1]:59013->[::1]:8080: read: connection reset by peer
+Get "http://localhost:8080/v1/bookmarks/isbn": read tcp [::1]:59014->[::1]:8080: read: connection reset by peer
+Get "http://localhost:8080/v1/bookmarks/isbn": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+503 Service Unavailable
+```
+
+### 280rps-120s
+
 # アーキテクチャメモ
 ## 凹型レイヤー
 ![凹型レイヤー](https://terasolunaorg.github.io/guideline/5.0.0.RELEASE/ja/_images/LayerDependencies.png)
