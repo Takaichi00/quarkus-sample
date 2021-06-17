@@ -1167,8 +1167,73 @@ java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-tes
 ```
 ```
 ./vegeta.sh 280
+[total, rate, throughput]         3970, 196.75, 46.00
+Duration      [total, attack, wait]             59.353s, 20.178s, 39.175s
+Latencies     [min, mean, 50, 90, 95, 99, max]  886.309ms, 17.091s, 6.077s, 47.639s, 48.546s, 49.235s, 49.454s
+Bytes In      [total, mean]                     70980, 17.88
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           68.77%
+Status Codes  [code:count]                      0:1240  200:2730
+Error Set:
+Get "http://localhost:8080/v1/bookmarks/isbn": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
 ```
+→ 全然食いきれていない
 
+### Thread を20に上げてみる
+- Quarkus の Thread が5に対して、Connection Pool が 20, MySQL のデフォルトの maxConnection は151
+- 今のボトルネックは Thread なのでは?
+  - Thread を 20 にして実行してみる
+```
+java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-test-thread20-rps280.jfr -Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 280
+Requests      [total, rate, throughput]         33600, 280.01, 279.44
+Duration      [total, attack, wait]             2m0s, 2m0s, 242.057ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  238.368ms, 4.724s, 5.544s, 7.228s, 7.423s, 7.499s, 7.633s
+Bytes In      [total, mean]                     873600, 26.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:33600
+Error Set:
+```
+→ すべて成功した... やはり Thread がボトルネックか...
+→ もうちょっと rps を上げてみる
+
+```
+java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-test-thread20-rps400.jfr -Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 400
+
+	/usr/local/Cellar/go/1.15.2/libexec/src/net/dial.go:548 +0x152
+net.(*sysDialer).dialParallel.func1(0x153e4e0, 0xc02cee4800, 0xc02ce9aa01)
+	/usr/local/Cellar/go/1.15.2/libexec/src/net/dial.go:468 +0x9b
+created by net.(*sysDialer).dialParallel
+	/usr/local/Cellar/go/1.15.2/libexec/src/net/dial.go:483 +0x265 ...
+
+Requests      [total, rate, throughput]         1412, 176.09, 19.23
+Duration      [total, attack, wait]             38.02s, 8.019s, 30.001s
+Latencies     [min, mean, 50, 90, 95, 99, max]  879.639ms, 16.777s, 4.772s, 32.646s, 32.918s, 33.173s, 33.42s
+Bytes In      [total, mean]                     19006, 13.46
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           51.77%
+Status Codes  [code:count]                      0:681  200:731
+```
+→ だめでした
+
+### 色々調整
+- いきなり全速力ではなく warm up を実施してみては?
+    - 開始 60s は10rps くらいでチョロチョロと流す
+- `quarkus.datasource.jdbc.min-size=20` `quarkus.datasource.jdbc.max-size=20` を指定して connection 生成のコストを下げてみては? 
+
+```
+java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-test-thread20-rps400-ver2.jfr -Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 400
+```
+→ だめでした。やはり rps が多すぎて食いきれないよう
 
 # アーキテクチャメモ
 ## 凹型レイヤー
