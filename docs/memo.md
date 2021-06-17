@@ -1142,7 +1142,7 @@ app//com.arjuna.ats.internal.arjuna.coordinator.ReaperWorkerThread.run(ReaperWor
 ### 300rps-120s
 → いい感じに成功と失敗が発生するように
 ```
-ava -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-test-thread5-rps300.jfr -Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-test-thread5-rps300.jfr -Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
 ```
 ```
 ./vegeta.sh 300
@@ -1162,6 +1162,13 @@ Get "http://localhost:8080/v1/bookmarks/isbn": context deadline exceeded (Client
 ```
 
 ### 280rps-120s
+```
+java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-test-thread5-rps280.jfr -Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 280
+```
+
 
 # アーキテクチャメモ
 ## 凹型レイヤー
