@@ -1235,6 +1235,13 @@ java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-tes
 ```
 → だめでした。やはり rps が多すぎて食いきれないよう
 
+### この比率のまま Thread と Connection を増やす
+- Thread 100 / max,min Connection Pool 100 ではどうか? 
+
+### いろいろな構成を試す
+- Thread に対して Connection Pool が大きい場合 (5 : 100)
+- Thread に対して Connection Pool が小さい場合 (100 : 5)
+
 # アーキテクチャメモ
 ## 凹型レイヤー
 ![凹型レイヤー](https://terasolunaorg.github.io/guideline/5.0.0.RELEASE/ja/_images/LayerDependencies.png)
