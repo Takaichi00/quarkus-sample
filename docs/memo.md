@@ -1238,7 +1238,38 @@ java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-tes
 ### この比率のまま Thread と Connection を増やす
 - Thread 100 / max,min Connection Pool 100 ではどうか? 
 
+```
+java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-test-thread100-connection-100-rps400.jfr -Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 400
+[total, rate, throughput]         37174, 108.11, 1.60
+Duration      [total, attack, wait]             6m57s, 5m44s, 1m13s
+Latencies     [min, mean, 50, 90, 95, 99, max]  15.456ms, 2m49s, 4m4s, 4m6s, 4m6s, 4m6s, 4m35s
+Bytes In      [total, mean]                     17316, 0.47
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           1.79%
+Status Codes  [code:count]                      0:36508  200:666
+```
+→ だめだった。もっとギリギリ食えるラインで色々な条件を試すほうが有意義なのでは...?
+
 ### いろいろな構成を試す
+- 色々試した結果 rps 200 は食えるよう。ここをベースとしていろいろな実験をする
+- Thread 1 / max,min Connection Pool 100
+    - Thread に対して Connection Pool が潤沢にある環境
+Mac の構成
+```
+CPU: 2.5 GHz デュアルコアIntel Core i7
+メモリ: 16 GB 2133 MHz LPDDR3
+```
+```
+java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-test-thread1-connection-100-rps200.jfr -Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 200
+```
+
+
 - Thread に対して Connection Pool が大きい場合 (5 : 100)
 - Thread に対して Connection Pool が小さい場合 (100 : 5)
 
