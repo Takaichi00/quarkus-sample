@@ -1272,6 +1272,11 @@ java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-tes
 
 - Thread に対して Connection Pool が大きい場合 (5 : 100)
 - Thread に対して Connection Pool が小さい場合 (100 : 5)
+- jfr4jdbc を組み込まないか試して見る
+  - https://github.com/chiroito/Jfr4Jdbc
+  - https://www.slideshare.net/oracle4engineer/tech-deepdive-1-java-flight-recorder
+
+
 
 # アーキテクチャメモ
 ## 凹型レイヤー
