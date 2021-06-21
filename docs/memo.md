@@ -1254,19 +1254,45 @@ Status Codes  [code:count]                      0:36508  200:666
 → だめだった。もっとギリギリ食えるラインで色々な条件を試すほうが有意義なのでは...?
 
 ### いろいろな構成を試す
-- 色々試した結果 rps 200 は食えるよう。ここをベースとしていろいろな実験をする
-- Thread 1 / max,min Connection Pool 100
-    - Thread に対して Connection Pool が潤沢にある環境
-Mac の構成
+
+- rps は 1 Thread でも食えるくらいの値にして、その他の条件を変えて色々見てみる
+
+#### Mac の構成
 ```
 CPU: 2.5 GHz デュアルコアIntel Core i7
 メモリ: 16 GB 2133 MHz LPDDR3
 ```
+- Thread 1 / max,min Connection Pool 100
+    - Thread に対して Connection Pool が潤沢にある環境
 ```
-java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-test-thread1-connection-100-rps200.jfr -Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-test-thread1-connection-100-rps50.jfr -Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
 ```
 ```
-./vegeta.sh 200
+./vegeta.sh 50
+Requests      [total, rate, throughput]         6000, 50.01, 50.00
+Duration      [total, attack, wait]             2m0s, 2m0s, 14.743ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  5.082ms, 8.826ms, 8.408ms, 10.994ms, 12.739ms, 18.032ms, 32.895ms
+Bytes In      [total, mean]                     156000, 26.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:6000
+Error Set:
+```
+
+- Thread 2 / max,min Connection Pool 100
+```
+java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-test-thread2-connection-100-rps50.jfr -Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 50
+Requests      [total, rate, throughput]         6000, 50.01, 50.01
+Duration      [total, attack, wait]             2m0s, 2m0s, 6.901ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  5.182ms, 10.073ms, 8.587ms, 11.795ms, 14.303ms, 35.659ms, 248.858ms
+Bytes In      [total, mean]                     156000, 26.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:6000
+Error Set:
 ```
 
 
