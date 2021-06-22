@@ -1311,6 +1311,23 @@ Status Codes  [code:count]                      200:6000
 Error Set:
 ```
 
+- Thread 4 / max,min Connection Pool 100
+```
+java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-test-thread4-connection-100-rps50.jfr -Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 50
+Requests      [total, rate, throughput]         6000, 50.01, 50.00
+Duration      [total, attack, wait]             2m0s, 2m0s, 9.082ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  5.338ms, 10.723ms, 9.787ms, 14.053ms, 16.704ms, 26.468ms, 110.275ms
+Bytes In      [total, mean]                     156000, 26.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:6000
+Error Set:
+```
+
+
 - Thread に対して Connection Pool が大きい場合 (5 : 100)
 - Thread に対して Connection Pool が小さい場合 (100 : 5)
 - jfr4jdbc を組み込まないか試して見る
