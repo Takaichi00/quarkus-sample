@@ -1309,6 +1309,24 @@ Bytes Out     [total, mean]                     0, 0.00
 Success       [ratio]                           100.00%
 Status Codes  [code:count]                      200:6000
 Error Set:
+
+Requests      [total, rate, throughput]         6000, 50.01, 50.01
+Duration      [total, attack, wait]             2m0s, 2m0s, 7.795ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  5.687ms, 16.922ms, 9.539ms, 13.465ms, 16.464ms, 221.339ms, 1.094s
+Bytes In      [total, mean]                     156000, 26.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:6000
+
+Requests      [total, rate, throughput]         6000, 50.01, 50.01
+Duration      [total, attack, wait]             2m0s, 2m0s, 10.127ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  5.575ms, 16.66ms, 9.649ms, 13.729ms, 16.959ms, 187.364ms, 1.05s
+Bytes In      [total, mean]                     156000, 26.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:6000
+Error Set:
+
 ```
 
 - Thread 4 / max,min Connection Pool 100
