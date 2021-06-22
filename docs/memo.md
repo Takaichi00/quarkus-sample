@@ -1295,6 +1295,21 @@ Status Codes  [code:count]                      200:6000
 Error Set:
 ```
 
+- Thread 3 / max,min Connection Pool 100
+```
+java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-test-thread3-connection-100-rps50.jfr -Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 50
+Requests      [total, rate, throughput]         6000, 50.01, 50.01
+Duration      [total, attack, wait]             2m0s, 2m0s, 7.802ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  5.357ms, 28.456ms, 9.681ms, 14.704ms, 19.843ms, 740.624ms, 1.031s
+Bytes In      [total, mean]                     156000, 26.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:6000
+Error Set:
+```
 
 - Thread に対して Connection Pool が大きい場合 (5 : 100)
 - Thread に対して Connection Pool が小さい場合 (100 : 5)
