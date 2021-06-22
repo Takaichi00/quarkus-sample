@@ -1365,6 +1365,35 @@ Error Set:
 
 → Thread 3の数値が悪化している。もう少し時間を伸ばして試してみるか？
 
+- Thread 2 / max,min Connection Pool 100 / 600s
+```
+java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-test-thread2-connection-100-rps50-600s.jfr -Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 50
+Warmup...
+Warmup End
+Start Attack...
+Start Report...
+Requests      [total, rate, throughput]         30000, 50.00, 50.00
+Duration      [total, attack, wait]             10m0s, 10m0s, 10.314ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  4.46ms, 11.678ms, 8.357ms, 11.22ms, 13.12ms, 34.375ms, 1.025s
+Bytes In      [total, mean]                     780000, 26.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:30000
+Error Set:
+```
+
+
+- Thread 3 / max,min Connection Pool 100 / 600s
+```
+java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-test-thread3-connection-100-rps50-600s.jfr -Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 50
+```
+
 - Thread に対して Connection Pool が大きい場合 (5 : 100)
 - Thread に対して Connection Pool が小さい場合 (100 : 5)
 - jfr4jdbc を組み込まないか試して見る
