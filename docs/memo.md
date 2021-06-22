@@ -1392,7 +1392,17 @@ java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-tes
 ```
 ```
 ./vegeta.sh 50
+Requests      [total, rate, throughput]         30000, 50.00, 50.00
+Duration      [total, attack, wait]             10m0s, 10m0s, 6.568ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  4.798ms, 10.435ms, 8.42ms, 11.116ms, 12.687ms, 20.46ms, 1.049s
+Bytes In      [total, mean]                     780000, 26.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:30000
+Error Set:
 ```
+
+→ 特に変わらなかった
 
 - Thread に対して Connection Pool が大きい場合 (5 : 100)
 - Thread に対して Connection Pool が小さい場合 (100 : 5)
