@@ -1343,8 +1343,27 @@ Bytes Out     [total, mean]                     0, 0.00
 Success       [ratio]                           100.00%
 Status Codes  [code:count]                      200:6000
 Error Set:
+
+Requests      [total, rate, throughput]         6000, 50.01, 50.01
+Duration      [total, attack, wait]             2m0s, 2m0s, 8.908ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  5.417ms, 10.664ms, 9.725ms, 13.545ms, 16.138ms, 23.959ms, 206.71ms
+Bytes In      [total, mean]                     156000, 26.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:6000
+Error Set:
+
+Requests      [total, rate, throughput]         6000, 50.01, 50.01
+Duration      [total, attack, wait]             2m0s, 2m0s, 6.903ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  5.393ms, 10.413ms, 9.71ms, 13.548ms, 15.709ms, 21.443ms, 168.907ms
+Bytes In      [total, mean]                     156000, 26.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:6000
+Error Set:
 ```
 
+→ Thread 3の数値が悪化している。もう少し時間を伸ばして試してみるか？
 
 - Thread に対して Connection Pool が大きい場合 (5 : 100)
 - Thread に対して Connection Pool が小さい場合 (100 : 5)
