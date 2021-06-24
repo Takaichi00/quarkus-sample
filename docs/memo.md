@@ -1404,6 +1404,23 @@ Error Set:
 
 → 特に変わらなかった
 
+- Thread 20 / max,min Connection Pool 100 / 600s (Thread を極端に大きくしてみる)
+```
+java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-test-thread20-connection-100-rps50-600s.jfr -Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 50
+Requests      [total, rate, throughput]         30000, 50.00, 50.00
+Duration      [total, attack, wait]             10m0s, 10m0s, 5.265ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  4.524ms, 11.341ms, 8.194ms, 11.079ms, 13.008ms, 24.637ms, 1.455s
+Bytes In      [total, mean]                     780000, 26.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:30000
+Error Set:
+```
+→ レイテンシはそれほど悪化しなかった。max, 99%ile は若干上昇
+
 - Thread に対して Connection Pool が大きい場合 (5 : 100)
 - Thread に対して Connection Pool が小さい場合 (100 : 5)
 - jfr4jdbc を組み込まないか試して見る
