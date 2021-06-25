@@ -1421,7 +1421,15 @@ Error Set:
 ```
 → レイテンシはそれほど悪化しなかった。max, 99%ile は若干上昇
 
-- Thread に対して Connection Pool が大きい場合 (5 : 100)
+
+- Thread 20 / max,min Connection Pool 1 / 600s (Connection Pool を極端に小さくしてみる)
+```
+java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-test-thread20-connection-1-rps50-600s.jfr -Xms512M -Xmx512M -jar target/quarkus-sample-0.0.1-SNAPSHOT-runner.jar
+```
+```
+./vegeta.sh 50
+```
+
 - Thread に対して Connection Pool が小さい場合 (100 : 5)
 - jfr4jdbc を組み込まないか試して見る
   - https://github.com/chiroito/Jfr4Jdbc
