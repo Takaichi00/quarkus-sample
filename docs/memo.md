@@ -1428,9 +1428,17 @@ java -XX:StartFlightRecording=dumponexit=true,filename=./output/quakrus-load-tes
 ```
 ```
 ./vegeta.sh 50
+Requests      [total, rate, throughput]         30000, 50.00, 50.00
+Duration      [total, attack, wait]             10m0s, 10m0s, 6.254ms
+Latencies     [min, mean, 50, 90, 95, 99, max]  4.709ms, 29.791ms, 9.412ms, 19.808ms, 70.017ms, 676.674ms, 1.145s
+Bytes In      [total, mean]                     780000, 26.00
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           100.00%
+Status Codes  [code:count]                      200:30000
 ```
+→ やはりレイテンシが目に見えて悪化した
+![50rps-20Thread-1ConnectionPool](img/50rps-20Thread-1ConnectionPool.png)
 
-- Thread に対して Connection Pool が小さい場合 (100 : 5)
 - jfr4jdbc を組み込まないか試して見る
   - https://github.com/chiroito/Jfr4Jdbc
   - https://www.slideshare.net/oracle4engineer/tech-deepdive-1-java-flight-recorder
