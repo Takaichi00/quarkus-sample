@@ -26,6 +26,7 @@
       src/main/java/com/takaichi00/sample/quarkus/integration/dto/*.java</sonar.exclusions>
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
     <wiremock.version>2.26.3</wiremock.version>
+    <gatling.version>3.1.2</gatling.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -126,6 +127,12 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-health</artifactId>
     </dependency>
+    <dependency>
+      <groupId>io.gatling.highcharts</groupId>
+      <artifactId>gatling-charts-highcharts</artifactId>
+      <version>${gatling.version}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -186,6 +193,11 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>io.gatling</groupId>
+        <artifactId>gatling-maven-plugin</artifactId>
+        <version>${gatling.version}</version>
       </plugin>
     </plugins>
   </build>

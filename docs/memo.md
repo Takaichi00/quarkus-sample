@@ -1439,6 +1439,13 @@ Status Codes  [code:count]                      200:30000
 → やはりレイテンシが目に見えて悪化した
 ![50rps-20Thread-1ConnectionPool](img/50rps-20Thread-1ConnectionPool.png)
 
+- [Javaでのプロセス・スレッドについて勉強したまとめ](https://www.techscore.com/blog/2018/12/13/java-process-thread-study/)
+
+# Gatling で性能試験を実施する
+- [サンプル maven プロジェクト](https://github.com/gatling/gatling-maven-plugin-demo)
+- [maven plugin](https://gatling.io/docs/gatling/reference/current/extensions/maven_plugin/) を導入
+
+
 - jfr4jdbc を組み込まないか試して見る
   - https://github.com/chiroito/Jfr4Jdbc
   - https://www.slideshare.net/oracle4engineer/tech-deepdive-1-java-flight-recorder
