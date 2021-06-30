@@ -137,5 +137,10 @@ curl localhost:8080/q/health/ready
 mvn sonar:sonar
 ``` 
 
+## run Gatling test
+```
+mvn gatling:test
+```
+
 ## Confirm
 - http://localhost:9000/dashboard?id=com.takaichi00%3Aquarkus-sample
