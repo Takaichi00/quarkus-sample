@@ -12,9 +12,13 @@ class QuarkusSampleSimulation extends Simulation {
     .acceptEncodingHeader("gzip, deflate")
 
   val scn = scenario("Sample") // A scenario is a chain of requests and pauses
-    .exec(http("request_liveness")
-      .get("/q/health/live"))
+    .exec(http("request_hello")
+      .get("/v1/hello"))
     .pause(1) // Note that Gatling has recorder real time pauses
 
-  setUp(scn.inject(atOnceUsers(1)).protocols(httpProtocol))
+  // https://hkawabata.github.io/technical-note/note/OSS/gatling.html
+  setUp(scn.inject(atOnceUsers(50))
+    .throttle(
+      reachRps(50) in (100 seconds) // x秒 の間 y rps を実行する
+    ).protocols(httpProtocol))
 }
