@@ -20,5 +20,8 @@ class QuarkusSampleSimulation extends Simulation {
   setUp(scn.inject(atOnceUsers(50))
     .throttle(
       reachRps(50) in (100 seconds) // x秒 の間 y rps を実行する
-    ).protocols(httpProtocol))
+    )).assertions(
+      global.responseTime.max.lt(50), // https://gatling.io/docs/gatling/reference/current/general/assertions/
+      global.successfulRequests.percent.gt(95)
+    ).protocols(httpProtocol)
 }
