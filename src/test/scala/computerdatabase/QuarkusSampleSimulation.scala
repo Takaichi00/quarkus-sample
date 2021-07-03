@@ -17,11 +17,13 @@ class QuarkusSampleSimulation extends Simulation {
     .pause(1) // Note that Gatling has recorder real time pauses
 
   // https://hkawabata.github.io/technical-note/note/OSS/gatling.html
-  setUp(scn.inject(atOnceUsers(50))
-    .throttle(
-      reachRps(50) in (100 seconds) // x秒 の間 y rps を実行する
-    )).assertions(
-      global.responseTime.max.lt(50), // https://gatling.io/docs/gatling/reference/current/general/assertions/
+  setUp(scn.inject(
+    // https://gatling.io/docs/gatling/reference/current/general/simulation_setup/
+//        atOnceUsers(1), // 1回で x スレッド立ち上げてリクエストを実施
+        rampUsers(10000).during(1.seconds) // x 秒かけて y スレッド立ち上げてリクエストを実施
+      )
+    ).assertions(
+      global.responseTime.max.lt(200), // https://gatling.io/docs/gatling/reference/current/general/assertions/
       global.successfulRequests.percent.gt(95)
     ).protocols(httpProtocol)
 }
