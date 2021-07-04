@@ -20,7 +20,8 @@ class QuarkusSampleSimulation extends Simulation {
   setUp(scn.inject(
     // https://gatling.io/docs/gatling/reference/current/general/simulation_setup/
 //        atOnceUsers(1), // 1回で x スレッド立ち上げてリクエストを実施
-        rampUsers(10000).during(1.seconds) // x 秒かけて y スレッド立ち上げてリクエストを実施
+//        rampUsers(10).during(1.seconds), // x 秒かけて y スレッド立ち上げてリクエストを実施
+        constantUsersPerSec(5).during(2) // 1秒ごとに x スレッド、y 秒間実施
       )
     ).assertions(
       global.responseTime.max.lt(200), // https://gatling.io/docs/gatling/reference/current/general/assertions/
