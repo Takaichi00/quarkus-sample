@@ -21,8 +21,10 @@ class QuarkusSampleSimulation extends Simulation {
     // https://gatling.io/docs/gatling/reference/current/general/simulation_setup/
 //        atOnceUsers(1), // 1回で x スレッド立ち上げてリクエストを実施
 //        rampUsers(10).during(1.seconds), // x 秒かけて y スレッド立ち上げてリクエストを実施
-//        constantUsersPerSec(5).during(2), // 1秒ごとに x スレッド、y 秒間実施
-        heavisideUsers(100).during(10.seconds) // https://en.wikipedia.org/wiki/Heaviside_step_function#/media/File:Step_function_approximation.png のグラフのように、中間の時間まで徐々に単位時間あたりのリクエストが増加し、徐々に単位時間あたりのリクエストが減少する
+//        heavisideUsers(100).during(10.seconds) // https://en.wikipedia.org/wiki/Heaviside_step_function#/media/File:Step_function_approximation.png のグラフのように、中間の時間まで徐々に単位時間あたりのリクエストが増加し、徐々に単位時間あたりのリクエストが減少する
+//        constantUsersPerSec(2).during(10), // 1秒ごとに x スレッド、y 秒間実施 (open model)
+//        constantConcurrentUsers(2).during(10.seconds) // 1秒ごとに x スレッド、y 秒間実施 (closed model)
+    // Open model と Closed model の違い: https://gatling.io/2020/04/how-easily-can-i-perform-a-load-test/ , https://gatling.io/docs/gatling/reference/current/general/simulation_setup/#open-vs-closed-workload-models
       )
     ).assertions(
       global.responseTime.max.lt(200), // https://gatling.io/docs/gatling/reference/current/general/assertions/
