@@ -33,11 +33,16 @@ class QuarkusSampleSimulation extends Simulation {
         constantUsersPerSec(2).during(10), // 1秒ごとに x スレッド、y 秒間実施 (open model)
 //        constantConcurrentUsers(2).during(10.seconds) // 1秒ごとに x スレッド、y 秒間実施 (closed model)
     // Open model と Closed model の違い: https://gatling.io/2020/04/how-easily-can-i-perform-a-load-test/ , https://gatling.io/docs/gatling/reference/current/general/simulation_setup/#open-vs-closed-workload-models
-      ),livenessScenario.inject(atOnceUsers(1))
-    ).assertions(
+      ),livenessScenario.inject(atOnceUsers(1)))
+    .throttle(
+      reachRps(100).in(10.seconds),
+      holdFor(1.minute),
+      jumpToRps(50),
+      holdFor(2.hours))
+    .assertions(
       global.responseTime.max.lt(200), // https://gatling.io/docs/gatling/reference/current/general/assertions/
-      global.successfulRequests.percent.gt(95)
-    ).protocols(httpProtocol)
+      global.successfulRequests.percent.gt(95))
+    .protocols(httpProtocol)
     .pauses(disabledPauses) // pause を設定しても無効化する
 
   // Scaling Out (https://gatling.io/docs/gatling/guides/scaling_out/)
