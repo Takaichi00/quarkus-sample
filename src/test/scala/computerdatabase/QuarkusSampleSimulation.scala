@@ -14,7 +14,7 @@ class QuarkusSampleSimulation extends Simulation {
   val sampleScenario = scenario("Sample") // A scenario is a chain of requests and pauses
     .exec(http("request_hello")
       .get("/v1/hello"))
-    .pause(5) // 実行後に x 秒 pause する
+//    .pause(5) // 実行後に x 秒 pause する
 
   val livenessScenario = scenario("Liveness")
     .exec(http("request_hello")
@@ -34,16 +34,20 @@ class QuarkusSampleSimulation extends Simulation {
 //        constantConcurrentUsers(2).during(10.seconds) // 1秒ごとに x スレッド、y 秒間実施 (closed model)
     // Open model と Closed model の違い: https://gatling.io/2020/04/how-easily-can-i-perform-a-load-test/ , https://gatling.io/docs/gatling/reference/current/general/simulation_setup/#open-vs-closed-workload-models
       ),livenessScenario.inject(atOnceUsers(1)))
-    .throttle(
-      reachRps(100).in(10.seconds),
-      holdFor(1.minute),
-      jumpToRps(50),
-      holdFor(2.hours))
     .assertions(
       global.responseTime.max.lt(200), // https://gatling.io/docs/gatling/reference/current/general/assertions/
       global.successfulRequests.percent.gt(95))
     .protocols(httpProtocol)
     .pauses(disabledPauses) // pause を設定しても無効化する
+
+
+//  setUp(sampleScenario.inject(constantUsersPerSec(20).during(30.minutes))).throttle( // 1秒ごとに x スレッド、y 秒間実施
+//    reachRps(5).in(10.seconds), // 10秒かけて 5 rps にする
+//    holdFor(5.seconds), // ↑ の状態を 5 秒間実施
+//    jumpToRps(20), // 20 rps に変更
+//    holdFor(2.minutes) // ↑ の状態を 2 分間実施
+//  )
+//  .protocols(httpProtocol)
 
   // Scaling Out (https://gatling.io/docs/gatling/guides/scaling_out/)
   // ↑ 負荷が高い Gatling のテストを実施するには
