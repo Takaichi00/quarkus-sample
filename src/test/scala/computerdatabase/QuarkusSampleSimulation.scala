@@ -12,16 +12,16 @@ class QuarkusSampleSimulation extends Simulation {
     .acceptEncodingHeader("gzip, deflate")
 
   val sampleScenario = scenario("Sample") // A scenario is a chain of requests and pauses
-    .exec(http("request_hello")
+    .exec(http("request_sample")
       .get("/v1/hello"))
 //    .pause(5) // 実行後に x 秒 pause する
 
   val livenessScenario = scenario("Liveness")
-    .exec(http("request_hello")
+    .exec(http("request_liveness")
       .get("/q/health/live"))
 
   val readinessScenario = scenario("readiness")
-    .exec(http("request_hello")
+    .exec(http("request_readiness")
       .get("/q/health/ready"))
 
   // https://hkawabata.github.io/technical-note/note/OSS/gatling.html
@@ -35,8 +35,12 @@ class QuarkusSampleSimulation extends Simulation {
     // Open model と Closed model の違い: https://gatling.io/2020/04/how-easily-can-i-perform-a-load-test/ , https://gatling.io/docs/gatling/reference/current/general/simulation_setup/#open-vs-closed-workload-models
       ),livenessScenario.inject(atOnceUsers(1)))
     .assertions(
-      global.responseTime.max.lt(200), // https://gatling.io/docs/gatling/reference/current/general/assertions/
-      global.successfulRequests.percent.gt(95))
+      // https://gatling.io/docs/gatling/reference/current/general/assertions/
+      // Scope.Statistics.Metric.Condition
+      global.responseTime.max.lt(200),
+      global.successfulRequests.percent.gt(95),
+      details("request_sample").responseTime.percentile4.lte(50) // /v1/hello エンドポイントの 99% レスポンスタイムが 50ms であること
+    )
     .protocols(httpProtocol)
     .pauses(disabledPauses) // pause を設定しても無効化する
 
