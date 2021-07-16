@@ -1,6 +1,7 @@
 package com.takaichi00.sample.quarkus.application.controller;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.takaichi00.sample.quarkus.application.domain.BookMicroProfileService;
@@ -53,19 +54,14 @@ class BookV2ControllerTest {
                                         .build();
 
     // execute & assert
-    ErrorPayload actual = given()
-                            .when()
-                              .pathParam("isbn", "invalid-isbn")
-                              .get("/v2/books/{isbn}")
-                            .then()
-                              .statusCode(400)
-                            .extract()
-                              .body()
-                              .jsonPath()
-                              .getObject(".", ErrorPayload.class);
-
-    // assert
-    assertEquals(expected, actual);
+    given()
+      .when()
+        .pathParam("isbn", "invalid-isbn")
+        .get("/v2/books/{isbn}")
+      .then()
+        .statusCode(400)
+        .body("error_code", equalTo("0001"))
+        .body("message", equalTo("isbn invalid-isbn is invalid"));
   }
 
   @Test

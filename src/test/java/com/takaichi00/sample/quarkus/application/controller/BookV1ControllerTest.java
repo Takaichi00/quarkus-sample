@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 
 @QuarkusTest
@@ -37,22 +38,14 @@ class BookV1ControllerTest {
 
   @Test
   void test_errorInvalidIsbn() {
-    // setup
-    ErrorPayload expected = ErrorPayload.builder()
-                                        .errorCode("0001")
-                                        .message("isbn invalid-isbn is invalid")
-                                        .build();
-
-    // execute
-    ErrorPayload actual = given()
-                            .when()
-                              .pathParam("isbn", "invalid-isbn")
-                              .get("/v1/books/{isbn}")
-                            .then()
-                              .statusCode(400)
-                              .extract()
-                              .body().jsonPath().getObject(".", ErrorPayload.class);
-    // assert
-    assertEquals(expected, actual);
+    // execute & assert
+    given()
+      .when()
+        .pathParam("isbn", "invalid-isbn")
+        .get("/v1/books/{isbn}")
+      .then()
+        .statusCode(400)
+        .body("error_code", equalTo("0001"))
+        .body("message", equalTo("isbn invalid-isbn is invalid"));
   }
 }
