@@ -47,12 +47,6 @@ class BookV2ControllerTest {
   @Test
   void test_v2_400Error_Controller() {
 
-    // setup
-    ErrorPayload expected = ErrorPayload.builder()
-                                        .errorCode("0001")
-                                        .message("isbn invalid-isbn is invalid")
-                                        .build();
-
     // execute & assert
     given()
       .when()
