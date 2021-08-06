@@ -13,7 +13,7 @@ docker-compose up -d
 cd quarkus-sample
 mvn flyway:migrate
 ```
- 
+
 - Run application dev mode
 ```
 mvn compile quarkus:dev
@@ -25,15 +25,15 @@ mvn compile quarkus:dev
  ```
 mvn verify -Pnative
 #  Quarkus currently supports 21.0. (GraalVM Version) 
-```
+ ```
 
 - Create the native image for Linux (https://quarkus.io/guides/building-native-image#container-runtime)
 ```
 mvn clean package -Pnative -Dnative-image.docker-build=true
-``` 
+```
 
 - Create docker image with native image & run
-   
+  
 ```
 mvn package -Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true
 ```
@@ -135,7 +135,7 @@ curl localhost:8080/q/health/ready
 - exclude lombok → lombok.config `lombok.addLombokGeneratedAnnotation = true`
 ```
 mvn sonar:sonar
-``` 
+```
 
 ## run Gatling test
 ```
@@ -144,3 +144,7 @@ mvn gatling:test
 
 ## Confirm
 - http://localhost:9000/dashboard?id=com.takaichi00%3Aquarkus-sample
+
+# Adjusting Quarkus 2.0.0
+
+* Quarkus 2.0.0 Released → https://github.com/quarkusio/quarkus/releases/tag/2.0.0.Final
