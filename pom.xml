@@ -21,12 +21,17 @@
     <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.version>1.13.7.Final</quarkus.version>
-    <sonar.coverage.exclusions>src/main/java/com/takaichi00/sample/quarkus/integration/dto/*.java</sonar.coverage.exclusions>
-    <sonar.exclusions>src/test/**,
-      src/main/java/com/takaichi00/sample/quarkus/integration/dto/*.java</sonar.exclusions>
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
     <wiremock.version>2.26.3</wiremock.version>
     <gatling.version>3.1.2</gatling.version>
+    <checkstyle.version>3.1.2</checkstyle.version>
+    <sonar.coverage.exclusions>
+      src/main/java/com/takaichi00/sample/quarkus/integration/dto/*.java
+    </sonar.coverage.exclusions>
+    <sonar.exclusions>
+      src/test/**,
+      src/main/java/com/takaichi00/sample/quarkus/integration/dto/*.java
+    </sonar.exclusions>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -200,6 +205,14 @@
         <version>${gatling.version}</version>
         <configuration>
           <runMultipleSimulations>true</runMultipleSimulations>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${checkstyle.version}</version>
+        <configuration>
+          <configLocation>google_checks.xml</configLocation>
         </configuration>
       </plugin>
     </plugins>
