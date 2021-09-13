@@ -1,4 +1,4 @@
-package com.takaichi00.sample.quarkus.it;
+package it;
 
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static com.ninja_squad.dbsetup.Operations.deleteAllFrom;

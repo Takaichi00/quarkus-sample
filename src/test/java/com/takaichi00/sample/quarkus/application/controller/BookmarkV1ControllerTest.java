@@ -58,5 +58,4 @@ class BookmarkV1ControllerTest {
         .then()
         .statusCode(204);
   }
-
 }
