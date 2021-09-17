@@ -144,7 +144,3 @@ mvn gatling:test
 
 ## Confirm
 - http://localhost:9000/dashboard?id=com.takaichi00%3Aquarkus-sample
-
-# Adjusting Quarkus 2.0.0
-
-* Quarkus 2.0.0 Released → https://github.com/quarkusio/quarkus/releases/tag/2.0.0.Final

@@ -41,14 +41,18 @@
 - [ ] Retryable
 - [ ] Swagger (Open API)
 - [ ] Performance Test
-- [ ] Micrometer + Prometeus + Grafana (https://yuya-hirooka.hatenablog.com/entry/2020/11/04/232853)
+- [ ] Monitoring
+    - [ ] [Micrometer Metrics - Quarkus](https://quarkus.io/guides/micrometer)
+    - [ ] [QUARKUS アプリケーションでのメトリクスの収集](https://access.redhat.com/documentation/ja-jp/red_hat_build_of_quarkus/1.11/html-single/collecting_metrics_in_your_quarkus_applications/index)
+    - [ ] [Micrometer + Prometeus + Grafana](https://yuya-hirooka.hatenablog.com/entry/2020/11/04/232853)
+    - [ ] [JMX で快適モニタリング環境を作ろう](https://blog.cybozu.io/entry/2018/02/05/080000)
 - [ ] gRPC (https://www.google.com/amp/s/rheb.hatenablog.com/entry/quarkus_grpc%3Famp%3D1)
 - [ ] Integration Test
 - [ ] Reactive (https://github.com/yoshioterada/Reactive-Java-CosmosDB-On-Quarkus)
 - [ ] Tuning JVM Option 
 - [ ] Feature Flag
 - [ ] Javadoc
-- [ ] Mejor version up to 2: https://quarkus.io/blog/quarkus-2-0-0-final-released/
+- [x] Mejor version up to 2: https://quarkus.io/blog/quarkus-2-0-0-final-released/
  - [ ] Continuous Testing
 
 ## Sub
