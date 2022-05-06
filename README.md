@@ -144,3 +144,6 @@ mvn gatling:test
 
 ## Confirm
 - http://localhost:9000/dashboard?id=com.takaichi00%3Aquarkus-sample
+
+# Sample
+- sample commit text
