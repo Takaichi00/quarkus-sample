@@ -9,7 +9,7 @@
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
     <dbsetup.version>2.1.0</dbsetup.version>
     <flyway.version>7.0.4</flyway.version>
-    <h2database.version>1.4.200</h2database.version>
+    <h2database.version>2.2.220</h2database.version>
     <jacoco.version>0.8.6</jacoco.version>
     <maven.compiler.parameters>true</maven.compiler.parameters>
     <maven.compiler.source>11</maven.compiler.source>
